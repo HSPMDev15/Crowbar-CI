@@ -34,6 +34,7 @@ Partial Class HelpUserControl
 		Me.Label5 = New System.Windows.Forms.Label()
 		Me.Label6 = New System.Windows.Forms.Label()
 		Me.CrowbarGuideButton = New Crowbar.ButtonEx()
+		Me.PanelEx1 = New Crowbar.PanelEx()
 		Me.GroupBox1.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -186,14 +187,25 @@ Partial Class HelpUserControl
 		Me.CrowbarGuideButton.TabIndex = 9
 		Me.CrowbarGuideButton.UseVisualStyleBackColor = True
 		'
+		'PanelEx1
+		'
+		Me.PanelEx1.Controls.Add(Me.CrowbarGuideButton)
+		Me.PanelEx1.Controls.Add(Me.Label6)
+		Me.PanelEx1.Controls.Add(Me.Label5)
+		Me.PanelEx1.Controls.Add(Me.GroupBox1)
+		Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
+		Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+		Me.PanelEx1.Name = "PanelEx1"
+		Me.PanelEx1.SelectedIndex = -1
+		Me.PanelEx1.SelectedValue = Nothing
+		Me.PanelEx1.Size = New System.Drawing.Size(200, 100)
+		Me.PanelEx1.TabIndex = 10
+		'
 		'HelpUserControl
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.Controls.Add(Me.CrowbarGuideButton)
-		Me.Controls.Add(Me.Label6)
-		Me.Controls.Add(Me.Label5)
-		Me.Controls.Add(Me.GroupBox1)
+		Me.Controls.Add(Me.PanelEx1)
 		Me.Name = "HelpUserControl"
 		Me.Size = New System.Drawing.Size(776, 536)
 		Me.GroupBox1.ResumeLayout(False)
@@ -214,5 +226,5 @@ Partial Class HelpUserControl
 	Friend WithEvents Label5 As System.Windows.Forms.Label
 	Friend WithEvents Label6 As System.Windows.Forms.Label
 	Friend WithEvents CrowbarGuideButton As ButtonEx
-
+	Friend WithEvents PanelEx1 As PanelEx
 End Class

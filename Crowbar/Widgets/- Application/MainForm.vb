@@ -28,6 +28,14 @@ Public Class MainForm
 
         'Me.BackColor = WidgetBackColor
         'Me.UpdateChildControls(Me)
+        'Dim theme As PanelTheme = Nothing
+        '' This check prevents problems with viewing and saving Forms in VS Designer.
+        'If TheApp IsNot Nothing Then
+        '    theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+        'End If
+        'If theme IsNot Nothing Then
+        '    Me.BackColor = theme.EnabledBackColor
+        'End If
 
     End Sub
 
@@ -66,13 +74,18 @@ Public Class MainForm
             'WorkingArea means the area of the screen without the Windows taskbar.
             Dim aScreenWorkingArea As Rectangle
             aScreenWorkingArea = aScreen.WorkingArea
-            ' Ensure at least 60 px of Title Bar visible
-            If Me.Location.X < aScreenWorkingArea.Left OrElse Me.Location.X + 60 > aScreenWorkingArea.Left + aScreenWorkingArea.Width Then
+            ' Ensure left or right visible
+            Dim minimumMarginToShow As Integer = 60
+            If Me.Location.X < aScreenWorkingArea.Left Then
                 Me.Left = aScreenWorkingArea.Left
+            ElseIf Me.Location.X + minimumMarginToShow > aScreenWorkingArea.Left + aScreenWorkingArea.Width Then
+                Me.Left = aScreenWorkingArea.Left + aScreenWorkingArea.Width - minimumMarginToShow
             End If
             ' Ensure top visible
-            If Me.Location.Y < aScreenWorkingArea.Top OrElse Me.Location.Y + Me.Size.Height > aScreenWorkingArea.Top + aScreenWorkingArea.Height Then
+            If Me.Location.Y < aScreenWorkingArea.Top Then
                 Me.Top = aScreenWorkingArea.Top
+            ElseIf Me.Location.Y + minimumMarginToShow > aScreenWorkingArea.Top + aScreenWorkingArea.Height Then
+                Me.Top = aScreenWorkingArea.Top + aScreenWorkingArea.Height - minimumMarginToShow
             End If
         Catch ex As Exception
             Dim debug As Integer = 4242

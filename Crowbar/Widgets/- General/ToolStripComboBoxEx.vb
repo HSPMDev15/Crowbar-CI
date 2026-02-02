@@ -1,4 +1,8 @@
-﻿Public Class ToolStripComboBoxEx
+﻿Imports System.Windows.Forms.Design
+
+' This attribute is required for a ToolStripControlHost to appear in the ToolStrip dropdown list in the Designer.
+<ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)>
+Public Class ToolStripComboBoxEx
 	Inherits ToolStripControlHost
 
 	Public Sub New()

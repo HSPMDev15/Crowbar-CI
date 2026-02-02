@@ -95,6 +95,7 @@ Partial Class OptionsUserControl
 		Me.ApplyButton = New Crowbar.ButtonEx()
 		Me.ApplyPanel = New Crowbar.PanelEx()
 		Me.SingleInstanceCheckBox = New Crowbar.CheckBoxEx()
+		Me.PanelEx1 = New Crowbar.PanelEx()
 		Me.GroupBox1.SuspendLayout()
 		Me.Panel7.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
@@ -160,7 +161,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel7
 		'
-		Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel7.Controls.Add(Me.OptionsContextMenuCompileFolderAndSubfoldersCheckBox)
 		Me.Panel7.Controls.Add(Me.OptionsContextMenuCompileFolderCheckBox)
 		Me.Panel7.Controls.Add(Me.OptionsContextMenuCompileQcFileCheckBox)
@@ -324,7 +324,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel2
 		'
-		Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel2.Controls.Add(Me.AutoOpenGmaFileForPublishRadioButton)
 		Me.Panel2.Controls.Add(Me.AutoOpenGmaFileForUnpackRadioButton)
 		Me.Panel2.Location = New System.Drawing.Point(81, 149)
@@ -359,7 +358,6 @@ Partial Class OptionsUserControl
 		'
 		'AutoOpenVpkPanel
 		'
-		Me.AutoOpenVpkPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.AutoOpenVpkPanel.Controls.Add(Me.AutoOpenVpkFileForPublishRadioButton)
 		Me.AutoOpenVpkPanel.Controls.Add(Me.AutoOpenVpkFileForUnpackRadioButton)
 		Me.AutoOpenVpkPanel.Location = New System.Drawing.Point(81, 107)
@@ -435,7 +433,6 @@ Partial Class OptionsUserControl
 		'
 		'AutoOpenFolderPanel
 		'
-		Me.AutoOpenFolderPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.AutoOpenFolderPanel.Controls.Add(Me.AutoOpenFolderForPackRadioButton)
 		Me.AutoOpenFolderPanel.Controls.Add(Me.AutoOpenFolderForCompileRadioButton)
 		Me.AutoOpenFolderPanel.Controls.Add(Me.AutoOpenFolderForDecompileRadioButton)
@@ -525,7 +522,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel1
 		'
-		Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel1.Controls.Add(Me.Label9)
 		Me.Panel1.Controls.Add(Me.Label8)
 		Me.Panel1.Controls.Add(Me.AutoOpenMdlFileForViewCheckBox)
@@ -654,7 +650,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel5
 		'
-		Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel5.Controls.Add(Me.DragAndDropGmaFileForPublishRadioButton)
 		Me.Panel5.Controls.Add(Me.DragAndDropGmaFileForUnpackRadioButton)
 		Me.Panel5.Location = New System.Drawing.Point(81, 149)
@@ -689,7 +684,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel6
 		'
-		Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel6.Controls.Add(Me.DragAndDropVpkFileForPublishRadioButton)
 		Me.Panel6.Controls.Add(Me.DragAndDropVpkFileForUnpackRadioButton)
 		Me.Panel6.Location = New System.Drawing.Point(81, 107)
@@ -764,7 +758,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel3
 		'
-		Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel3.Controls.Add(Me.Label10)
 		Me.Panel3.Controls.Add(Me.Label11)
 		Me.Panel3.Controls.Add(Me.DragAndDropMdlFileForViewCheckBox)
@@ -883,7 +876,6 @@ Partial Class OptionsUserControl
 		'
 		'Panel4
 		'
-		Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.Panel4.Controls.Add(Me.DragAndDropFolderForPackRadioButton)
 		Me.Panel4.Controls.Add(Me.DragAndDropFolderForCompileRadioButton)
 		Me.Panel4.Controls.Add(Me.DragAndDropFolderForDecompileRadioButton)
@@ -983,15 +975,26 @@ Partial Class OptionsUserControl
 		Me.SingleInstanceCheckBox.Text = "Restrict to single instance (only one Crowbar open at a time)"
 		Me.SingleInstanceCheckBox.UseVisualStyleBackColor = True
 		'
+		'PanelEx1
+		'
+		Me.PanelEx1.Controls.Add(Me.SingleInstanceCheckBox)
+		Me.PanelEx1.Controls.Add(Me.ApplyPanel)
+		Me.PanelEx1.Controls.Add(Me.GroupBox3)
+		Me.PanelEx1.Controls.Add(Me.GroupBox2)
+		Me.PanelEx1.Controls.Add(Me.GroupBox1)
+		Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
+		Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+		Me.PanelEx1.Name = "PanelEx1"
+		Me.PanelEx1.SelectedIndex = -1
+		Me.PanelEx1.SelectedValue = Nothing
+		Me.PanelEx1.Size = New System.Drawing.Size(776, 536)
+		Me.PanelEx1.TabIndex = 5
+		'
 		'OptionsUserControl
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.Controls.Add(Me.SingleInstanceCheckBox)
-		Me.Controls.Add(Me.ApplyPanel)
-		Me.Controls.Add(Me.GroupBox3)
-		Me.Controls.Add(Me.GroupBox2)
-		Me.Controls.Add(Me.GroupBox1)
+		Me.Controls.Add(Me.PanelEx1)
 		Me.Name = "OptionsUserControl"
 		Me.Size = New System.Drawing.Size(776, 536)
 		Me.GroupBox1.ResumeLayout(False)
@@ -1100,4 +1103,5 @@ Partial Class OptionsUserControl
 	Friend WithEvents DragAndDropGmaFileForUnpackRadioButton As RadioButtonEx
 	Friend WithEvents DragAndDropVpkFileForPublishRadioButton As RadioButtonEx
 	Friend WithEvents DragAndDropVpkFileForUnpackRadioButton As RadioButtonEx
+	Friend WithEvents PanelEx1 As PanelEx
 End Class

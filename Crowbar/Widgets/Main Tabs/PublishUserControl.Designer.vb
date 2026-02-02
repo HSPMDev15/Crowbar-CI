@@ -31,7 +31,7 @@ Partial Class PublishUserControl
 		Me.SearchItemsToolStripButton = New Crowbar.ToolStripButtonEx()
 		Me.ToolStripSeparator2 = New Crowbar.ToolStripSeparatorEx()
 		Me.ItemCountsToolStripLabel = New Crowbar.ToolStripLabelEx()
-		Me.FindItemToolStripTextBox = New Crowbar.ToolStripSpringTextBox()
+		Me.FindItemToolStripTextBox = New Crowbar.ToolStripSpringTextBoxEx()
 		Me.GamePanel = New Crowbar.PanelEx()
 		Me.GameLabel = New System.Windows.Forms.Label()
 		Me.AppIdComboBox = New Crowbar.ComboUserControl()
@@ -142,8 +142,6 @@ Partial Class PublishUserControl
 		'
 		'ItemPostedTextBox
 		'
-		Me.ItemPostedTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemPostedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemPostedTextBox.CueBannerText = ""
 		Me.ItemPostedTextBox.DetectUrls = False
 		Me.ItemPostedTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -160,8 +158,6 @@ Partial Class PublishUserControl
 		'
 		'ItemUpdatedTextBox
 		'
-		Me.ItemUpdatedTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemUpdatedTextBox.CueBannerText = ""
 		Me.ItemUpdatedTextBox.DetectUrls = False
 		Me.ItemUpdatedTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -210,7 +206,6 @@ Partial Class PublishUserControl
 		'ItemsPanel
 		'
 		Me.ItemsPanel.AutoScroll = True
-		Me.ItemsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.ItemsPanel.Controls.Add(Me.ItemsDataGridView)
 		Me.ItemsPanel.Controls.Add(Me.ToolStrip1)
 		Me.ItemsPanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -228,7 +223,6 @@ Partial Class PublishUserControl
 		Me.ItemsDataGridView.AllowUserToDeleteRows = False
 		Me.ItemsDataGridView.AllowUserToOrderColumns = True
 		Me.ItemsDataGridView.AllowUserToResizeRows = False
-		Me.ItemsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
 		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -322,7 +316,6 @@ Partial Class PublishUserControl
 		'
 		'FindItemToolStripTextBox
 		'
-		Me.FindItemToolStripTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.FindItemToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
 		Me.FindItemToolStripTextBox.Name = "FindItemToolStripTextBox"
 		Me.FindItemToolStripTextBox.Size = New System.Drawing.Size(280, 26)
@@ -357,8 +350,6 @@ Partial Class PublishUserControl
 		'
 		Me.AppIdComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.AppIdComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.AppIdComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.AppIdComboBox.DataSource = Nothing
 		Me.AppIdComboBox.DisplayMember = ""
 		Me.AppIdComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -505,8 +496,6 @@ Partial Class PublishUserControl
 		'ItemDescriptionTextBox
 		'
 		Me.ItemDescriptionTextBox.AcceptsTab = True
-		Me.ItemDescriptionTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemDescriptionTextBox.CueBannerText = "required"
 		Me.ItemDescriptionTextBox.DetectUrls = False
 		Me.ItemDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -570,8 +559,6 @@ Partial Class PublishUserControl
 		'ItemChangeNoteTextBox
 		'
 		Me.ItemChangeNoteTextBox.AcceptsTab = True
-		Me.ItemChangeNoteTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemChangeNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemChangeNoteTextBox.CueBannerText = ""
 		Me.ItemChangeNoteTextBox.DetectUrls = False
 		Me.ItemChangeNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -663,8 +650,6 @@ Partial Class PublishUserControl
 		'
 		'ItemIDTextBox
 		'
-		Me.ItemIDTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemIDTextBox.CueBannerText = ""
 		Me.ItemIDTextBox.DetectUrls = False
 		Me.ItemIDTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -680,8 +665,6 @@ Partial Class PublishUserControl
 		'
 		'ItemOwnerTextBox
 		'
-		Me.ItemOwnerTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemOwnerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemOwnerTextBox.CueBannerText = ""
 		Me.ItemOwnerTextBox.DetectUrls = False
 		Me.ItemOwnerTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -717,8 +700,6 @@ Partial Class PublishUserControl
 		'
 		'ItemTitleTextBox
 		'
-		Me.ItemTitleTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemTitleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemTitleTextBox.CueBannerText = "required"
 		Me.ItemTitleTextBox.DetectUrls = False
 		Me.ItemTitleTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -792,8 +773,6 @@ Partial Class PublishUserControl
 		'
 		Me.ItemPreviewImagePathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.ItemPreviewImagePathFileNameTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemPreviewImagePathFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemPreviewImagePathFileNameTextBox.CueBannerText = "required"
 		Me.ItemPreviewImagePathFileNameTextBox.DetectUrls = False
 		Me.ItemPreviewImagePathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -810,8 +789,6 @@ Partial Class PublishUserControl
 		'
 		Me.ItemContentPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.ItemContentPathFileNameTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.ItemContentPathFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemContentPathFileNameTextBox.CueBannerText = "required"
 		Me.ItemContentPathFileNameTextBox.DetectUrls = False
 		Me.ItemContentPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -850,7 +827,6 @@ Partial Class PublishUserControl
 		'ItemPreviewImagePictureBox
 		'
 		Me.ItemPreviewImagePictureBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.ItemPreviewImagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.ItemPreviewImagePictureBox.Location = New System.Drawing.Point(505, 7)
 		Me.ItemPreviewImagePictureBox.Name = "ItemPreviewImagePictureBox"
 		Me.ItemPreviewImagePictureBox.Size = New System.Drawing.Size(75, 75)
@@ -860,8 +836,6 @@ Partial Class PublishUserControl
 		'
 		'ItemVisibilityComboBox
 		'
-		Me.ItemVisibilityComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.ItemVisibilityComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.ItemVisibilityComboBox.DataSource = Nothing
 		Me.ItemVisibilityComboBox.DisplayMember = ""
 		Me.ItemVisibilityComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -969,8 +943,6 @@ Partial Class PublishUserControl
 		Me.LogTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
 			Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.LogTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.LogTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.LogTextBox.CueBannerText = ""
 		Me.LogTextBox.DetectUrls = False
 		Me.LogTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -1000,7 +972,6 @@ Partial Class PublishUserControl
 		'
 		Me.QueueListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.QueueListView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.QueueListView.HideSelection = False
 		Me.QueueListView.Location = New System.Drawing.Point(568, 0)
 		Me.QueueListView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -1094,7 +1065,7 @@ Partial Class PublishUserControl
 	Friend WithEvents PublishItemButton As ButtonEx
 	Friend WithEvents ToolStrip1 As ToolStripEx
 	Friend WithEvents ItemCountsToolStripLabel As ToolStripLabelEx
-	Friend WithEvents FindItemToolStripTextBox As ToolStripSpringTextBox
+	Friend WithEvents FindItemToolStripTextBox As ToolStripSpringTextBoxEx
 	Friend WithEvents RefreshOrRevertItemButton As ButtonEx
 	Friend WithEvents SearchItemsToolStripTextBox As ToolStripTextBoxEx
 	Friend WithEvents SaveAsTemplateOrDraftItemButton As ButtonEx

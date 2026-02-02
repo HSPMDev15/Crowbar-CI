@@ -32,6 +32,7 @@ Public Class TabControlEx
 
 		'Me.DrawMode = TabDrawMode.OwnerDrawFixed
 		'Me.SetStyle(ControlStyles.UserPaint, True)
+		Me.UpdateTheme()
 	End Sub
 
 #End Region
@@ -342,6 +343,8 @@ Public Class TabControlEx
 	'	End Sub
 
 	'Draw the tab page and the tab items.
+	' Need the following line for OnPaint() to be called by Windows:
+	'	Me.SetStyle(ControlStyles.UserPaint, True)
 	Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
 		If Me.TabCount > 0 Then
 			Dim theme As TabControlTheme = Nothing
@@ -350,12 +353,19 @@ Public Class TabControlEx
 				theme = TheApp.Settings.SelectedAppTheme.TabControlTheme
 			End If
 			If theme IsNot Nothing Then
+				Me.theTabControlBackColor = theme.EnabledBackColor
 				Me.theTabBackColor1 = theme.EnabledBackColor
 				Me.theTabBackColor2 = theme.EnabledBackColor
 				Me.theSelectedTabBackColor = theme.SelectedBackColor
 				Me.theTabPageForeColor = theme.EnabledForeColor
 				Me.theTabPageBackColor = theme.EnabledBackColor
 			End If
+
+			' Draw TabControl background.
+			Using tabControlBackColorBrush As New SolidBrush(Me.theTabControlBackColor)
+				Dim clipRect As Rectangle = e.ClipRectangle
+				e.Graphics.FillRectangle(tabControlBackColorBrush, clipRect)
+			End Using
 
 			Dim redChannel As Byte = 0
 			Dim greenChannel As Byte = 0
@@ -863,6 +873,7 @@ Public Class TabControlEx
 #Region "Data"
 
 	'Private theBackColor As Color
+	Private theTabControlBackColor As Color
 	Private theTabBackColor1 As Color
 	Private theTabBackColor2 As Color
 	Private theSelectedTabBackColor As Color

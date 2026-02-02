@@ -52,7 +52,7 @@ Partial Class UnpackUserControl
 		Me.Panel3 = New Crowbar.PanelEx()
 		Me.SelectionPathTextBox = New Crowbar.RichTextBoxEx()
 		Me.ToolStrip1 = New Crowbar.ToolStripEx()
-		Me.FindToolStripTextBox = New Crowbar.ToolStripSpringTextBox()
+		Me.FindToolStripTextBox = New Crowbar.ToolStripSpringTextBoxEx()
 		Me.FindToolStripButton = New Crowbar.ToolStripButtonEx()
 		Me.ToolStripSeparator1 = New Crowbar.ToolStripSeparatorEx()
 		Me.FilesSelectedCountToolStripLabel = New Crowbar.ToolStripLabelEx()
@@ -165,8 +165,6 @@ Partial Class UnpackUserControl
 		'
 		Me.OutputSamePathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputSamePathTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.OutputSamePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.OutputSamePathTextBox.CueBannerText = ""
 		Me.OutputSamePathTextBox.DetectUrls = False
 		Me.OutputSamePathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -184,8 +182,6 @@ Partial Class UnpackUserControl
 		'
 		Me.GameModelsOutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.GameModelsOutputPathTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.GameModelsOutputPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.GameModelsOutputPathTextBox.CueBannerText = ""
 		Me.GameModelsOutputPathTextBox.DetectUrls = False
 		Me.GameModelsOutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -200,8 +196,6 @@ Partial Class UnpackUserControl
 		'
 		'UnpackComboBox
 		'
-		Me.UnpackComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.UnpackComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.UnpackComboBox.DataSource = Nothing
 		Me.UnpackComboBox.DisplayMember = ""
 		Me.UnpackComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -247,8 +241,6 @@ Partial Class UnpackUserControl
 		Me.OutputPathTextBox.AllowDrop = True
 		Me.OutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputPathTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.OutputPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.OutputPathTextBox.CueBannerText = ""
 		Me.OutputPathTextBox.DetectUrls = False
 		Me.OutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -265,8 +257,6 @@ Partial Class UnpackUserControl
 		'
 		Me.OutputSubfolderTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputSubfolderTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.OutputSubfolderTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.OutputSubfolderTextBox.CueBannerText = ""
 		Me.OutputSubfolderTextBox.DetectUrls = False
 		Me.OutputSubfolderTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -281,8 +271,6 @@ Partial Class UnpackUserControl
 		'
 		'OutputPathComboBox
 		'
-		Me.OutputPathComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.OutputPathComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.OutputPathComboBox.DataSource = Nothing
 		Me.OutputPathComboBox.DisplayMember = ""
 		Me.OutputPathComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -333,8 +321,6 @@ Partial Class UnpackUserControl
 		'
 		Me.PackagePathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.PackagePathFileNameTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.PackagePathFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.PackagePathFileNameTextBox.CueBannerText = ""
 		Me.PackagePathFileNameTextBox.DetectUrls = False
 		Me.PackagePathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -461,7 +447,6 @@ Partial Class UnpackUserControl
 		'
 		'PackageTreeView
 		'
-		Me.PackageTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.PackageTreeView.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.PackageTreeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll
 		Me.PackageTreeView.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -477,7 +462,6 @@ Partial Class UnpackUserControl
 		'PackageListView
 		'
 		Me.PackageListView.AllowColumnReorder = True
-		Me.PackageListView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.PackageListView.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.PackageListView.HideSelection = False
 		Me.PackageListView.Location = New System.Drawing.Point(0, 0)
@@ -504,8 +488,6 @@ Partial Class UnpackUserControl
 		'
 		'SelectionPathTextBox
 		'
-		Me.SelectionPathTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.SelectionPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.SelectionPathTextBox.CueBannerText = ""
 		Me.SelectionPathTextBox.DetectUrls = False
 		Me.SelectionPathTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -535,7 +517,6 @@ Partial Class UnpackUserControl
 		'
 		'FindToolStripTextBox
 		'
-		Me.FindToolStripTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.FindToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
 		Me.FindToolStripTextBox.Name = "FindToolStripTextBox"
 		Me.FindToolStripTextBox.Size = New System.Drawing.Size(412, 25)
@@ -669,8 +650,6 @@ Partial Class UnpackUserControl
 		'
 		Me.GameSetupComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.GameSetupComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.GameSetupComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.GameSetupComboBox.DataSource = Nothing
 		Me.GameSetupComboBox.DisplayMember = ""
 		Me.GameSetupComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -715,8 +694,6 @@ Partial Class UnpackUserControl
 		'
 		'UnpackerLogTextBox
 		'
-		Me.UnpackerLogTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.UnpackerLogTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.UnpackerLogTextBox.CueBannerText = ""
 		Me.UnpackerLogTextBox.DetectUrls = False
 		Me.UnpackerLogTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -807,8 +784,6 @@ Partial Class UnpackUserControl
 		'
 		Me.UnpackedFilesComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.UnpackedFilesComboBox.BorderColor = System.Drawing.Color.Empty
-		Me.UnpackedFilesComboBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.UnpackedFilesComboBox.DataSource = Nothing
 		Me.UnpackedFilesComboBox.DisplayMember = ""
 		Me.UnpackedFilesComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -945,7 +920,7 @@ Partial Class UnpackUserControl
 	Friend WithEvents ContentsGroupBoxFillPanel As PanelEx
 	Friend WithEvents ContentsMinScrollerPanel As PanelEx
 	Friend WithEvents ToolStrip1 As ToolStripEx
-	Friend WithEvents FindToolStripTextBox As ToolStripSpringTextBox
+	Friend WithEvents FindToolStripTextBox As ToolStripSpringTextBoxEx
 	Friend WithEvents FindToolStripButton As ToolStripButtonEx
 	Friend WithEvents ToolStripSeparator1 As ToolStripSeparatorEx
 	Friend WithEvents FilesSelectedCountToolStripLabel As ToolStripLabelEx

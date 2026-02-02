@@ -135,7 +135,6 @@ Partial Class DownloadUserControl
 		Me.OutputPathTextBox.AllowDrop = True
 		Me.OutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.OutputPathTextBox.CueBannerText = ""
 		Me.OutputPathTextBox.DetectUrls = False
 		Me.OutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)

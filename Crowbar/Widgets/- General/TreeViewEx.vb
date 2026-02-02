@@ -298,28 +298,38 @@ Public Class TreeViewEx
 	End Sub
 
 	Private Sub OnNonClientPaint(ByRef m As Message)
-		Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
-		Try
-			Using g As Graphics = Graphics.FromHdc(hDC)
-				Using backColorBrush As New SolidBrush(Me.theNonClientPaddingColor)
-					'Dim rect As Rectangle = Me.ClientRectangle
-					'rect.Offset(Me.NonClientPadding.Left, Me.NonClientPadding.Top)
-					'g.ExcludeClip(rect)
-					Dim aRect As RectangleF = g.VisibleClipBounds
-					g.FillRectangle(backColorBrush, aRect)
-				End Using
-				'Using borderColorPen As New Pen(Color.Green)
-				'	Dim aRect As RectangleF = g.VisibleClipBounds
-				'	'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
-				'	aRect.Width -= 1
-				'	aRect.Height -= 1
-				'	g.DrawRectangle(borderColorPen, aRect.Left, aRect.Top, aRect.Width, aRect.Height)
-				'End Using
-			End Using
-		Finally
-			Win32Api.ReleaseDC(Me.Handle, hDC)
-		End Try
-		m.Result = IntPtr.Zero
+		' Set background color here in case user changes theme while app is open.
+		Dim theme As TreeViewTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.TreeViewTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.BackColor = theme.EnabledBackColor
+		End If
+
+		'Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+		'Try
+		'	Using g As Graphics = Graphics.FromHdc(hDC)
+		'		Using backColorBrush As New SolidBrush(Me.theNonClientPaddingColor)
+		'			'Dim rect As Rectangle = Me.ClientRectangle
+		'			'rect.Offset(Me.NonClientPadding.Left, Me.NonClientPadding.Top)
+		'			'g.ExcludeClip(rect)
+		'			Dim aRect As RectangleF = g.VisibleClipBounds
+		'			g.FillRectangle(backColorBrush, aRect)
+		'		End Using
+		'		'Using borderColorPen As New Pen(Color.Green)
+		'		'	Dim aRect As RectangleF = g.VisibleClipBounds
+		'		'	'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+		'		'	aRect.Width -= 1
+		'		'	aRect.Height -= 1
+		'		'	g.DrawRectangle(borderColorPen, aRect.Left, aRect.Top, aRect.Width, aRect.Height)
+		'		'End Using
+		'	End Using
+		'Finally
+		'	Win32Api.ReleaseDC(Me.Handle, hDC)
+		'End Try
+		'm.Result = IntPtr.Zero
 	End Sub
 
 	Private Sub HorizontalScrollbar_ValueChanged(ByVal sender As Object, ByVal e As ScrollValueEventArgs) Handles CustomHorizontalScrollbar.ValueChanged

@@ -805,11 +805,8 @@ Partial Class PatchUserControl
 		'
 		Me.TextBoxEx8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.TextBoxEx8.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-		Me.TextBoxEx8.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.TextBoxEx8.CueBannerText = ""
 		Me.TextBoxEx8.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		Me.TextBoxEx8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.TextBoxEx8.Location = New System.Drawing.Point(131, 95)
 		Me.TextBoxEx8.Name = "TextBoxEx8"
 		Me.TextBoxEx8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
@@ -821,11 +818,8 @@ Partial Class PatchUserControl
 		'
 		Me.TextBoxEx9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.TextBoxEx9.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-		Me.TextBoxEx9.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.TextBoxEx9.CueBannerText = ""
 		Me.TextBoxEx9.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		Me.TextBoxEx9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.TextBoxEx9.Location = New System.Drawing.Point(85, 95)
 		Me.TextBoxEx9.Name = "TextBoxEx9"
 		Me.TextBoxEx9.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
@@ -908,11 +902,8 @@ Partial Class PatchUserControl
 		'
 		Me.TextBoxEx10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.TextBoxEx10.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-		Me.TextBoxEx10.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.TextBoxEx10.CueBannerText = ""
 		Me.TextBoxEx10.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		Me.TextBoxEx10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.TextBoxEx10.Location = New System.Drawing.Point(122, 68)
 		Me.TextBoxEx10.Name = "TextBoxEx10"
 		Me.TextBoxEx10.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
@@ -1114,11 +1105,8 @@ Partial Class PatchUserControl
 		Me.MessageTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
 			Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.MessageTextBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-		Me.MessageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.MessageTextBox.CueBannerText = ""
 		Me.MessageTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		Me.MessageTextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.MessageTextBox.Location = New System.Drawing.Point(0, 31)
 		Me.MessageTextBox.Name = "MessageTextBox"
 		Me.MessageTextBox.ReadOnly = True

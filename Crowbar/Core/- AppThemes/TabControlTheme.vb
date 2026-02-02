@@ -8,6 +8,8 @@ Public Class TabControlTheme
     Public Sub New()
         MyBase.New()
 
+        Me.theEnabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
+        Me.theDisabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
     End Sub
 
 #End Region

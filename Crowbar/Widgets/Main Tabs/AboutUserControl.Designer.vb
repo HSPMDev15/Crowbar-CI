@@ -44,7 +44,6 @@ Partial Class AboutUserControl
 		'
 		'ProductInfoTextBox
 		'
-		Me.ProductInfoTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.ProductInfoTextBox.CueBannerText = ""
 		Me.ProductInfoTextBox.DetectUrls = False
 		Me.ProductInfoTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -60,7 +59,6 @@ Partial Class AboutUserControl
 		'
 		'ProductDescriptionTextBox
 		'
-		Me.ProductDescriptionTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.ProductDescriptionTextBox.CueBannerText = ""
 		Me.ProductDescriptionTextBox.DetectUrls = False
 		Me.ProductDescriptionTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -97,7 +95,6 @@ Partial Class AboutUserControl
 		'
 		'CreditsTextBox
 		'
-		Me.CreditsTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.CreditsTextBox.CueBannerText = ""
 		Me.CreditsTextBox.DetectUrls = False
 		Me.CreditsTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -216,7 +213,6 @@ Partial Class AboutUserControl
 		'
 		'Credits2TextBox
 		'
-		Me.Credits2TextBox.BorderColor = System.Drawing.Color.Empty
 		Me.Credits2TextBox.CueBannerText = ""
 		Me.Credits2TextBox.DetectUrls = False
 		Me.Credits2TextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -234,7 +230,6 @@ Partial Class AboutUserControl
 		'
 		'Credits3TextBox
 		'
-		Me.Credits3TextBox.BorderColor = System.Drawing.Color.Empty
 		Me.Credits3TextBox.CueBannerText = ""
 		Me.Credits3TextBox.DetectUrls = False
 		Me.Credits3TextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)

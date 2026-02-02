@@ -2,14 +2,12 @@
 '      https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/stretch-a-toolstriptextbox-to-fill-the-remaining-width-of-a-toolstrip-wf
 '      05-Aug-2017
 
-Public Class ToolStripSpringTextBox
-	Inherits ToolStripTextBox
+Public Class ToolStripSpringTextBoxEx
+	Inherits ToolStripTextBoxEx
 
 	Public Sub New()
 		MyBase.New()
 
-		'NOTE: Disable to use custom.
-		MyBase.BorderStyle = BorderStyle.FixedSingle
 	End Sub
 
 	'IMPORTANT: The control must have AutoSize = True for this to be called.
@@ -28,7 +26,7 @@ Public Class ToolStripSpringTextBox
 
 		' Subtract the width of the overflow button if it is displayed. 
 		If Owner.OverflowButton.Visible Then
-			width = width - Owner.OverflowButton.Width - Owner.OverflowButton.Margin.Horizontal()
+			width -= Owner.OverflowButton.Width - Owner.OverflowButton.Margin.Horizontal()
 		End If
 
 		' Declare a variable to maintain a count of ToolStripSpringTextBox 
@@ -36,11 +34,12 @@ Public Class ToolStripSpringTextBox
 		Dim springBoxCount As Int32 = 0
 
 		For Each item As ToolStripItem In Owner.Items
-
 			' Ignore items on the overflow menu.
-			If item.IsOnOverflow Then Continue For
+			If item.IsOnOverflow Then
+				Continue For
+			End If
 
-			If TypeOf item Is ToolStripSpringTextBox Then
+			If TypeOf item Is ToolStripSpringTextBoxEx Then
 				' For ToolStripSpringTextBox items, increment the count and 
 				' subtract the margin width from the total available width.
 				springBoxCount += 1
@@ -48,17 +47,21 @@ Public Class ToolStripSpringTextBox
 			Else
 				' For all other items, subtract the full width from the total
 				' available width.
-				width = width - item.Width - item.Margin.Horizontal
+				width -= item.Width - item.Margin.Horizontal
 			End If
 		Next
 
 		' If there are multiple ToolStripSpringTextBox items in the owning
 		' ToolStrip, divide the total available width between them. 
-		If springBoxCount > 1 Then width = CInt(width / springBoxCount)
+		If springBoxCount > 1 Then
+			width = CInt(width / springBoxCount)
+		End If
 
 		' If the available width is less than the default width, use the
 		' default width, forcing one or more items onto the overflow menu.
-		If width < DefaultSize.Width Then width = DefaultSize.Width
+		If Owner.CanOverflow AndAlso width < DefaultSize.Width Then
+			width = DefaultSize.Width
+		End If
 
 		' Retrieve the preferred size from the base class, but change the
 		' width to the calculated width. 

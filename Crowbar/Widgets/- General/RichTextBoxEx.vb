@@ -9,7 +9,7 @@ Public Class RichTextBoxEx
 	Public Sub New()
 		MyBase.New()
 
-		MyBase.DetectUrls = False
+		MyBase.DetectUrls = True
 		'NOTE: Make sure MultiLine is True because single-line is visually glitched.
 		MyBase.Multiline = True
 		'NOTE: Disable to use custom.
@@ -77,6 +77,8 @@ Public Class RichTextBoxEx
 		Me.theCueBannerText = ""
 		Me.theTextAlignment = HorizontalAlignment.Left
 
+		Me.theThemeIsUsed = True
+
 		Me.theLineCount = 0
 		Me.theScrollingIsActive = False
 	End Sub
@@ -97,12 +99,25 @@ Public Class RichTextBoxEx
 
 	<Browsable(True)>
 	<Category("Appearance")>
+	Public Overloads Property BackColor As Color
+		Get
+			Return MyBase.BackColor
+		End Get
+		Set
+			MyBase.BackColor = Value
+			Me.theThemeIsUsed = False
+		End Set
+	End Property
+
+	<Browsable(True)>
+	<Category("Appearance")>
 	Public Overloads Property BorderColor As Color
 		Get
 			Return Me.theBorderColor
 		End Get
 		Set
 			Me.theBorderColor = Value
+			Me.theThemeIsUsed = False
 		End Set
 	End Property
 
@@ -116,6 +131,7 @@ Public Class RichTextBoxEx
 		End Get
 		Set
 			Me.theBorderStyle = Value
+			Me.theThemeIsUsed = False
 		End Set
 	End Property
 
@@ -141,18 +157,18 @@ Public Class RichTextBoxEx
 		Set
 			MyBase.ReadOnly = Value
 
-			Dim theme As RichTextBoxTheme = Nothing
-			' This check prevents problems with viewing and saving Forms in VS Designer.
-			If TheApp IsNot Nothing Then
-				theme = TheApp.Settings.SelectedAppTheme.RichTextBoxTheme
-			End If
-			If theme IsNot Nothing Then
-				If MyBase.[ReadOnly] Then
-					Me.BackColor = theme.DisabledBackColor
-				Else
-					Me.BackColor = theme.EnabledBackColor
-				End If
-			End If
+			'Dim theme As RichTextBoxTheme = Nothing
+			'' This check prevents problems with viewing and saving Forms in VS Designer.
+			'If TheApp IsNot Nothing Then
+			'	theme = TheApp.Settings.SelectedAppTheme.RichTextBoxTheme
+			'End If
+			'If theme IsNot Nothing AndAlso Me.theThemeIsUsed Then
+			'	If MyBase.[ReadOnly] Then
+			'		MyBase.BackColor = theme.DisabledBackColor
+			'	Else
+			'		MyBase.BackColor = theme.EnabledBackColor
+			'	End If
+			'End If
 		End Set
 	End Property
 
@@ -292,26 +308,26 @@ Public Class RichTextBoxEx
 		'NOTE: Completely override painting by OS.
 		'MyBase.OnPaint(e)
 
-		Dim theme As RichTextBoxTheme = Nothing
-		' This check prevents problems with viewing and saving Forms in VS Designer.
-		If TheApp IsNot Nothing Then
-			theme = TheApp.Settings.SelectedAppTheme.RichTextBoxTheme
-		End If
-		If theme IsNot Nothing Then
-			'IMPORTANT: Only assign ForeColor and BackColor once in OnPaint();
-			'           otherwise OnPaint will be called over 100 times
-			'           and much of the window will not be painted.
-			If Me.Enabled Then
-				Me.ForeColor = theme.EnabledForeColor
-			Else
-				Me.ForeColor = theme.DisabledForeColor
-			End If
-			If MyBase.[ReadOnly] Then
-				Me.BackColor = theme.DisabledBackColor
-			Else
-				Me.BackColor = theme.EnabledBackColor
-			End If
-		End If
+		'Dim theme As RichTextBoxTheme = Nothing
+		'' This check prevents problems with viewing and saving Forms in VS Designer.
+		'If TheApp IsNot Nothing Then
+		'	theme = TheApp.Settings.SelectedAppTheme.RichTextBoxTheme
+		'End If
+		'If theme IsNot Nothing AndAlso Me.theThemeIsUsed Then
+		'	'IMPORTANT: Only assign ForeColor and BackColor once in OnPaint();
+		'	'           otherwise OnPaint will be called over 100 times
+		'	'           and much of the window will not be painted.
+		'	If Me.Enabled Then
+		'		Me.ForeColor = theme.EnabledForeColor
+		'	Else
+		'		Me.ForeColor = theme.DisabledForeColor
+		'	End If
+		'	If MyBase.[ReadOnly] Then
+		'		MyBase.BackColor = theme.DisabledBackColor
+		'	Else
+		'		MyBase.BackColor = theme.EnabledBackColor
+		'	End If
+		'End If
 
 		Dim g As Graphics = e.Graphics
 		Dim clipRectangle As Rectangle = e.ClipRectangle
@@ -891,7 +907,7 @@ Public Class RichTextBoxEx
 		If TheApp IsNot Nothing Then
 			theme = TheApp.Settings.SelectedAppTheme.RichTextBoxTheme
 		End If
-		If theme IsNot Nothing Then
+		If theme IsNot Nothing AndAlso Me.theThemeIsUsed Then
 			'IMPORTANT: Only assign ForeColor and BackColor once in OnPaint();
 			'           otherwise OnPaint will be called over 100 times
 			'           and much of the window will not be painted.
@@ -901,9 +917,9 @@ Public Class RichTextBoxEx
 				Me.ForeColor = theme.DisabledForeColor
 			End If
 			If MyBase.[ReadOnly] Then
-				Me.BackColor = theme.DisabledBackColor
+				MyBase.BackColor = theme.DisabledBackColor
 			Else
-				Me.BackColor = theme.EnabledBackColor
+				MyBase.BackColor = theme.EnabledBackColor
 			End If
 		End If
 
@@ -1204,6 +1220,7 @@ Public Class RichTextBoxEx
 	Private NonClientPadding As Padding
 	'Private theNonClientPaddingColor As Color
 	Private theBorderColor As Color
+	Private theThemeIsUsed As Boolean
 
 	Private WithEvents HorizontalScrollbar As ScrollBarEx
 	Private WithEvents VerticalScrollbar As ScrollBarEx

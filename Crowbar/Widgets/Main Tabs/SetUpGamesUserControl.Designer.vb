@@ -248,7 +248,6 @@ Partial Class SetUpGamesUserControl
 		'
 		Me.MappingToolPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.MappingToolPathFileNameTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.MappingToolPathFileNameTextBox.CueBannerText = ""
 		Me.MappingToolPathFileNameTextBox.DetectUrls = False
 		Me.MappingToolPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -566,7 +565,6 @@ Partial Class SetUpGamesUserControl
 			Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.SteamLibraryPathsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-		Me.SteamLibraryPathsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.SteamLibraryPathsDataGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText
 		Me.SteamLibraryPathsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
 		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft

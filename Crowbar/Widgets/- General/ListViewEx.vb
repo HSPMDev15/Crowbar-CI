@@ -248,8 +248,8 @@ Public Class ListViewEx
 				'	Me.UpdateVerticalScrollbar()
 				Case Win32Api.WindowsMessages.WM_NCCALCSIZE
 					Me.OnNonClientCalcSize(m)
-					'Case Win32Api.WindowsMessages.WM_NCPAINT
-					'	Me.OnNonClientPaint(m)
+				Case Win32Api.WindowsMessages.WM_NCPAINT
+					Me.OnNonClientPaint(m)
 					'Case Win32Api.WindowsMessages.WM_PAINT
 					'	Me.OnClientPaint(m)
 					'Case Win32Api.ListViewMessages.LVM_INSERTITEM, Win32Api.ListViewMessages.LVM_DELETEITEM, Win32Api.ListViewMessages.LVM_DELETEALLITEMS
@@ -299,21 +299,30 @@ Public Class ListViewEx
 		'End Try
 	End Sub
 
-	'' Paint the background where custom scrollbars will be.
-	'Private Sub OnNonClientPaint(ByRef m As Message)
-	'	Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
-	'	Try
-	'		Using g As Graphics = Graphics.FromHdc(hDC)
-	'			Using backColorBrush As New SolidBrush(Color.Red)
-	'				Dim aRect As RectangleF = g.VisibleClipBounds
-	'				g.FillRectangle(backColorBrush, aRect)
-	'			End Using
-	'		End Using
-	'	Finally
-	'		Win32Api.ReleaseDC(Me.Handle, hDC)
-	'	End Try
-	'	m.Result = IntPtr.Zero
-	'End Sub
+	Private Sub OnNonClientPaint(ByRef m As Message)
+		' Set background color here in case user changes theme while app is open.
+		Dim theme As ListViewTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.ListViewTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.BackColor = theme.EnabledBackColor
+		End If
+
+		'Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+		'Try
+		'	Using g As Graphics = Graphics.FromHdc(hDC)
+		'		Using backColorBrush As New SolidBrush(Color.Red)
+		'			Dim aRect As RectangleF = g.VisibleClipBounds
+		'			g.FillRectangle(backColorBrush, aRect)
+		'		End Using
+		'	End Using
+		'Finally
+		'	Win32Api.ReleaseDC(Me.Handle, hDC)
+		'End Try
+		'm.Result = IntPtr.Zero
+	End Sub
 
 	'Private Sub OnClientPaint(ByRef m As Message)
 	'	Dim hwnd As IntPtr = Win32Api.SendMessage(Me.Handle, Win32Api.ListViewMessages.LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero)

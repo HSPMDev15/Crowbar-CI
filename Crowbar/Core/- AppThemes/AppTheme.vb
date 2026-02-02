@@ -159,11 +159,11 @@ Public Class AppTheme
         End Set
     End Property
 
-    Public Property SplitContainerTheme() As WidgetTheme
+    Public Property SplitContainerTheme() As SplitContainerTheme
         Get
             Return Me.theSplitContainerTheme
         End Get
-        Set(ByVal value As WidgetTheme)
+        Set(ByVal value As SplitContainerTheme)
             Me.theSplitContainerTheme = value
         End Set
     End Property
@@ -245,7 +245,7 @@ Public Class AppTheme
     Private theRadioButtonTheme As RadioButtonTheme
     Private theRichTextBoxTheme As RichTextBoxTheme
     Private theScrollBarTheme As WidgetTheme
-    Private theSplitContainerTheme As WidgetTheme
+    Private theSplitContainerTheme As SplitContainerTheme
     Private theTabControlTheme As TabControlTheme
     Private theTabPageTheme As WidgetTheme
     Private theTabScrollerTheme As WidgetTheme

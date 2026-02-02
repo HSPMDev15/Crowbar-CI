@@ -355,6 +355,7 @@ Public Class App
 		defaultCrowbarTheme.ProgressBarTheme = New ProgressBarTheme()
 		defaultCrowbarTheme.RadioButtonTheme = New RadioButtonTheme()
 		defaultCrowbarTheme.RichTextBoxTheme = New RichTextBoxTheme()
+		defaultCrowbarTheme.SplitContainerTheme = New SplitContainerTheme()
 		defaultCrowbarTheme.TabControlTheme = New TabControlTheme()
 		defaultCrowbarTheme.ToolStripTheme = New ToolStripTheme()
 		defaultCrowbarTheme.TreeViewTheme = New TreeViewTheme()

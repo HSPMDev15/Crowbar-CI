@@ -97,7 +97,6 @@ Partial Class CompileUserControl
         '
         'CompilerOptionsTextBox
         '
-        Me.CompilerOptionsTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.CompilerOptionsTextBox.CueBannerText = ""
         Me.CompilerOptionsTextBox.DetectUrls = False
         Me.CompilerOptionsTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -213,7 +212,6 @@ Partial Class CompileUserControl
         '
         'CompilerOptionDefineBonesFileNameTextBox
         '
-        Me.CompilerOptionDefineBonesFileNameTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.CompilerOptionDefineBonesFileNameTextBox.CueBannerText = ""
         Me.CompilerOptionDefineBonesFileNameTextBox.DetectUrls = False
         Me.CompilerOptionDefineBonesFileNameTextBox.Enabled = False
@@ -237,7 +235,6 @@ Partial Class CompileUserControl
         '
         'DirectCompilerOptionsTextBox
         '
-        Me.DirectCompilerOptionsTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.DirectCompilerOptionsTextBox.CueBannerText = ""
         Me.DirectCompilerOptionsTextBox.DetectUrls = False
         Me.DirectCompilerOptionsTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -329,7 +326,6 @@ Partial Class CompileUserControl
         '
         Me.QcPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.QcPathFileNameTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.QcPathFileNameTextBox.CueBannerText = ""
         Me.QcPathFileNameTextBox.DetectUrls = False
         Me.QcPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -347,7 +343,6 @@ Partial Class CompileUserControl
         Me.OutputPathTextBox.AllowDrop = True
         Me.OutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OutputPathTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.OutputPathTextBox.CueBannerText = ""
         Me.OutputPathTextBox.DetectUrls = False
         Me.OutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -364,7 +359,6 @@ Partial Class CompileUserControl
         '
         Me.GameModelsOutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GameModelsOutputPathTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.GameModelsOutputPathTextBox.CueBannerText = ""
         Me.GameModelsOutputPathTextBox.DetectUrls = False
         Me.GameModelsOutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -382,7 +376,6 @@ Partial Class CompileUserControl
         '
         Me.OutputSubfolderTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OutputSubfolderTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.OutputSubfolderTextBox.CueBannerText = ""
         Me.OutputSubfolderTextBox.DetectUrls = False
         Me.OutputSubfolderTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -653,7 +646,6 @@ Partial Class CompileUserControl
         '
         'CompileLogRichTextBox
         '
-        Me.CompileLogRichTextBox.BorderColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.CompileLogRichTextBox.CueBannerText = ""
         Me.CompileLogRichTextBox.DetectUrls = False
         Me.CompileLogRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill

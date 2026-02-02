@@ -193,10 +193,8 @@ Partial Class DecompileUserControl
 		Me.OverrideMdlVersionLabel.Text = "Override MDL version:"
 		Me.ToolTip1.SetToolTip(Me.OverrideMdlVersionLabel, "Decompile based on this selected version instead of what is stored in MDL file.")
 		'
-		'OverrideMdlVersionComboBox
+		'OverrideMdlVersionComboUserControl
 		'
-		Me.OverrideMdlVersionComboUserControl.BorderColor = System.Drawing.Color.Empty
-		Me.OverrideMdlVersionComboUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.OverrideMdlVersionComboUserControl.DataSource = Nothing
 		Me.OverrideMdlVersionComboUserControl.DisplayMember = ""
 		Me.OverrideMdlVersionComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -204,7 +202,7 @@ Partial Class DecompileUserControl
 		Me.OverrideMdlVersionComboUserControl.Location = New System.Drawing.Point(123, 199)
 		Me.OverrideMdlVersionComboUserControl.MaxDropDownItems = 30
 		Me.OverrideMdlVersionComboUserControl.MultipleInputsIsAllowed = True
-		Me.OverrideMdlVersionComboUserControl.Name = "OverrideMdlVersionComboBox"
+		Me.OverrideMdlVersionComboUserControl.Name = "OverrideMdlVersionComboUserControl"
 		Me.OverrideMdlVersionComboUserControl.SelectedIndex = -1
 		Me.OverrideMdlVersionComboUserControl.SelectedValue = ""
 		Me.OverrideMdlVersionComboUserControl.Size = New System.Drawing.Size(110, 23)
@@ -259,19 +257,29 @@ Partial Class DecompileUserControl
 		Me.Label1.TabIndex = 0
 		Me.Label1.Text = "MDL input:"
 		'
-		'DecompileInputComboBox
+		'DecompileInputComboUserControl
 		'
+		Me.DecompileInputComboUserControl.DataSource = Nothing
+		Me.DecompileInputComboUserControl.DisplayMember = ""
+		Me.DecompileInputComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.DecompileInputComboUserControl.IsReadOnly = False
 		Me.DecompileInputComboUserControl.Location = New System.Drawing.Point(73, 4)
-		Me.DecompileInputComboUserControl.Name = "DecompileInputComboBox"
+		Me.DecompileInputComboUserControl.MaxDropDownItems = 30
+		Me.DecompileInputComboUserControl.MultipleInputsIsAllowed = True
+		Me.DecompileInputComboUserControl.Name = "DecompileInputComboUserControl"
+		Me.DecompileInputComboUserControl.SelectedIndex = -1
+		Me.DecompileInputComboUserControl.SelectedValue = ""
 		Me.DecompileInputComboUserControl.Size = New System.Drawing.Size(140, 23)
 		Me.DecompileInputComboUserControl.TabIndex = 1
+		Me.DecompileInputComboUserControl.TextHistoryIsKept = False
+		Me.DecompileInputComboUserControl.TextHistoryMaxSize = 15
+		Me.DecompileInputComboUserControl.TextIsPathFileNames = False
+		Me.DecompileInputComboUserControl.ValueMember = ""
 		'
 		'MdlPathFileNameTextBox
 		'
 		Me.MdlPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.MdlPathFileNameTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.MdlPathFileNameTextBox.CueBannerText = ""
 		Me.MdlPathFileNameTextBox.DetectUrls = False
 		Me.MdlPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -334,7 +342,6 @@ Partial Class DecompileUserControl
 		Me.OutputPathTextBox.AllowDrop = True
 		Me.OutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputPathTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.OutputPathTextBox.CueBannerText = ""
 		Me.OutputPathTextBox.DetectUrls = False
 		Me.OutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -351,7 +358,6 @@ Partial Class DecompileUserControl
 		'
 		Me.OutputSubfolderTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.OutputSubfolderTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.OutputSubfolderTextBox.CueBannerText = ""
 		Me.OutputSubfolderTextBox.DetectUrls = False
 		Me.OutputSubfolderTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -365,10 +371,8 @@ Partial Class DecompileUserControl
 		Me.OutputSubfolderTextBox.Visible = False
 		Me.OutputSubfolderTextBox.WordWrap = False
 		'
-		'OutputPathComboBox
+		'OutputPathComboUserControl
 		'
-		Me.OutputPathComboUserControl.BorderColor = System.Drawing.Color.Empty
-		Me.OutputPathComboUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.OutputPathComboUserControl.DataSource = Nothing
 		Me.OutputPathComboUserControl.DisplayMember = ""
 		Me.OutputPathComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -376,7 +380,7 @@ Partial Class DecompileUserControl
 		Me.OutputPathComboUserControl.Location = New System.Drawing.Point(73, 33)
 		Me.OutputPathComboUserControl.MaxDropDownItems = 30
 		Me.OutputPathComboUserControl.MultipleInputsIsAllowed = True
-		Me.OutputPathComboUserControl.Name = "OutputPathComboBox"
+		Me.OutputPathComboUserControl.Name = "OutputPathComboUserControl"
 		Me.OutputPathComboUserControl.SelectedIndex = -1
 		Me.OutputPathComboUserControl.SelectedValue = ""
 		Me.OutputPathComboUserControl.Size = New System.Drawing.Size(140, 23)
@@ -531,8 +535,6 @@ Partial Class DecompileUserControl
 		'
 		'ModelFormatComboUserControl
 		'
-		Me.ModelFormatComboUserControl.BorderColor = System.Drawing.Color.Empty
-		Me.ModelFormatComboUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.ModelFormatComboUserControl.DataSource = Nothing
 		Me.ModelFormatComboUserControl.DisplayMember = ""
 		Me.ModelFormatComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -718,7 +720,6 @@ Partial Class DecompileUserControl
 		'
 		'DecompilerLogTextBox
 		'
-		Me.DecompilerLogTextBox.BorderColor = System.Drawing.Color.Empty
 		Me.DecompilerLogTextBox.CueBannerText = ""
 		Me.DecompilerLogTextBox.DetectUrls = False
 		Me.DecompilerLogTextBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -804,12 +805,10 @@ Partial Class DecompileUserControl
 		Me.Panel4.Size = New System.Drawing.Size(770, 26)
 		Me.Panel4.TabIndex = 8
 		'
-		'DecompiledFilesComboBox
+		'DecompiledFilesComboUserControl
 		'
 		Me.DecompiledFilesComboUserControl.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.DecompiledFilesComboUserControl.BorderColor = System.Drawing.Color.Empty
-		Me.DecompiledFilesComboUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.DecompiledFilesComboUserControl.DataSource = Nothing
 		Me.DecompiledFilesComboUserControl.DisplayMember = ""
 		Me.DecompiledFilesComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -817,7 +816,7 @@ Partial Class DecompileUserControl
 		Me.DecompiledFilesComboUserControl.Location = New System.Drawing.Point(0, 4)
 		Me.DecompiledFilesComboUserControl.MaxDropDownItems = 30
 		Me.DecompiledFilesComboUserControl.MultipleInputsIsAllowed = True
-		Me.DecompiledFilesComboUserControl.Name = "DecompiledFilesComboBox"
+		Me.DecompiledFilesComboUserControl.Name = "DecompiledFilesComboUserControl"
 		Me.DecompiledFilesComboUserControl.SelectedIndex = -1
 		Me.DecompiledFilesComboUserControl.SelectedValue = ""
 		Me.DecompiledFilesComboUserControl.Size = New System.Drawing.Size(621, 23)

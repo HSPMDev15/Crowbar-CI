@@ -1,6 +1,6 @@
 ﻿Imports System.Xml.Serialization
 
-Public Class ButtonTheme
+Public Class SplitContainerTheme
     Inherits WidgetTheme
 
 #Region "Create and Destroy"
@@ -8,8 +8,6 @@ Public Class ButtonTheme
     Public Sub New()
         MyBase.New()
 
-        Me.theEnabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
-        Me.theDisabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
     End Sub
 
 #End Region

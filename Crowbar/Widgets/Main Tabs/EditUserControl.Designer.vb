@@ -72,11 +72,8 @@ Partial Class EditUserControl
 		'
 		Me.QcPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.QcPathFileNameTextBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-		Me.QcPathFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.QcPathFileNameTextBox.CueBannerText = ""
 		Me.QcPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		Me.QcPathFileNameTextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.QcPathFileNameTextBox.Location = New System.Drawing.Point(91, 5)
 		Me.QcPathFileNameTextBox.Multiline = False
 		Me.QcPathFileNameTextBox.Name = "QcPathFileNameTextBox"

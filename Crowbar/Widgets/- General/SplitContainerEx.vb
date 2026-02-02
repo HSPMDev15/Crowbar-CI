@@ -3,7 +3,12 @@ Imports System.ComponentModel
 Imports System.Drawing
 
 Public Class SplitContainerEx
-    Inherits SplitContainer
+	Inherits SplitContainer
+
+	Public Sub New()
+		MyBase.New()
+
+	End Sub
 
 	''''' <summary>Determines the thickness of the splitter.</summary>
 	''<DefaultValue(GetType(Integer), "5"), Description("Determines the thickness of the splitter.")>
@@ -124,6 +129,20 @@ Public Class SplitContainerEx
 	'	'    '======
 	'	'End If
 	'End Sub
+
+	Protected Overrides Sub OnPaint(e As PaintEventArgs)
+		Dim theme As SplitContainerTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.SplitContainerTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.ForeColor = theme.EnabledForeColor
+			Me.BackColor = theme.EnabledBackColor
+		End If
+
+		MyBase.OnPaint(e)
+	End Sub
 
 	'Private Function FindControlAtScreenPosition(ByVal aForm As Form, p As Point) As Control
 	'	If (Not aForm.Bounds.Contains(p)) Then

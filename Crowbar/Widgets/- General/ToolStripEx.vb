@@ -4,8 +4,7 @@
 	Public Sub New()
 		MyBase.New()
 
-		' Without explicitly setting any colors in the override, this seems to use Windows theme colors on Win11.
-		'Me.Renderer = New ToolStripRendererOverride()
+		Me.Renderer = New ToolStripRendererOverride()
 	End Sub
 
 	'Public Overloads Property Renderer() As ToolStripRenderer
@@ -17,9 +16,39 @@
 	'	End Set
 	'End Property
 
+	'' This is called without needing any other code to enable it.
+	'Protected Overrides Sub OnPaint(e As PaintEventArgs)
+	'	'Dim theme As ToolStripTheme = Nothing
+	'	'' This check prevents problems with viewing and saving Forms in VS Designer.
+	'	'If TheApp IsNot Nothing Then
+	'	'	theme = TheApp.Settings.SelectedAppTheme.ToolStripTheme
+	'	'End If
+	'	'If theme IsNot Nothing Then
+	'	'	Me.BackColor = theme.EnabledBackColor
+	'	'Else
+	'	'	Me.BackColor = DefaultBackColor
+	'	'End If
+	'	MyBase.OnPaint(e)
+	'End Sub
+
+	Protected Overrides Sub OnPaintBackground(e As PaintEventArgs)
+		Dim theme As ToolStripTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.ToolStripTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.BackColor = theme.EnabledBackColor
+		Else
+			Me.BackColor = DefaultBackColor
+		End If
+		MyBase.OnPaintBackground(e)
+	End Sub
+
 	Public Class ToolStripRendererOverride
-		Inherits ToolStripSystemRenderer
-		'Inherits ToolStripProfessionalRenderer
+		'' Without explicitly setting any colors, this seems to use Windows theme colors on Win11.
+		'Inherits ToolStripSystemRenderer
+		Inherits ToolStripProfessionalRenderer
 		'Inherits ToolStripRenderer
 
 		Public Sub New()
@@ -28,16 +57,23 @@
 
 		'NOTE: Intentionally do nothing to remove the incomplete border.
 		Protected Overrides Sub OnRenderToolStripBorder(ByVal e As ToolStripRenderEventArgs)
-			If TypeOf e.ToolStrip IsNot ToolStrip Then
-				MyBase.OnRenderToolStripBorder(e)
-				'Else
-				'	Using backColorPen As New Pen(Color.Red)
-				'		Dim aRect As Rectangle = e.AffectedBounds
-				'		aRect.X += 1
-				'		aRect.Width -= 3
-				'		aRect.Height -= 2
-				'		e.Graphics.DrawRectangle(backColorPen, aRect)
-				'	End Using
+			Dim theme As PanelTheme = Nothing
+			' This check prevents problems with viewing and saving Forms in VS Designer.
+			If TheApp IsNot Nothing Then
+				theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+			End If
+			If theme IsNot Nothing Then
+				If TypeOf e.ToolStrip IsNot ToolStrip Then
+					MyBase.OnRenderToolStripBorder(e)
+					'Else
+					'	Using backColorPen As New Pen(Color.Red)
+					'		Dim aRect As Rectangle = e.AffectedBounds
+					'		aRect.X += 1
+					'		aRect.Width -= 3
+					'		aRect.Height -= 2
+					'		e.Graphics.DrawRectangle(backColorPen, aRect)
+					'	End Using
+				End If
 			End If
 		End Sub
 

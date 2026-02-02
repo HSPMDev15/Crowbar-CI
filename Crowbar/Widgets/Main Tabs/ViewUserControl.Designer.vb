@@ -30,7 +30,7 @@ Partial Class ViewUserControl
 		Me.Panel2 = New Crowbar.PanelEx()
 		Me.RefreshButton = New Crowbar.ButtonEx()
 		Me.OverrideMdlVersionLabel = New System.Windows.Forms.Label()
-		Me.OverrideMdlVersionComboBox = New Crowbar.ComboUserControl()
+		Me.OverrideMdlVersionComboUserControl = New Crowbar.ComboUserControl()
 		Me.GotoMdlFileButton = New Crowbar.ButtonEx()
 		Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
 		Me.GroupBox1 = New Crowbar.GroupBoxEx()
@@ -68,7 +68,6 @@ Partial Class ViewUserControl
 		'
 		Me.MdlPathFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.MdlPathFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.MdlPathFileNameTextBox.CueBannerText = ""
 		Me.MdlPathFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.MdlPathFileNameTextBox.Location = New System.Drawing.Point(58, 4)
@@ -105,7 +104,7 @@ Partial Class ViewUserControl
 		Me.Panel2.Controls.Add(Me.OverrideMdlVersionLabel)
 		Me.Panel2.Controls.Add(Me.Label1)
 		Me.Panel2.Controls.Add(Me.MdlPathFileNameTextBox)
-		Me.Panel2.Controls.Add(Me.OverrideMdlVersionComboBox)
+		Me.Panel2.Controls.Add(Me.OverrideMdlVersionComboUserControl)
 		Me.Panel2.Controls.Add(Me.BrowseForMdlFileButton)
 		Me.Panel2.Controls.Add(Me.GotoMdlFileButton)
 		Me.Panel2.Controls.Add(Me.SplitContainer1)
@@ -141,11 +140,11 @@ Partial Class ViewUserControl
 		'
 		'OverrideMdlVersionComboBox
 		'
-		Me.OverrideMdlVersionComboBox.IsReadOnly = False
-		Me.OverrideMdlVersionComboBox.Location = New System.Drawing.Point(123, 32)
-		Me.OverrideMdlVersionComboBox.Name = "OverrideMdlVersionComboBox"
-		Me.OverrideMdlVersionComboBox.Size = New System.Drawing.Size(110, 23)
-		Me.OverrideMdlVersionComboBox.TabIndex = 47
+		Me.OverrideMdlVersionComboUserControl.IsReadOnly = False
+		Me.OverrideMdlVersionComboUserControl.Location = New System.Drawing.Point(123, 32)
+		Me.OverrideMdlVersionComboUserControl.Name = "OverrideMdlVersionComboBox"
+		Me.OverrideMdlVersionComboUserControl.Size = New System.Drawing.Size(110, 23)
+		Me.OverrideMdlVersionComboUserControl.TabIndex = 47
 		'
 		'GotoMdlFileButton
 		'
@@ -356,7 +355,7 @@ Partial Class ViewUserControl
 	Friend WithEvents RunGameButton As ButtonEx
 	Friend WithEvents OpenMappingToolButton As ButtonEx
 	Friend WithEvents OverrideMdlVersionLabel As Label
-	Friend WithEvents OverrideMdlVersionComboBox As ComboUserControl
+	Friend WithEvents OverrideMdlVersionComboUserControl As ComboUserControl
 	Friend WithEvents RefreshButton As ButtonEx
 	Friend WithEvents Panel1 As Panel
 End Class

@@ -368,35 +368,35 @@ Public Class ComboUserControl
 		Me.InitTextHistoryPopop()
 	End Sub
 
-	Protected Overrides Sub OnPaint(e As PaintEventArgs)
-		MyBase.OnPaint(e)
+	'Protected Overrides Sub OnPaint(e As PaintEventArgs)
+	'	MyBase.OnPaint(e)
 
-		Dim theme As ComboUserControlTheme = Nothing
-		' This check prevents problems with viewing and saving Forms in VS Designer.
-		If TheApp IsNot Nothing Then
-			theme = TheApp.Settings.SelectedAppTheme.ComboUserControlTheme
-		End If
-		If theme IsNot Nothing Then
-			If Me.Enabled Then
-				Me.theBorderColor = theme.EnabledBorderColor
-			Else
-				Me.theBorderColor = theme.DisabledBorderColor
-			End If
-		Else
-			Me.ComboTextBox.BackColor = SystemColors.Control
-		End If
+	'	Dim theme As ComboUserControlTheme = Nothing
+	'	' This check prevents problems with viewing and saving Forms in VS Designer.
+	'	If TheApp IsNot Nothing Then
+	'		theme = TheApp.Settings.SelectedAppTheme.ComboUserControlTheme
+	'	End If
+	'	If theme IsNot Nothing Then
+	'		If Me.Enabled Then
+	'			Me.theBorderColor = theme.EnabledBorderColor
+	'		Else
+	'			Me.theBorderColor = theme.DisabledBorderColor
+	'		End If
+	'	Else
+	'		Me.ComboTextBox.BackColor = SystemColors.Control
+	'	End If
 
-		'Dim g As Graphics = e.Graphics
-		'Dim clientRectangle As Rectangle = Me.ClientRectangle
-		'' Draw border.
-		'If Me.theBorderStyle = BorderStyle.FixedSingle Then
-		'	'Using borderColorPen As New Pen(WidgetDisabledTextColor)
-		'	Using borderColorPen As New Pen(Me.theBorderColor)
-		'		'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
-		'		g.DrawRectangle(borderColorPen, clientRectangle.Left, clientRectangle.Top, clientRectangle.Width - 1, clientRectangle.Height - 1)
-		'	End Using
-		'End If
-	End Sub
+	'	'Dim g As Graphics = e.Graphics
+	'	'Dim clientRectangle As Rectangle = Me.ClientRectangle
+	'	'' Draw border.
+	'	'If Me.theBorderStyle = BorderStyle.FixedSingle Then
+	'	'	'Using borderColorPen As New Pen(WidgetDisabledTextColor)
+	'	'	Using borderColorPen As New Pen(Me.theBorderColor)
+	'	'		'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+	'	'		g.DrawRectangle(borderColorPen, clientRectangle.Left, clientRectangle.Top, clientRectangle.Width - 1, clientRectangle.Height - 1)
+	'	'	End Using
+	'	'End If
+	'End Sub
 
 	'Protected Overrides Sub OnPaintBackground(e As PaintEventArgs)
 	'	'NOTE: Completely override painting by OS.
@@ -475,6 +475,14 @@ Public Class ComboUserControl
 			Finally
 				Win32Api.ReleaseDC(Me.Handle, hDC)
 			End Try
+
+			If Not Me.TextHistoryIsKept Then
+				Me.TextHistoryDropDownButton.ForeColor = theme.ReadOnlyForeColor
+				Me.TextHistoryDropDownButton.BackColor = theme.ReadOnlyBackColor
+				Me.ComboTextBox.ForeColor = theme.ReadOnlyForeColor
+				Me.ComboTextBox.BackColor = theme.ReadOnlyBackColor
+			End If
+
 			m.Result = IntPtr.Zero
 		Else
 			Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
