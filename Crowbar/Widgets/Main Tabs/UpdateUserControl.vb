@@ -16,11 +16,29 @@ Public Class UpdateUserControl
 		Me.theUpdater = New Updater()
 	End Sub
 
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
+
 #End Region
 
 #Region "Init and Free"
 
 	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		Me.DownloadFolderTextBox.DataBindings.Add("Text", TheApp.Settings, "UpdateDownloadPath", False, DataSourceUpdateMode.OnValidation)
 
 		Me.UpdateToNewPathCheckBox.DataBindings.Add("Checked", TheApp.Settings, "UpdateUpdateToNewPathIsChecked", False, DataSourceUpdateMode.OnPropertyChanged)
@@ -34,6 +52,11 @@ Public Class UpdateUserControl
 	End Sub
 
 	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler Me.DownloadFolderTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 		RemoveHandler Me.UpdateFolderTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 
@@ -76,9 +99,10 @@ Public Class UpdateUserControl
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.UpdateFolderTextBox, Me.BrowseForUpdateFolderButton)
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.UpdateProgressBarEx, Me.CancelUpdateButton)
 
-		If Not Me.DesignMode Then
-			Me.Init()
-		End If
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
 	End Sub
 
 #End Region

@@ -6,32 +6,16 @@ Public Class TabControlEx
 	Public Sub New()
 		MyBase.New()
 
-		' This should allow this widget to use the system font instead of Visual Studio's default of Microsoft Sans Serif.
+		' Use the system font instead of Visual Studio's default of Microsoft Sans Serif.
 		Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 8.25)
-		'Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 6)
-		'Me.Padding = New Point(0, Padding.Y)
 
 		''NOTE: To workaround a bug with TabControl.TabPages.Insert() not inserting, force the handle to be created.
 		'Dim h As IntPtr = Me.Handle
-
-		''Me.theBackColor = WidgetBackColor
-		'Me.theTabBackColor1 = WidgetHighBackColor
-		'Me.theTabBackColor2 = WidgetHighBackColor
-		'Me.theSelectedTabBackColor = Windows10GlobalAccentColor
-		'Me.theTabPageForeColor = WidgetTextColor
-		'Me.theTabPageBackColor = WidgetBackColor
-		''Me.theTabBackColor1 = Color.Transparent
-		''Me.theTabBackColor2 = Color.Transparent
-		''Me.theSelectedTabBackColor = Windows10GlobalAccentColor
-		''Me.theTabPageForeColor = SystemColors.ControlText
-		''Me.theTabPageBackColor = Color.Transparent
 
 		Me.ShowToolTips = True
 		Me.HotTrack = True
 		Me.theCursorIsOverTabs = False
 
-		'Me.DrawMode = TabDrawMode.OwnerDrawFixed
-		'Me.SetStyle(ControlStyles.UserPaint, True)
 		Me.UpdateTheme()
 	End Sub
 
@@ -40,11 +24,17 @@ Public Class TabControlEx
 #Region "Init and Free"
 
 	Private Sub Init()
-		AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
 	End Sub
 
 	Private Sub Free()
-		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
 	End Sub
 
 #End Region
@@ -142,10 +132,6 @@ Public Class TabControlEx
 	'	'		page.BackColor = Me.theTabPageBackColor
 	'	'	End If
 	'	'	MyBase.OnControlAdded(e)
-	'	'End Sub
-
-	'	'Private Sub TabControlEx_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
-	'	'	Dim i As Integer = 0
 	'	'End Sub
 
 	'	'Private Sub TabControlEx_ParentChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ParentChanged
@@ -321,7 +307,10 @@ Public Class TabControlEx
 
 	Protected Overrides Sub OnHandleCreated(ByVal e As System.EventArgs)
 		MyBase.OnHandleCreated(e)
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
 		Me.Init()
+		'End If
 
 		If Me.Multiline = False Then
 			Scroller.Font = New Font("Marlett", Me.Font.Size, FontStyle.Regular, GraphicsUnit.Pixel, Me.Font.GdiCharSet)
@@ -890,21 +879,10 @@ Public Class TabControlEx
 			theme = TheApp.Settings.SelectedAppTheme.TabControlTheme
 		End If
 		If theme IsNot Nothing Then
-			Me.OnFontChanged(EventArgs.Empty)
-			' The Padding is around the tab text.
-			'Me.theDefaultPadding = Me.Padding
-			'Me.Padding = New Point(8, Me.theDefaultPadding.Y)
-			'Me.Font = Me.Parent.Font
-			'Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-			'Me.SetStyle(ControlStyles.DoubleBuffer, True)
 			Me.SetStyle(ControlStyles.UserPaint, True)
 		Else
-			'Me.Padding = Me.theDefaultPadding
-			'Me.SetStyle(ControlStyles.AllPaintingInWmPaint, False)
-			'Me.SetStyle(ControlStyles.DoubleBuffer, False)
 			Me.SetStyle(ControlStyles.UserPaint, False)
 		End If
-		'Me.OnFontChanged(EventArgs.Empty)
 	End Sub
 
 #End Region

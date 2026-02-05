@@ -11,11 +11,29 @@ Public Class SetUpGamesUserControl
 		InitializeComponent()
 	End Sub
 
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
+
 #End Region
 
 #Region "Init and Free"
 
 	Protected Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		'NOTE: For ComboUserControl, must assign DataSource before ValueMember.
 		Me.GameSetupComboUserControl.DataSource = TheApp.Settings.GameSetups
 		Me.GameSetupComboUserControl.ValueMember = "GameName"
@@ -87,6 +105,11 @@ Public Class SetUpGamesUserControl
 	End Sub
 
 	Protected Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 		RemoveHandler TheApp.Settings.GameSetups.ListChanged, AddressOf Me.GameSetups_ListChanged
 		RemoveHandler Me.GameSetupComboUserControl.SelectedIndexChanged, AddressOf Me.GameSetupComboUserControl_SelectedIndexChanged
@@ -116,9 +139,10 @@ Public Class SetUpGamesUserControl
 #Region "Widget Event Handlers"
 
 	Private Sub SetUpGamesUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
-		If Not Me.DesignMode Then
-			Me.Init()
-		End If
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
 	End Sub
 
 #End Region

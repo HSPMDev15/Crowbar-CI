@@ -9,14 +9,32 @@ Public Class OptionsUserControl
 
 	End Sub
 
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
+
 #End Region
 
 #Region "Init and Free"
 
-	Public Sub Init()
+	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		Me.SingleInstanceCheckBox.DataBindings.Add("Checked", TheApp.Settings, "AppIsSingleInstance", False, DataSourceUpdateMode.OnPropertyChanged)
 
-		Me.InitThemePathComboBox()
+		Me.InitThemeComboBox()
 
 		' Auto-Open
 
@@ -96,7 +114,12 @@ Public Class OptionsUserControl
 		Me.DragAndDropFolderForPackRadioButton.Checked = (TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Pack)
 	End Sub
 
-	Public Sub Free()
+	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 
 		Me.SingleInstanceCheckBox.DataBindings.Clear()
@@ -137,7 +160,7 @@ Public Class OptionsUserControl
 		Me.OptionsContextMenuCompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
 	End Sub
 
-	Private Sub InitThemePathComboBox()
+	Private Sub InitThemeComboBox()
 		Me.ThemeComboUserControl.DataBindings.Clear()
 		Try
 			'NOTE: Prevent changing this combobox's SelectedIndex when another combobox's (which also accesses "SelectedIndex" and TheApp.Settings) SelectedIndex changes.
@@ -167,18 +190,24 @@ Public Class OptionsUserControl
 
 #Region "Widget Event Handlers"
 
-	'Private Sub OptionsUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
-	'	'NOTE: DesignMode is valid here.
-	'	If Not Me.DesignMode Then
-	'		Me.Init()
-	'	End If
+	Private Sub OptionsUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
+	End Sub
+
+	'Protected Overrides Sub OnHandleCreated(e As EventArgs)
+	'	MyBase.OnHandleCreated(e)
+	'	' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+	'	'If Not Me.DesignMode Then
+	'	Me.Init()
+	'	'End If
 	'End Sub
 
-	'Private Sub OptionsUserControl_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
-	'	'NOTE: DesignMode is invalid here.
-	'	'If Not Me.DesignMode Then
+	'Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
 	'	Me.Free()
-	'	'End If
+	'	MyBase.OnHandleDestroyed(e)
 	'End Sub
 
 #End Region
@@ -286,6 +315,9 @@ Public Class OptionsUserControl
 	Private Sub AppSettings_PropertyChanged(ByVal sender As System.Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
 		If e.PropertyName = "AppIsSingleInstance" Then
 			TheApp.SaveAppSettings()
+		ElseIf e.PropertyName = "AppThemeName" Then
+			Me.UpdateTheme()
+			Me.Refresh()
 		ElseIf e.PropertyName = "OptionsAutoOpenVpkFileIsChecked" Then
 			Me.ApplyAutoOpenVpkFileOptions()
 		ElseIf e.PropertyName = "OptionsAutoOpenGmaFileIsChecked" Then
@@ -302,6 +334,20 @@ Public Class OptionsUserControl
 #End Region
 
 #Region "Private Methods"
+
+	Private Sub UpdateTheme()
+		Dim theme As PanelTheme = Nothing
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.ForeColor = theme.EnabledForeColor
+			Me.BackColor = theme.EnabledBackColor
+		Else
+			Me.ForeColor = Control.DefaultForeColor
+			Me.BackColor = Control.DefaultBackColor
+		End If
+	End Sub
 
 	Private Sub ApplyAutoOpenVpkFileOptions()
 		If TheApp.Settings.OptionsAutoOpenVpkFileIsChecked Then

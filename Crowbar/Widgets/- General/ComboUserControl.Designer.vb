@@ -43,8 +43,6 @@ Partial Class ComboUserControl
 		'
 		'ComboTextBox
 		'
-		Me.ComboTextBox.BorderColor = System.Drawing.Color.Empty
-		Me.ComboTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ComboTextBox.CueBannerText = ""
 		Me.ComboTextBox.DetectUrls = False
 		Me.ComboTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -91,8 +89,6 @@ Partial Class ComboUserControl
 		Me.DropDownPanel.Controls.Add(Me.VScrollBar1)
 		Me.DropDownPanel.Location = New System.Drawing.Point(0, 22)
 		Me.DropDownPanel.Name = "DropDownPanel"
-		Me.DropDownPanel.SelectedIndex = -1
-		Me.DropDownPanel.SelectedValue = Nothing
 		Me.DropDownPanel.Size = New System.Drawing.Size(142, 76)
 		Me.DropDownPanel.TabIndex = 7
 		'

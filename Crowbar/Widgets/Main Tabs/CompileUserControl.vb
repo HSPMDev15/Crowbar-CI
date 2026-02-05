@@ -13,11 +13,29 @@ Public Class CompileUserControl
 		InitializeComponent()
 	End Sub
 
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
+
 #End Region
 
 #Region "Init and Free"
 
 	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		Me.QcPathFileNameTextBox.DataBindings.Add("Text", TheApp.Settings, "CompileQcPathFileName", False, DataSourceUpdateMode.OnValidation)
 
 		Me.OutputPathTextBox.DataBindings.Add("Text", TheApp.Settings, "CompileOutputFullPath", False, DataSourceUpdateMode.OnValidation)
@@ -51,6 +69,7 @@ Public Class CompileUserControl
 		AddHandler Me.QcPathFileNameTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 		AddHandler Me.OutputPathComboUserControl.SelectedValueChanged, AddressOf Me.OutputPathComboUserControl_SelectedValueChanged
 		AddHandler Me.OutputPathTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
+		AddHandler Me.DirectCompilerOptionsTextBox.TextChanged, AddressOf Me.DirectCompilerOptionsTextBox_TextChanged
 	End Sub
 
 	Private Sub InitOutputPathComboBox()
@@ -91,10 +110,16 @@ Public Class CompileUserControl
 	End Sub
 
 	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler Me.CompileComboUserControl.SelectedValueChanged, AddressOf Me.CompileComboUserControl_SelectedValueChanged
 		RemoveHandler Me.QcPathFileNameTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 		RemoveHandler Me.OutputPathComboUserControl.SelectedValueChanged, AddressOf Me.OutputPathComboUserControl_SelectedValueChanged
 		RemoveHandler Me.OutputPathTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
+		RemoveHandler Me.DirectCompilerOptionsTextBox.TextChanged, AddressOf Me.DirectCompilerOptionsTextBox_TextChanged
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 		RemoveHandler TheApp.Compiler.ProgressChanged, AddressOf Me.CompilerBackgroundWorker_ProgressChanged
 		RemoveHandler TheApp.Compiler.RunWorkerCompleted, AddressOf Me.CompilerBackgroundWorker_RunWorkerCompleted
@@ -162,9 +187,10 @@ Public Class CompileUserControl
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.CompilerOptionsTextBox, Me.CompilerOptionsTextBox.Parent, True)
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.CompilerOptionsTextBoxMinScrollPanel, Me.CompilerOptionsTextBoxMinScrollPanel.Parent, True)
 
-		If Not Me.DesignMode Then
-			Me.Init()
-		End If
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
 	End Sub
 
 #End Region
@@ -365,7 +391,7 @@ Public Class CompileUserControl
 		TheApp.Settings.SetDefaultCompileOptions()
 	End Sub
 
-	Private Sub DirectCompilerOptionsTextBox_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DirectCompilerOptionsTextBox.TextChanged
+	Private Sub DirectCompilerOptionsTextBox_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 		Me.SetCompilerOptionsText()
 	End Sub
 

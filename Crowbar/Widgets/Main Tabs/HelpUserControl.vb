@@ -11,20 +11,41 @@ Public Class HelpUserControl
 
     End Sub
 
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing Then
+                Me.Free()
+                If components IsNot Nothing Then
+                    components.Dispose()
+                End If
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Init and Free"
 
     Private Sub Init()
+        ' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+        If TheApp Is Nothing Then
+            Exit Sub
+        End If
+
         Me.TutorialLinkLabel.Links.Add(0, Me.TutorialLinkLabel.Text.Length(), AppConstants.HelpTutorialLink)
         Me.ContentsLinkLabel.Links.Add(0, Me.ContentsLinkLabel.Text.Length(), AppConstants.HelpContentsLink)
         Me.IndexLinkLabel.Links.Add(0, Me.IndexLinkLabel.Text.Length(), AppConstants.HelpIndexLink)
         Me.TipsLinkLabel.Links.Add(0, Me.TipsLinkLabel.Text.Length(), AppConstants.HelpTipsLink)
     End Sub
 
-	'Private Sub Free()
-
-	'End Sub
+    Private Sub Free()
+        ' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+        If TheApp Is Nothing Then
+            Exit Sub
+        End If
+    End Sub
 
 #End Region
 
@@ -34,17 +55,18 @@ Public Class HelpUserControl
 
 #Region "Widget Event Handlers"
 
-	Private Sub HelpUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
-		If Not Me.DesignMode Then
-			Me.Init()
-		End If
-	End Sub
+    Private Sub HelpUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+        'If Not Me.DesignMode Then
+        Me.Init()
+        'End If
+    End Sub
 
 #End Region
 
 #Region "Child Widget Event Handlers"
 
-	Private Sub CrowbarGuideButton_Click(sender As Object, e As EventArgs) Handles CrowbarGuideButton.Click
+    Private Sub CrowbarGuideButton_Click(sender As Object, e As EventArgs) Handles CrowbarGuideButton.Click
 		System.Diagnostics.Process.Start(My.Resources.Help_CrowbarGuideLink)
 	End Sub
 

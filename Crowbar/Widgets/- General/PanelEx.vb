@@ -32,9 +32,6 @@ Public Class PanelEx
         'MyBase.AutoScroll = True
         'Me.theAutoScroll = True
 
-        Me.theNonClientPaddingColor = WidgetDeepBackColor
-        'TEST:
-        'Me.theNonClientPaddingColor = Color.Pink
         Me.theScrollingIsActive = False
         Me.theCustomHorizontalScrollbarRatio = 1
         Me.theCustomVerticalScrollbarRatio = 1
@@ -68,13 +65,25 @@ Public Class PanelEx
         Me.theControlHasShown = False
 
         Me.theSelectedIndex = -1
-        'Me.ForeColor = WidgetTextColor
-        'Me.BackColor = WidgetBackColor
     End Sub
 
 #End Region
 
 #Region "Init and Free"
+
+    Private Sub Init()
+        ' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+        If TheApp IsNot Nothing Then
+            AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+        End If
+    End Sub
+
+    Private Sub Free()
+        ' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+        If TheApp IsNot Nothing Then
+            RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+        End If
+    End Sub
 
 #End Region
 
@@ -116,6 +125,7 @@ Public Class PanelEx
         End Get
     End Property
 
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Public Property SelectedIndex() As Integer
         Get
             Return Me.theSelectedIndex
@@ -133,6 +143,7 @@ Public Class PanelEx
         End Set
     End Property
 
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Public Property SelectedValue() As System.Enum
         Get
             Return Me.theSelectedValue
@@ -196,6 +207,19 @@ Public Class PanelEx
         MyBase.OnControlRemoved(e)
     End Sub
 
+    Protected Overrides Sub OnHandleCreated(ByVal e As System.EventArgs)
+        MyBase.OnHandleCreated(e)
+        ' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+        'If Not Me.DesignMode Then
+        Me.Init()
+        'End If
+    End Sub
+
+    Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+        Me.Free()
+        MyBase.OnHandleDestroyed(e)
+    End Sub
+
     Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
         MyBase.OnMouseWheel(e)
 
@@ -211,21 +235,22 @@ Public Class PanelEx
         End If
     End Sub
 
-    Protected Overrides Sub OnPaint(e As PaintEventArgs)
-        Dim theme As PanelTheme = Nothing
-        ' This check prevents problems with viewing and saving Forms in VS Designer.
-        If TheApp IsNot Nothing Then
-            theme = TheApp.Settings.SelectedAppTheme.PanelTheme
-        End If
-        If theme IsNot Nothing Then
-            Me.ForeColor = WidgetTextColor
-            Me.BackColor = WidgetBackColor
-        End If
+    '' Works without needing to call SetStyle.
+    'Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    '    Dim theme As PanelTheme = Nothing
+    '    ' This check prevents problems with viewing and saving Forms in VS Designer.
+    '    If TheApp IsNot Nothing Then
+    '        theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+    '    End If
+    '    If theme IsNot Nothing Then
+    '        Me.ForeColor = WidgetTextColor
+    '        Me.BackColor = WidgetBackColor
+    '    End If
 
-        'e.Graphics.TranslateTransform(-Me.CustomHorizontalScrollbar.Value, -Me.CustomVerticalScrollBar.Value)
+    '    'e.Graphics.TranslateTransform(-Me.CustomHorizontalScrollbar.Value, -Me.CustomVerticalScrollBar.Value)
 
-        MyBase.OnPaint(e)
-    End Sub
+    '    MyBase.OnPaint(e)
+    'End Sub
 
     'Protected Overrides Sub OnScroll(e As ScrollEventArgs)
     '	MyBase.OnScroll(e)
@@ -266,8 +291,6 @@ Public Class PanelEx
                 Win32Api.SetWindowPos(Me.Handle, IntPtr.Zero, 0, 0, 0, 0, Win32Api.SWP.SWP_FRAMECHANGED Or Win32Api.SWP.SWP_NOMOVE Or Win32Api.SWP.SWP_NOSIZE Or Win32Api.SWP.SWP_NOZORDER)
             End If
 
-            ''NOTE: Raise the OnNonClientCalcSize and OnNonClientPaint "events".
-            'Win32Api.SetWindowPos(Me.Handle, IntPtr.Zero, 0, 0, 0, 0, Win32Api.SWP.SWP_FRAMECHANGED Or Win32Api.SWP.SWP_NOMOVE Or Win32Api.SWP.SWP_NOSIZE Or Win32Api.SWP.SWP_NOZORDER)
             Me.Invalidate()
             Me.UpdateScrollbars()
         End If
@@ -448,7 +471,34 @@ Public Class PanelEx
 
 #End Region
 
+#Region "Core Event Handlers"
+
+    Private Sub AppSettings_PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
+        If e.PropertyName = "AppThemeName" Then
+            Me.UpdateTheme()
+            Me.Refresh()
+        End If
+    End Sub
+
+#End Region
+
 #Region "Private Methods"
+
+    Private Sub UpdateTheme()
+        Dim theme As PanelTheme = Nothing
+        If TheApp IsNot Nothing Then
+            theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+        End If
+        If theme IsNot Nothing Then
+            'Me.theNonClientPaddingColor = Color.Pink
+            Me.theNonClientPaddingColor = WidgetDeepBackColor
+            Me.ForeColor = theme.EnabledForeColor
+            Me.BackColor = theme.EnabledBackColor
+        Else
+            Me.ForeColor = Control.DefaultForeColor
+            Me.BackColor = Control.DefaultBackColor
+        End If
+    End Sub
 
     Private Sub UpdateNonClientPadding()
         If Me.DesignMode Then

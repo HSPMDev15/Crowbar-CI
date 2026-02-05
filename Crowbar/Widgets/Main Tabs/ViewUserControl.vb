@@ -10,12 +10,10 @@ Public Class ViewUserControl
 		InitializeComponent()
 	End Sub
 
-	'UserControl overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()>
 	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
 		Try
 			If disposing Then
-				'Me.Free()
+				Me.Free()
 				If components IsNot Nothing Then
 					components.Dispose()
 				End If
@@ -29,7 +27,12 @@ Public Class ViewUserControl
 
 #Region "Init and Free"
 
-	Public Sub Init()
+	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		Me.theModelViewers = New List(Of Viewer)()
 
 		Me.UpdateDataBindings()
@@ -40,7 +43,12 @@ Public Class ViewUserControl
 		AddHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 	End Sub
 
-	Public Sub Free()
+	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler Me.OverrideMdlVersionComboUserControl.SelectedValueChanged, AddressOf Me.OverrideMdlVersionComboUserControl_SelectedValueChanged
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 
@@ -104,8 +112,9 @@ Public Class ViewUserControl
 		'NOTE: This code prevents Visual Studio or Windows often inexplicably extending the right side of these widgets.
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.MdlPathFileNameTextBox, Me.RefreshButton)
 
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
 		'If Not Me.DesignMode Then
-		'	Me.Init()
+		Me.Init()
 		'End If
 	End Sub
 

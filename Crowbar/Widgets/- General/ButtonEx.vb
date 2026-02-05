@@ -16,7 +16,7 @@ Public Class ButtonEx
 
 #Region "Init and Free"
 
-	'Public Sub Init()
+	'Private Sub Init()
 	'End Sub
 
 	'Private Sub Free()

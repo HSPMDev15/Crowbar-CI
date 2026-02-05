@@ -5,15 +5,6 @@ Partial Class OptionsUserControl
 	'Required by the Windows Form Designer
 	Private components As System.ComponentModel.IContainer
 
-	'Form overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> _
-	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-		If disposing AndAlso components IsNot Nothing Then
-			components.Dispose()
-		End If
-		MyBase.Dispose(disposing)
-	End Sub
-
 	'NOTE: The following procedure is required by the Windows Form Designer
 	'It can be modified using the Windows Form Designer.  
 	'Do not modify it using the code editor.
@@ -998,24 +989,16 @@ Partial Class OptionsUserControl
 		'
 		'ThemeComboUserControl
 		'
-		Me.ThemeComboUserControl.BorderColor = System.Drawing.Color.Empty
-		Me.ThemeComboUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.ThemeComboUserControl.DataSource = Nothing
-		Me.ThemeComboUserControl.DisplayMember = ""
-		Me.ThemeComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.ThemeComboUserControl.IsReadOnly = False
 		Me.ThemeComboUserControl.Location = New System.Drawing.Point(467, 3)
 		Me.ThemeComboUserControl.MaxDropDownItems = 30
 		Me.ThemeComboUserControl.MultipleInputsIsAllowed = True
 		Me.ThemeComboUserControl.Name = "ThemeComboUserControl"
-		Me.ThemeComboUserControl.SelectedIndex = -1
-		Me.ThemeComboUserControl.SelectedValue = ""
 		Me.ThemeComboUserControl.Size = New System.Drawing.Size(257, 22)
 		Me.ThemeComboUserControl.TabIndex = 6
 		Me.ThemeComboUserControl.TextHistoryIsKept = False
 		Me.ThemeComboUserControl.TextHistoryMaxSize = 15
 		Me.ThemeComboUserControl.TextIsPathFileNames = False
-		Me.ThemeComboUserControl.ValueMember = ""
 		'
 		'ThemeLabel
 		'

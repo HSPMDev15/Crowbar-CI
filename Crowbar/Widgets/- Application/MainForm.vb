@@ -9,10 +9,6 @@ Public Class MainForm
     Public Sub New()
         MyBase.New()
 
-        WidgetConstants.Windows10GlobalAccentColor = Win32Api.GetWindowColorizationColor(True)
-        Dim temp As Color = SystemColors.Highlight
-        Dim debug As Integer = 4242
-
         ''DEBUG: Be sure to comment this out before release.
         '' Set the culture and UI culture before 
         '' the call to InitializeComponent.
@@ -22,21 +18,7 @@ Public Class MainForm
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
-        'Me.InitWidgets(Me)
         'Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-
-        'Me.BackColor = WidgetBackColor
-        'Me.UpdateChildControls(Me)
-        'Dim theme As PanelTheme = Nothing
-        '' This check prevents problems with viewing and saving Forms in VS Designer.
-        'If TheApp IsNot Nothing Then
-        '    theme = TheApp.Settings.SelectedAppTheme.PanelTheme
-        'End If
-        'If theme IsNot Nothing Then
-        '    Me.BackColor = theme.EnabledBackColor
-        'End If
-
     End Sub
 
 #End Region
@@ -108,14 +90,6 @@ Public Class MainForm
         Dim commandLineValues As New ReadOnlyCollection(Of String)(System.Environment.GetCommandLineArgs())
         Me.Startup(commandLineValues)
 
-        Me.PreviewViewUserControl.Init()
-        Me.ViewViewUserControl.Init()
-        Me.PublishUserControl1.Init()
-        Me.OptionsUserControl1.Init()
-
-        'Me.PreviewViewUserControl.RunDataViewer()
-        'Me.ViewViewUserControl.RunDataViewer()
-
         AddHandler SystemEvents.UserPreferenceChanged, AddressOf OnUserPreferenceChanged
         AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 
@@ -168,11 +142,6 @@ Public Class MainForm
         RemoveHandler SystemEvents.UserPreferenceChanged, AddressOf OnUserPreferenceChanged
         RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 
-        Me.PreviewViewUserControl.Free()
-        Me.ViewViewUserControl.Free()
-        Me.PublishUserControl1.Free()
-        Me.OptionsUserControl1.Free()
-
         If Me.WindowState = FormWindowState.Normal Then
             TheApp.Settings.WindowLocation = Me.Location
             TheApp.Settings.WindowSize = Me.Size
@@ -217,9 +186,8 @@ Public Class MainForm
             Me.Init()
         End If
 
-        'TEST [UNHANDLED EXCEPTION] Use these lines to raise an exception and show the unhandled exception window.
-        'Dim documentsPath As String
-        'documentsPath = Path.Combine("debug", "<")
+        'TEST [UNHANDLED EXCEPTION] Use this line to raise an exception and show the unhandled exception window.
+        'Dim documentsPath As String = Path.Combine("debug", "<")
     End Sub
 
     Private Sub MainForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed

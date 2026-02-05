@@ -67,12 +67,10 @@ Public Class PublishUserControl
 		'Me.ItemIDTextBox.ContextMenuStrip = Me.ItemIdTextBoxContextMenuStrip
 	End Sub
 
-	'UserControl overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()>
 	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
 		Try
 			If disposing Then
-				'Me.Free()
+				Me.Free()
 				If components IsNot Nothing Then
 					components.Dispose()
 				End If
@@ -86,7 +84,12 @@ Public Class PublishUserControl
 
 #Region "Init and Free"
 
-	Public Sub Init()
+	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		TheApp.InitAppInfo()
 
 		If TheApp.Settings.PublishGameSelectedIndex >= TheApp.SteamAppInfos.Count Then
@@ -115,7 +118,12 @@ Public Class PublishUserControl
 	End Sub
 
 	'NOTE: This is called after all child widgets (created via designer) are disposed but before this UserControl is disposed.
-	Public Sub Free()
+	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		If Me.theBackgroundSteamPipe IsNot Nothing Then
 			Me.theBackgroundSteamPipe.Kill()
 		End If
@@ -326,8 +334,9 @@ Public Class PublishUserControl
 		'NOTE: This code prevents Visual Studio or Windows often inexplicably extending the right side of these widgets.
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.AppIdComboBox, Me.RefreshGameItemsButton)
 
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
 		'If Not Me.DesignMode Then
-		'	Me.Init()
+		Me.Init()
 		'End If
 	End Sub
 

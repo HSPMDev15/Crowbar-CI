@@ -50,11 +50,37 @@ Public Class ComboUserControl
 
 #Region "Init and Free"
 
-	'Protected Sub Init()
-	'End Sub
+	Protected Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
 
-	'Protected Sub Free()
-	'End Sub
+		'If Me.theOriginalFont Is Nothing Then
+		'    Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 8.25)
+		'    'NOTE: Font gets changed at some point after changing style, messing up when cue banner is turned off, 
+		'    '      so save the Font before changing style.
+		'    Me.theOriginalFont = New System.Drawing.Font(Me.Font.FontFamily, Me.Font.Size, Me.Font.Style, Me.Font.Unit)
+
+		'    SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+		'    SetStyle(ControlStyles.DoubleBuffer, True)
+		'    SetStyle(ControlStyles.UserPaint, True)
+		'End If
+
+		Me.InitMultipleInputsPopop()
+		Me.InitTextHistoryPopop()
+
+		AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+	End Sub
+
+	Protected Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
+		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+	End Sub
 
 #End Region
 
@@ -62,6 +88,7 @@ Public Class ComboUserControl
 
 	<Browsable(True)>
 	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Overloads Property BorderColor As Color
 		Get
 			Return Me.theBorderColor
@@ -74,6 +101,7 @@ Public Class ComboUserControl
 	<Browsable(True)>
 	<Category("Appearance")>
 	<Description("Colorable BorderStyle.")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Overloads Property BorderStyle As BorderStyle
 		Get
 			Return Me.theBorderStyle
@@ -84,6 +112,7 @@ Public Class ComboUserControl
 	End Property
 
 	<Browsable(False)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property DataSource() As Object
 		Get
 			Return Me.TextHistoryDataGridView.DataSource
@@ -94,11 +123,12 @@ Public Class ComboUserControl
 	End Property
 
 	<Browsable(False)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property ValueMember() As String
 		Get
 			' This check prevents problems with viewing and saving Forms in VS Designer.
 			Dim columnName As String = ""
-			If Me.TextHistoryDataGridView.Columns.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.Columns.Count > 0 Then
 				columnName = Me.TextHistoryDataGridView.Columns(0).Name
 			End If
 			Return columnName
@@ -116,18 +146,19 @@ Public Class ComboUserControl
 	End Property
 
 	<Browsable(False)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property DisplayMember() As String
 		Get
 			' This check prevents problems with viewing and saving Forms in VS Designer.
 			Dim columnName As String = ""
-			If Me.TextHistoryDataGridView.Columns.Count > 1 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.Columns.Count > 1 Then
 				columnName = Me.TextHistoryDataGridView.Columns(1).Name
 			End If
 			Return columnName
 		End Get
 		Set
 			Dim columnName As String = ""
-			If Me.TextHistoryDataGridView.Columns.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.Columns.Count > 0 Then
 				Dim column As DataGridViewColumn = New DataGridViewTextBoxColumn()
 				column.DataPropertyName = Value
 				column.Name = Value
@@ -148,17 +179,18 @@ Public Class ComboUserControl
 	'End Property
 
 	<Browsable(False)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property SelectedIndex() As Integer
 		Get
 			' This check prevents problems with viewing and saving Forms in VS Designer.
 			Dim rowIndex As Integer = -1
-			If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
 				rowIndex = Me.TextHistoryDataGridView.SelectedRows(0).Index
 			End If
 			Return rowIndex
 		End Get
 		Set
-			If Me.TextHistoryDataGridView.Rows.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.Rows.Count > 0 Then
 				Dim row As DataGridViewRow = Me.TextHistoryDataGridView.Rows(Value)
 				If Not row.Selected Then
 					If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
@@ -172,11 +204,12 @@ Public Class ComboUserControl
 	End Property
 
 	<Browsable(False)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property SelectedValue() As Object
 		Get
 			' This check prevents problems with viewing and saving Forms in VS Designer.
 			Dim aSelectedValue As Object = ""
-			If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
 				'If Me.TextHistoryDataGridView.Columns.Count > 1 Then
 				'	aSelectedValue = Me.TextHistoryDataGridView.SelectedRows(0).Cells(1).Value
 				'Else
@@ -192,7 +225,7 @@ Public Class ComboUserControl
 			' I am seeing this with a call to Property.Set, so probably related.
 			' Thus, it is important to only set property if a new value is given, 
 			' to prevent unwanted updates that can lead to stack overflow.
-			If Me.TextHistoryDataGridView.Rows.Count > 0 Then
+			If Me.TextHistoryDataGridView.DataSource IsNot Nothing AndAlso Me.TextHistoryDataGridView.Rows.Count > 0 Then
 				For Each row As DataGridViewRow In Me.TextHistoryDataGridView.Rows
 					If Value.ToString() = row.Cells(0).Value.ToString() Then
 						If Not row.Selected Then
@@ -353,20 +386,15 @@ Public Class ComboUserControl
 
 	Protected Overrides Sub OnHandleCreated(e As EventArgs)
 		MyBase.OnHandleCreated(e)
-
-		'If Me.theOriginalFont Is Nothing Then
-		'    Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 8.25)
-		'    'NOTE: Font gets changed at some point after changing style, messing up when cue banner is turned off, 
-		'    '      so save the Font before changing style.
-		'    Me.theOriginalFont = New System.Drawing.Font(Me.Font.FontFamily, Me.Font.Size, Me.Font.Style, Me.Font.Unit)
-
-		'    SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-		'    SetStyle(ControlStyles.DoubleBuffer, True)
-		'    SetStyle(ControlStyles.UserPaint, True)
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
 		'End If
+	End Sub
 
-		Me.InitMultipleInputsPopop()
-		Me.InitTextHistoryPopop()
+	Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+		Me.Free()
+		MyBase.OnHandleDestroyed(e)
 	End Sub
 
 	'Protected Overrides Sub OnPaint(e As PaintEventArgs)
@@ -696,9 +724,30 @@ Public Class ComboUserControl
 
 #Region "Core Event Handlers"
 
+	Private Sub AppSettings_PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
+		If e.PropertyName = "AppThemeName" Then
+			Me.UpdateTheme()
+			Me.Refresh()
+		End If
+	End Sub
+
 #End Region
 
 #Region "Private Methods"
+
+	Private Sub UpdateTheme()
+		Dim theme As ComboUserControlTheme = Nothing
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.ComboUserControlTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.ForeColor = theme.EnabledForeColor
+			Me.BackColor = theme.EnabledBackColor
+		Else
+			Me.ForeColor = Control.DefaultForeColor
+			Me.BackColor = Control.DefaultBackColor
+		End If
+	End Sub
 
 	Private Sub UpdateNonClientPadding()
 		If Me.theBorderStyle = BorderStyle.FixedSingle Then

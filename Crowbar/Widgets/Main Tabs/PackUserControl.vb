@@ -13,11 +13,29 @@ Public Class PackUserControl
 		Me.theGmaGarrysModTagsUserControlIsBeingChangedByMe = False
 	End Sub
 
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
+
 #End Region
 
 #Region "Init and Free"
 
 	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		Me.InputComboUserControl.DataSource = EnumHelper.ToList(GetType(PackInputOptions))
 		Me.InputComboUserControl.ValueMember = "Key"
 		Me.InputComboUserControl.DisplayMember = "Value"
@@ -55,6 +73,7 @@ Public Class PackUserControl
 		AddHandler Me.InputPathFileNameTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePath
 		AddHandler Me.OutputPathComboUserControl.SelectedValueChanged, AddressOf Me.OutputPathComboUserControl_SelectedValueChanged
 		AddHandler Me.OutputPathTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
+		AddHandler Me.DirectPackOptionsTextBox.TextChanged, AddressOf Me.DirectPackerOptionsTextBox_TextChanged
 	End Sub
 
 	Private Sub InitOutputPathComboBox()
@@ -92,8 +111,14 @@ Public Class PackUserControl
 	End Sub
 
 	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
 		RemoveHandler Me.InputPathFileNameTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePath
 		RemoveHandler Me.OutputPathTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
+		RemoveHandler Me.DirectPackOptionsTextBox.TextChanged, AddressOf Me.DirectPackerOptionsTextBox_TextChanged
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 		RemoveHandler TheApp.Packer.ProgressChanged, AddressOf Me.PackerBackgroundWorker_ProgressChanged
 		RemoveHandler TheApp.Packer.RunWorkerCompleted, AddressOf Me.PackerBackgroundWorker_RunWorkerCompleted
@@ -151,9 +176,10 @@ Public Class PackUserControl
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.PackOptionsTextBox, Me.PackOptionsTextBox.Parent, True)
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.PackOptionsTextBoxMinScrollPanel, Me.PackOptionsTextBoxMinScrollPanel.Parent, True)
 
-		If Not Me.DesignMode Then
-			Me.Init()
-		End If
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
 	End Sub
 
 #End Region
@@ -235,7 +261,7 @@ Public Class PackUserControl
 		End If
 	End Sub
 
-	Private Sub DirectPackerOptionsTextBox_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DirectPackOptionsTextBox.TextChanged
+	Private Sub DirectPackerOptionsTextBox_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 		Me.SetPackerOptionsText()
 	End Sub
 
