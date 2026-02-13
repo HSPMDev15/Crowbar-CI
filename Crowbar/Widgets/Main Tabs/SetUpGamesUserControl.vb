@@ -7,10 +7,11 @@ Public Class SetUpGamesUserControl
 
 	Public Sub New()
 		MyBase.New()
+		'IMPORTANT: The Panel that the DataGridView (DGV) is in must be defined AFTER the DGV
+		'    so that colors (and probably font) of the DGV
+		'    are not overwritten by the top-level UserControl or Form.
 		' This call is required by the Windows Form Designer.
 		InitializeComponent()
-
-		'Me.UpdateTheme()
 	End Sub
 
 	Protected Overrides Sub Dispose(ByVal disposing As Boolean)

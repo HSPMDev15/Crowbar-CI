@@ -73,8 +73,6 @@ Public Class RichTextBoxEx
 
 		Me.theLineCount = 0
 		Me.theScrollingIsActive = False
-
-		Me.UpdateTheme()
 	End Sub
 
 #End Region
@@ -84,6 +82,7 @@ Public Class RichTextBoxEx
 	Private Sub Init()
 		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
 		If TheApp IsNot Nothing Then
+			Me.UpdateTheme()
 			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 		End If
 	End Sub
@@ -98,6 +97,18 @@ Public Class RichTextBoxEx
 #End Region
 
 #Region "Properties"
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property ForeColor As Color
+		Get
+			Return MyBase.ForeColor
+		End Get
+		Set
+			MyBase.ForeColor = Value
+		End Set
+	End Property
 
 	<Browsable(True)>
 	<Category("Appearance")>
@@ -1054,19 +1065,31 @@ Public Class RichTextBoxEx
 				End If
 			End If
 
+			MyBase.BorderStyle = BorderStyle.None
+			MyBase.ScrollBars = RichTextBoxScrollBars.None
+
 			Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
 			Me.SetStyle(ControlStyles.DoubleBuffer, True)
 			Me.SetStyle(ControlStyles.UserPaint, True)
 		Else
 			Me.ForeColor = SystemColors.WindowText
-			MyBase.BackColor = SystemColors.Window
+			If MyBase.[ReadOnly] Then
+				MyBase.BackColor = SystemColors.Control
+			Else
+				MyBase.BackColor = SystemColors.Window
+			End If
+
+			'If Me.theControlIsBehavingAsMultiLine Then
+			'	'MyBase.BorderStyle = BorderStyle.None
+			'	MyBase.ScrollBars = RichTextBoxScrollBars.Both
+			'End If
 
 			Me.SetStyle(ControlStyles.AllPaintingInWmPaint, False)
 			Me.SetStyle(ControlStyles.DoubleBuffer, False)
 			Me.SetStyle(ControlStyles.UserPaint, False)
-
-			Me.Font = Me.theOriginalFont
 		End If
+
+		Me.Font = Me.theOriginalFont
 	End Sub
 
 	Private Function GetContentWidthWithNoWordWrap() As Integer

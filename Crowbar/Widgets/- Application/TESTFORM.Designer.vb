@@ -32,11 +32,13 @@ Partial Class TESTFORM
 		Me.TabPage2 = New System.Windows.Forms.TabPage()
 		Me.TabControl1 = New System.Windows.Forms.TabControl()
 		Me.TabPage3 = New System.Windows.Forms.TabPage()
+		Me.DataGridView1 = New System.Windows.Forms.DataGridView()
 		Me.TextBox1 = New System.Windows.Forms.TextBox()
 		Me.Button1 = New System.Windows.Forms.Button()
 		Me.ComboBox1 = New System.Windows.Forms.ComboBox()
 		Me.TabPage4 = New System.Windows.Forms.TabPage()
-		Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+		Me.TreeView1 = New System.Windows.Forms.TreeView()
+		Me.ListView1 = New System.Windows.Forms.ListView()
 		Me.TabControlEx1.SuspendLayout()
 		Me.TabPage1.SuspendLayout()
 		Me.PanelEx1.SuspendLayout()
@@ -55,14 +57,9 @@ Partial Class TESTFORM
 		Me.TabControlEx1.Location = New System.Drawing.Point(0, 0)
 		Me.TabControlEx1.Name = "TabControlEx1"
 		Me.TabControlEx1.SelectedIndex = 0
-		Me.TabControlEx1.SelectedTabBackColor = System.Drawing.Color.Red
 		Me.TabControlEx1.ShowToolTips = True
 		Me.TabControlEx1.Size = New System.Drawing.Size(800, 225)
-		Me.TabControlEx1.TabBackColor1 = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.TabControlEx1.TabBackColor2 = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
 		Me.TabControlEx1.TabIndex = 0
-		Me.TabControlEx1.TabPageBackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
-		Me.TabControlEx1.TabPageForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		'
 		'TabPage1
 		'
@@ -77,13 +74,12 @@ Partial Class TESTFORM
 		'PanelEx1
 		'
 		Me.PanelEx1.AutoScroll = True
-		Me.PanelEx1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer))
 		Me.PanelEx1.Controls.Add(Me.CheckBoxEx4)
 		Me.PanelEx1.Controls.Add(Me.CheckBoxEx3)
 		Me.PanelEx1.Controls.Add(Me.CheckBoxEx2)
 		Me.PanelEx1.Controls.Add(Me.CheckBoxEx1)
 		Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
-		Me.PanelEx1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+		Me.PanelEx1.ForeColor = System.Drawing.SystemColors.ControlText
 		Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
 		Me.PanelEx1.Name = "PanelEx1"
 		Me.PanelEx1.Size = New System.Drawing.Size(792, 199)
@@ -160,6 +156,8 @@ Partial Class TESTFORM
 		'
 		'TabPage3
 		'
+		Me.TabPage3.Controls.Add(Me.ListView1)
+		Me.TabPage3.Controls.Add(Me.TreeView1)
 		Me.TabPage3.Controls.Add(Me.DataGridView1)
 		Me.TabPage3.Controls.Add(Me.TextBox1)
 		Me.TabPage3.Controls.Add(Me.Button1)
@@ -171,6 +169,14 @@ Partial Class TESTFORM
 		Me.TabPage3.TabIndex = 0
 		Me.TabPage3.Text = "TabPage3"
 		Me.TabPage3.UseVisualStyleBackColor = True
+		'
+		'DataGridView1
+		'
+		Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+		Me.DataGridView1.Location = New System.Drawing.Point(214, 6)
+		Me.DataGridView1.Name = "DataGridView1"
+		Me.DataGridView1.Size = New System.Drawing.Size(240, 150)
+		Me.DataGridView1.TabIndex = 3
 		'
 		'TextBox1
 		'
@@ -206,13 +212,21 @@ Partial Class TESTFORM
 		Me.TabPage4.Text = "TabPage4"
 		Me.TabPage4.UseVisualStyleBackColor = True
 		'
-		'DataGridView1
+		'TreeView1
 		'
-		Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-		Me.DataGridView1.Location = New System.Drawing.Point(214, 6)
-		Me.DataGridView1.Name = "DataGridView1"
-		Me.DataGridView1.Size = New System.Drawing.Size(240, 150)
-		Me.DataGridView1.TabIndex = 3
+		Me.TreeView1.Location = New System.Drawing.Point(460, 6)
+		Me.TreeView1.Name = "TreeView1"
+		Me.TreeView1.Size = New System.Drawing.Size(121, 97)
+		Me.TreeView1.TabIndex = 4
+		'
+		'ListView1
+		'
+		Me.ListView1.HideSelection = False
+		Me.ListView1.Location = New System.Drawing.Point(587, 6)
+		Me.ListView1.Name = "ListView1"
+		Me.ListView1.Size = New System.Drawing.Size(121, 97)
+		Me.ListView1.TabIndex = 5
+		Me.ListView1.UseCompatibleStateImageBehavior = False
 		'
 		'TESTFORM
 		'
@@ -251,4 +265,6 @@ Partial Class TESTFORM
     Friend WithEvents ComboBox1 As ComboBox
 	Friend WithEvents TextBox1 As TextBox
 	Friend WithEvents DataGridView1 As DataGridView
+	Friend WithEvents ListView1 As ListView
+	Friend WithEvents TreeView1 As TreeView
 End Class

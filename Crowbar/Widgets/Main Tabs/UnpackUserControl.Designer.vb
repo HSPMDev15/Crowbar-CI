@@ -112,6 +112,7 @@ Partial Class UnpackUserControl
 		'RefreshListingButton
 		'
 		Me.RefreshListingButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.RefreshListingButton.ButtonCanBeFocused = True
 		Me.RefreshListingButton.Image = Global.Crowbar.My.Resources.Resources.Refresh
 		Me.RefreshListingButton.Location = New System.Drawing.Point(631, 4)
 		Me.RefreshListingButton.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
@@ -144,8 +145,6 @@ Partial Class UnpackUserControl
 		Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.Panel2.Location = New System.Drawing.Point(0, 0)
 		Me.Panel2.Name = "Panel2"
-		Me.Panel2.SelectedIndex = -1
-		Me.Panel2.SelectedValue = Nothing
 		Me.Panel2.Size = New System.Drawing.Size(776, 536)
 		Me.Panel2.TabIndex = 0
 		'
@@ -161,6 +160,7 @@ Partial Class UnpackUserControl
 		Me.OutputSamePathTextBox.Name = "OutputSamePathTextBox"
 		Me.OutputSamePathTextBox.ReadOnly = True
 		Me.OutputSamePathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.OutputSamePathTextBox.SelectionEnabled = True
 		Me.OutputSamePathTextBox.Size = New System.Drawing.Size(445, 22)
 		Me.OutputSamePathTextBox.TabIndex = 26
 		Me.OutputSamePathTextBox.Text = ""
@@ -178,32 +178,29 @@ Partial Class UnpackUserControl
 		Me.GameModelsOutputPathTextBox.Name = "GameModelsOutputPathTextBox"
 		Me.GameModelsOutputPathTextBox.ReadOnly = True
 		Me.GameModelsOutputPathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.GameModelsOutputPathTextBox.SelectionEnabled = True
 		Me.GameModelsOutputPathTextBox.Size = New System.Drawing.Size(445, 22)
 		Me.GameModelsOutputPathTextBox.TabIndex = 15
 		Me.GameModelsOutputPathTextBox.Text = ""
 		'
 		'UnpackComboBox
 		'
-		Me.UnpackComboBox.DataSource = Nothing
-		Me.UnpackComboBox.DisplayMember = ""
 		Me.UnpackComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.UnpackComboBox.IsReadOnly = False
 		Me.UnpackComboBox.Location = New System.Drawing.Point(71, 4)
 		Me.UnpackComboBox.MaxDropDownItems = 30
 		Me.UnpackComboBox.MultipleInputsIsAllowed = True
 		Me.UnpackComboBox.Name = "UnpackComboBox"
-		Me.UnpackComboBox.SelectedIndex = -1
-		Me.UnpackComboBox.SelectedValue = ""
 		Me.UnpackComboBox.Size = New System.Drawing.Size(132, 23)
 		Me.UnpackComboBox.TabIndex = 1
 		Me.UnpackComboBox.TextHistoryIsKept = False
 		Me.UnpackComboBox.TextHistoryMaxSize = 15
 		Me.UnpackComboBox.TextIsPathFileNames = False
-		Me.UnpackComboBox.ValueMember = ""
 		'
 		'GotoOutputPathButton
 		'
 		Me.GotoOutputPathButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.GotoOutputPathButton.ButtonCanBeFocused = True
 		Me.GotoOutputPathButton.Location = New System.Drawing.Point(730, 32)
 		Me.GotoOutputPathButton.Name = "GotoOutputPathButton"
 		Me.GotoOutputPathButton.Size = New System.Drawing.Size(43, 23)
@@ -215,6 +212,7 @@ Partial Class UnpackUserControl
 		'BrowseForOutputPathButton
 		'
 		Me.BrowseForOutputPathButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.BrowseForOutputPathButton.ButtonCanBeFocused = True
 		Me.BrowseForOutputPathButton.Enabled = False
 		Me.BrowseForOutputPathButton.Location = New System.Drawing.Point(660, 32)
 		Me.BrowseForOutputPathButton.Name = "BrowseForOutputPathButton"
@@ -236,6 +234,7 @@ Partial Class UnpackUserControl
 		Me.OutputPathTextBox.Multiline = False
 		Me.OutputPathTextBox.Name = "OutputPathTextBox"
 		Me.OutputPathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.OutputPathTextBox.SelectionEnabled = True
 		Me.OutputPathTextBox.Size = New System.Drawing.Size(445, 22)
 		Me.OutputPathTextBox.TabIndex = 16
 		Me.OutputPathTextBox.Text = ""
@@ -252,6 +251,7 @@ Partial Class UnpackUserControl
 		Me.OutputSubfolderTextBox.Multiline = False
 		Me.OutputSubfolderTextBox.Name = "OutputSubfolderTextBox"
 		Me.OutputSubfolderTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.OutputSubfolderTextBox.SelectionEnabled = True
 		Me.OutputSubfolderTextBox.Size = New System.Drawing.Size(445, 22)
 		Me.OutputSubfolderTextBox.TabIndex = 22
 		Me.OutputSubfolderTextBox.Text = ""
@@ -259,22 +259,17 @@ Partial Class UnpackUserControl
 		'
 		'OutputPathComboBox
 		'
-		Me.OutputPathComboBox.DataSource = Nothing
-		Me.OutputPathComboBox.DisplayMember = ""
 		Me.OutputPathComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.OutputPathComboBox.IsReadOnly = False
 		Me.OutputPathComboBox.Location = New System.Drawing.Point(71, 33)
 		Me.OutputPathComboBox.MaxDropDownItems = 30
 		Me.OutputPathComboBox.MultipleInputsIsAllowed = True
 		Me.OutputPathComboBox.Name = "OutputPathComboBox"
-		Me.OutputPathComboBox.SelectedIndex = -1
-		Me.OutputPathComboBox.SelectedValue = ""
 		Me.OutputPathComboBox.Size = New System.Drawing.Size(132, 23)
 		Me.OutputPathComboBox.TabIndex = 14
 		Me.OutputPathComboBox.TextHistoryIsKept = False
 		Me.OutputPathComboBox.TextHistoryMaxSize = 15
 		Me.OutputPathComboBox.TextIsPathFileNames = False
-		Me.OutputPathComboBox.ValueMember = ""
 		'
 		'Label2
 		'
@@ -288,6 +283,7 @@ Partial Class UnpackUserControl
 		'UseDefaultOutputSubfolderButton
 		'
 		Me.UseDefaultOutputSubfolderButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.UseDefaultOutputSubfolderButton.ButtonCanBeFocused = True
 		Me.UseDefaultOutputSubfolderButton.Location = New System.Drawing.Point(660, 32)
 		Me.UseDefaultOutputSubfolderButton.Name = "UseDefaultOutputSubfolderButton"
 		Me.UseDefaultOutputSubfolderButton.Size = New System.Drawing.Size(113, 23)
@@ -317,6 +313,7 @@ Partial Class UnpackUserControl
 		Me.PackagePathFileNameTextBox.Multiline = False
 		Me.PackagePathFileNameTextBox.Name = "PackagePathFileNameTextBox"
 		Me.PackagePathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.PackagePathFileNameTextBox.SelectionEnabled = True
 		Me.PackagePathFileNameTextBox.Size = New System.Drawing.Size(422, 22)
 		Me.PackagePathFileNameTextBox.TabIndex = 2
 		Me.PackagePathFileNameTextBox.Text = ""
@@ -325,6 +322,7 @@ Partial Class UnpackUserControl
 		'BrowseForPackagePathFolderOrFileNameButton
 		'
 		Me.BrowseForPackagePathFolderOrFileNameButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.BrowseForPackagePathFolderOrFileNameButton.ButtonCanBeFocused = True
 		Me.BrowseForPackagePathFolderOrFileNameButton.Location = New System.Drawing.Point(660, 3)
 		Me.BrowseForPackagePathFolderOrFileNameButton.Name = "BrowseForPackagePathFolderOrFileNameButton"
 		Me.BrowseForPackagePathFolderOrFileNameButton.Size = New System.Drawing.Size(64, 23)
@@ -336,6 +334,7 @@ Partial Class UnpackUserControl
 		'GotoPackageButton
 		'
 		Me.GotoPackageButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.GotoPackageButton.ButtonCanBeFocused = True
 		Me.GotoPackageButton.Location = New System.Drawing.Point(730, 3)
 		Me.GotoPackageButton.Name = "GotoPackageButton"
 		Me.GotoPackageButton.Size = New System.Drawing.Size(43, 23)
@@ -383,7 +382,7 @@ Partial Class UnpackUserControl
 		'
 		Me.SplitContainer2.Panel2.Controls.Add(Me.OptionsGroupBox)
 		Me.SplitContainer2.Size = New System.Drawing.Size(770, 347)
-		Me.SplitContainer2.SplitterDistance = 550
+		Me.SplitContainer2.SplitterDistance = 546
 		Me.SplitContainer2.SplitterWidth = 6
 		Me.SplitContainer2.TabIndex = 0
 		'
@@ -395,7 +394,7 @@ Partial Class UnpackUserControl
 		Me.ContentsGroupBox.Location = New System.Drawing.Point(0, 0)
 		Me.ContentsGroupBox.Name = "ContentsGroupBox"
 		Me.ContentsGroupBox.SelectedValue = Nothing
-		Me.ContentsGroupBox.Size = New System.Drawing.Size(550, 347)
+		Me.ContentsGroupBox.Size = New System.Drawing.Size(546, 347)
 		Me.ContentsGroupBox.TabIndex = 0
 		Me.ContentsGroupBox.TabStop = False
 		Me.ContentsGroupBox.Text = "Contents of package"
@@ -410,16 +409,14 @@ Partial Class UnpackUserControl
 		Me.ContentsGroupBoxFillPanel.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.ContentsGroupBoxFillPanel.Location = New System.Drawing.Point(3, 18)
 		Me.ContentsGroupBoxFillPanel.Name = "ContentsGroupBoxFillPanel"
-		Me.ContentsGroupBoxFillPanel.SelectedIndex = -1
-		Me.ContentsGroupBoxFillPanel.SelectedValue = Nothing
-		Me.ContentsGroupBoxFillPanel.Size = New System.Drawing.Size(544, 326)
+		Me.ContentsGroupBoxFillPanel.Size = New System.Drawing.Size(540, 326)
 		Me.ContentsGroupBoxFillPanel.TabIndex = 12
 		'
 		'SplitContainer3
 		'
 		Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.SplitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
-		Me.SplitContainer3.Location = New System.Drawing.Point(0, 26)
+		Me.SplitContainer3.Location = New System.Drawing.Point(0, 22)
 		Me.SplitContainer3.Name = "SplitContainer3"
 		'
 		'SplitContainer3.Panel1
@@ -429,7 +426,7 @@ Partial Class UnpackUserControl
 		'SplitContainer3.Panel2
 		'
 		Me.SplitContainer3.Panel2.Controls.Add(Me.PackageListView)
-		Me.SplitContainer3.Size = New System.Drawing.Size(544, 275)
+		Me.SplitContainer3.Size = New System.Drawing.Size(540, 279)
 		Me.SplitContainer3.SplitterDistance = 250
 		Me.SplitContainer3.TabIndex = 6
 		'
@@ -444,19 +441,20 @@ Partial Class UnpackUserControl
 		Me.PackageTreeView.Location = New System.Drawing.Point(0, 0)
 		Me.PackageTreeView.Name = "PackageTreeView"
 		Me.PackageTreeView.SelectedImageIndex = 0
-		Me.PackageTreeView.Size = New System.Drawing.Size(250, 275)
+		Me.PackageTreeView.Size = New System.Drawing.Size(250, 279)
 		Me.PackageTreeView.TabIndex = 0
 		'
 		'PackageListView
 		'
 		Me.PackageListView.AllowColumnReorder = True
+		Me.PackageListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.PackageListView.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.PackageListView.HideSelection = False
 		Me.PackageListView.Location = New System.Drawing.Point(0, 0)
 		Me.PackageListView.Name = "PackageListView"
 		Me.PackageListView.OwnerDraw = True
 		Me.PackageListView.ShowGroups = False
-		Me.PackageListView.Size = New System.Drawing.Size(290, 275)
+		Me.PackageListView.Size = New System.Drawing.Size(286, 279)
 		Me.PackageListView.SmallImageList = Me.ImageList1
 		Me.PackageListView.Sorting = System.Windows.Forms.SortOrder.Ascending
 		Me.PackageListView.TabIndex = 1
@@ -469,9 +467,7 @@ Partial Class UnpackUserControl
 		Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
 		Me.Panel3.Location = New System.Drawing.Point(0, 0)
 		Me.Panel3.Name = "Panel3"
-		Me.Panel3.SelectedIndex = -1
-		Me.Panel3.SelectedValue = Nothing
-		Me.Panel3.Size = New System.Drawing.Size(544, 26)
+		Me.Panel3.Size = New System.Drawing.Size(540, 22)
 		Me.Panel3.TabIndex = 11
 		'
 		'SelectionPathTextBox
@@ -485,7 +481,8 @@ Partial Class UnpackUserControl
 		Me.SelectionPathTextBox.Name = "SelectionPathTextBox"
 		Me.SelectionPathTextBox.ReadOnly = True
 		Me.SelectionPathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-		Me.SelectionPathTextBox.Size = New System.Drawing.Size(544, 26)
+		Me.SelectionPathTextBox.SelectionEnabled = True
+		Me.SelectionPathTextBox.Size = New System.Drawing.Size(540, 22)
 		Me.SelectionPathTextBox.TabIndex = 1
 		Me.SelectionPathTextBox.Text = ""
 		Me.SelectionPathTextBox.WordWrap = False
@@ -498,16 +495,16 @@ Partial Class UnpackUserControl
 		Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FindToolStripTextBox, Me.FindToolStripButton, Me.ToolStripSeparator1, Me.FilesSelectedCountToolStripLabel, Me.ToolStripSeparator3, Me.SizeSelectedTotalToolStripLabel})
 		Me.ToolStrip1.Location = New System.Drawing.Point(0, 301)
 		Me.ToolStrip1.Name = "ToolStrip1"
-		Me.ToolStrip1.Size = New System.Drawing.Size(544, 25)
+		Me.ToolStrip1.Size = New System.Drawing.Size(540, 25)
 		Me.ToolStrip1.Stretch = True
 		Me.ToolStrip1.TabIndex = 10
 		Me.ToolStrip1.Text = "ToolStrip1"
 		'
 		'FindToolStripTextBox
 		'
-		Me.FindToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+		Me.FindToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.FindToolStripTextBox.Name = "FindToolStripTextBox"
-		Me.FindToolStripTextBox.Size = New System.Drawing.Size(412, 25)
+		Me.FindToolStripTextBox.Size = New System.Drawing.Size(410, 22)
 		Me.FindToolStripTextBox.ToolTipText = "Text to find"
 		'
 		'FindToolStripButton
@@ -551,8 +548,6 @@ Partial Class UnpackUserControl
 		'
 		Me.ContentsMinScrollerPanel.Location = New System.Drawing.Point(0, 0)
 		Me.ContentsMinScrollerPanel.Name = "ContentsMinScrollerPanel"
-		Me.ContentsMinScrollerPanel.SelectedIndex = -1
-		Me.ContentsMinScrollerPanel.SelectedValue = Nothing
 		Me.ContentsMinScrollerPanel.Size = New System.Drawing.Size(250, 110)
 		Me.ContentsMinScrollerPanel.TabIndex = 12
 		'
@@ -564,7 +559,7 @@ Partial Class UnpackUserControl
 		Me.OptionsGroupBox.Location = New System.Drawing.Point(0, 0)
 		Me.OptionsGroupBox.Name = "OptionsGroupBox"
 		Me.OptionsGroupBox.SelectedValue = Nothing
-		Me.OptionsGroupBox.Size = New System.Drawing.Size(214, 347)
+		Me.OptionsGroupBox.Size = New System.Drawing.Size(218, 347)
 		Me.OptionsGroupBox.TabIndex = 0
 		Me.OptionsGroupBox.TabStop = False
 		Me.OptionsGroupBox.Text = "Options"
@@ -583,9 +578,7 @@ Partial Class UnpackUserControl
 		Me.OptionsGroupBoxFillPanel.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.OptionsGroupBoxFillPanel.Location = New System.Drawing.Point(3, 18)
 		Me.OptionsGroupBoxFillPanel.Name = "OptionsGroupBoxFillPanel"
-		Me.OptionsGroupBoxFillPanel.SelectedIndex = -1
-		Me.OptionsGroupBoxFillPanel.SelectedValue = Nothing
-		Me.OptionsGroupBoxFillPanel.Size = New System.Drawing.Size(208, 326)
+		Me.OptionsGroupBoxFillPanel.Size = New System.Drawing.Size(212, 326)
 		Me.OptionsGroupBoxFillPanel.TabIndex = 0
 		'
 		'KeepFullPathCheckBox
@@ -625,7 +618,8 @@ Partial Class UnpackUserControl
 		'EditGameSetupButton
 		'
 		Me.EditGameSetupButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.EditGameSetupButton.Location = New System.Drawing.Point(7930, 229)
+		Me.EditGameSetupButton.ButtonCanBeFocused = True
+		Me.EditGameSetupButton.Location = New System.Drawing.Point(8054, 229)
 		Me.EditGameSetupButton.Name = "EditGameSetupButton"
 		Me.EditGameSetupButton.Size = New System.Drawing.Size(90, 23)
 		Me.EditGameSetupButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
@@ -638,22 +632,17 @@ Partial Class UnpackUserControl
 		'
 		Me.GameSetupComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.GameSetupComboBox.DataSource = Nothing
-		Me.GameSetupComboBox.DisplayMember = ""
 		Me.GameSetupComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.GameSetupComboBox.IsReadOnly = False
 		Me.GameSetupComboBox.Location = New System.Drawing.Point(3, 255)
 		Me.GameSetupComboBox.MaxDropDownItems = 30
 		Me.GameSetupComboBox.MultipleInputsIsAllowed = True
 		Me.GameSetupComboBox.Name = "GameSetupComboBox"
-		Me.GameSetupComboBox.SelectedIndex = -1
-		Me.GameSetupComboBox.SelectedValue = ""
-		Me.GameSetupComboBox.Size = New System.Drawing.Size(8017, 23)
+		Me.GameSetupComboBox.Size = New System.Drawing.Size(8141, 23)
 		Me.GameSetupComboBox.TabIndex = 2
 		Me.GameSetupComboBox.TextHistoryIsKept = False
 		Me.GameSetupComboBox.TextHistoryMaxSize = 15
 		Me.GameSetupComboBox.TextIsPathFileNames = False
-		Me.GameSetupComboBox.ValueMember = ""
 		Me.GameSetupComboBox.Visible = False
 		'
 		'SelectAllModelsAndMaterialsFoldersCheckBox
@@ -671,6 +660,7 @@ Partial Class UnpackUserControl
 		'
 		'UnpackOptionsUseDefaultsButton
 		'
+		Me.UnpackOptionsUseDefaultsButton.ButtonCanBeFocused = True
 		Me.UnpackOptionsUseDefaultsButton.Location = New System.Drawing.Point(33, 203)
 		Me.UnpackOptionsUseDefaultsButton.Name = "UnpackOptionsUseDefaultsButton"
 		Me.UnpackOptionsUseDefaultsButton.Size = New System.Drawing.Size(90, 23)
@@ -691,6 +681,7 @@ Partial Class UnpackUserControl
 		Me.UnpackerLogTextBox.Name = "UnpackerLogTextBox"
 		Me.UnpackerLogTextBox.ReadOnly = True
 		Me.UnpackerLogTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.UnpackerLogTextBox.SelectionEnabled = True
 		Me.UnpackerLogTextBox.Size = New System.Drawing.Size(770, 69)
 		Me.UnpackerLogTextBox.TabIndex = 0
 		Me.UnpackerLogTextBox.Text = ""
@@ -705,13 +696,12 @@ Partial Class UnpackUserControl
 		Me.UnpackButtonsPanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.UnpackButtonsPanel.Location = New System.Drawing.Point(0, 0)
 		Me.UnpackButtonsPanel.Name = "UnpackButtonsPanel"
-		Me.UnpackButtonsPanel.SelectedIndex = -1
-		Me.UnpackButtonsPanel.SelectedValue = Nothing
 		Me.UnpackButtonsPanel.Size = New System.Drawing.Size(770, 26)
 		Me.UnpackButtonsPanel.TabIndex = 1
 		'
 		'UnpackButton
 		'
+		Me.UnpackButton.ButtonCanBeFocused = True
 		Me.UnpackButton.Enabled = False
 		Me.UnpackButton.Location = New System.Drawing.Point(0, 0)
 		Me.UnpackButton.Name = "UnpackButton"
@@ -723,6 +713,7 @@ Partial Class UnpackUserControl
 		'
 		'SkipCurrentPackageButton
 		'
+		Me.SkipCurrentPackageButton.ButtonCanBeFocused = True
 		Me.SkipCurrentPackageButton.Enabled = False
 		Me.SkipCurrentPackageButton.Location = New System.Drawing.Point(126, 0)
 		Me.SkipCurrentPackageButton.Name = "SkipCurrentPackageButton"
@@ -734,6 +725,7 @@ Partial Class UnpackUserControl
 		'
 		'CancelUnpackButton
 		'
+		Me.CancelUnpackButton.ButtonCanBeFocused = True
 		Me.CancelUnpackButton.Enabled = False
 		Me.CancelUnpackButton.Location = New System.Drawing.Point(252, 0)
 		Me.CancelUnpackButton.Name = "CancelUnpackButton"
@@ -745,6 +737,7 @@ Partial Class UnpackUserControl
 		'
 		'UseAllInDecompileButton
 		'
+		Me.UseAllInDecompileButton.ButtonCanBeFocused = True
 		Me.UseAllInDecompileButton.Enabled = False
 		Me.UseAllInDecompileButton.Location = New System.Drawing.Point(378, 0)
 		Me.UseAllInDecompileButton.Name = "UseAllInDecompileButton"
@@ -763,8 +756,6 @@ Partial Class UnpackUserControl
 		Me.PostUnpackPanel.Dock = System.Windows.Forms.DockStyle.Bottom
 		Me.PostUnpackPanel.Location = New System.Drawing.Point(0, 95)
 		Me.PostUnpackPanel.Name = "PostUnpackPanel"
-		Me.PostUnpackPanel.SelectedIndex = -1
-		Me.PostUnpackPanel.SelectedValue = Nothing
 		Me.PostUnpackPanel.Size = New System.Drawing.Size(770, 26)
 		Me.PostUnpackPanel.TabIndex = 5
 		'
@@ -772,26 +763,24 @@ Partial Class UnpackUserControl
 		'
 		Me.UnpackedFilesComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.UnpackedFilesComboBox.DataSource = Nothing
-		Me.UnpackedFilesComboBox.DisplayMember = ""
+		Me.UnpackedFilesComboBox.BackColor = System.Drawing.SystemColors.Control
 		Me.UnpackedFilesComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		Me.UnpackedFilesComboBox.ForeColor = System.Drawing.SystemColors.ControlText
 		Me.UnpackedFilesComboBox.IsReadOnly = False
 		Me.UnpackedFilesComboBox.Location = New System.Drawing.Point(0, 4)
 		Me.UnpackedFilesComboBox.MaxDropDownItems = 30
 		Me.UnpackedFilesComboBox.MultipleInputsIsAllowed = True
 		Me.UnpackedFilesComboBox.Name = "UnpackedFilesComboBox"
-		Me.UnpackedFilesComboBox.SelectedIndex = -1
-		Me.UnpackedFilesComboBox.SelectedValue = ""
 		Me.UnpackedFilesComboBox.Size = New System.Drawing.Size(512, 23)
 		Me.UnpackedFilesComboBox.TabIndex = 1
 		Me.UnpackedFilesComboBox.TextHistoryIsKept = False
 		Me.UnpackedFilesComboBox.TextHistoryMaxSize = 15
 		Me.UnpackedFilesComboBox.TextIsPathFileNames = False
-		Me.UnpackedFilesComboBox.ValueMember = ""
 		'
 		'UseInPreviewButton
 		'
 		Me.UseInPreviewButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.UseInPreviewButton.ButtonCanBeFocused = True
 		Me.UseInPreviewButton.Enabled = False
 		Me.UseInPreviewButton.Location = New System.Drawing.Point(518, 3)
 		Me.UseInPreviewButton.Name = "UseInPreviewButton"
@@ -804,6 +793,7 @@ Partial Class UnpackUserControl
 		'UseInDecompileButton
 		'
 		Me.UseInDecompileButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.UseInDecompileButton.ButtonCanBeFocused = True
 		Me.UseInDecompileButton.Enabled = False
 		Me.UseInDecompileButton.Location = New System.Drawing.Point(615, 3)
 		Me.UseInDecompileButton.Name = "UseInDecompileButton"
@@ -816,6 +806,7 @@ Partial Class UnpackUserControl
 		'GotoUnpackedFileButton
 		'
 		Me.GotoUnpackedFileButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.GotoUnpackedFileButton.ButtonCanBeFocused = True
 		Me.GotoUnpackedFileButton.Location = New System.Drawing.Point(727, 3)
 		Me.GotoUnpackedFileButton.Name = "GotoUnpackedFileButton"
 		Me.GotoUnpackedFileButton.Size = New System.Drawing.Size(43, 23)

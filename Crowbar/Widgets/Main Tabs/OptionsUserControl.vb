@@ -6,8 +6,6 @@ Public Class OptionsUserControl
 		MyBase.New()
 		' This call is required by the Windows Form Designer.
 		InitializeComponent()
-
-		Me.UpdateTheme()
 	End Sub
 
 	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
@@ -32,6 +30,8 @@ Public Class OptionsUserControl
 		If TheApp Is Nothing Then
 			Exit Sub
 		End If
+
+		'Me.UpdateTheme()
 
 		Me.SingleInstanceCheckBox.DataBindings.Add("Checked", TheApp.Settings, "AppIsSingleInstance", False, DataSourceUpdateMode.OnPropertyChanged)
 
@@ -316,9 +316,9 @@ Public Class OptionsUserControl
 	Private Sub AppSettings_PropertyChanged(ByVal sender As System.Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
 		If e.PropertyName = "AppIsSingleInstance" Then
 			TheApp.SaveAppSettings()
-		ElseIf e.PropertyName = "AppThemeName" Then
-			Me.UpdateTheme()
-			Me.Refresh()
+			'ElseIf e.PropertyName = "AppThemeName" Then
+			'	Me.UpdateTheme()
+			'	Me.Refresh()
 		ElseIf e.PropertyName = "OptionsAutoOpenVpkFileIsChecked" Then
 			Me.ApplyAutoOpenVpkFileOptions()
 		ElseIf e.PropertyName = "OptionsAutoOpenGmaFileIsChecked" Then
@@ -336,19 +336,19 @@ Public Class OptionsUserControl
 
 #Region "Private Methods"
 
-	Private Sub UpdateTheme()
-		Dim theme As PanelTheme = Nothing
-		If TheApp IsNot Nothing Then
-			theme = TheApp.Settings.SelectedAppTheme.PanelTheme
-		End If
-		If theme IsNot Nothing Then
-			Me.ForeColor = theme.EnabledForeColor
-			Me.BackColor = theme.EnabledBackColor
-		Else
-			Me.ForeColor = Control.DefaultForeColor
-			Me.BackColor = Control.DefaultBackColor
-		End If
-	End Sub
+	'Private Sub UpdateTheme()
+	'	Dim theme As PanelTheme = Nothing
+	'	If TheApp IsNot Nothing Then
+	'		theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+	'	End If
+	'	If theme IsNot Nothing Then
+	'		Me.ForeColor = theme.EnabledForeColor
+	'		Me.BackColor = theme.EnabledBackColor
+	'	Else
+	'		Me.ForeColor = Control.DefaultForeColor
+	'		Me.BackColor = Control.DefaultBackColor
+	'	End If
+	'End Sub
 
 	Private Sub ApplyAutoOpenVpkFileOptions()
 		If TheApp.Settings.OptionsAutoOpenVpkFileIsChecked Then

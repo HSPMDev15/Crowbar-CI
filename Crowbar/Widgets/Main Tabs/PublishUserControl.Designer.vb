@@ -11,8 +11,8 @@ Partial Class PublishUserControl
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PublishUserControl))
 		Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
 		Me.RefreshGameItemsButton = New Crowbar.ButtonEx()
@@ -118,6 +118,7 @@ Partial Class PublishUserControl
 		'RefreshGameItemsButton
 		'
 		Me.RefreshGameItemsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.RefreshGameItemsButton.ButtonCanBeFocused = True
 		Me.RefreshGameItemsButton.FlatAppearance.BorderSize = 0
 		Me.RefreshGameItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
 		Me.RefreshGameItemsButton.Image = Global.Crowbar.My.Resources.Resources.Refresh
@@ -151,6 +152,7 @@ Partial Class PublishUserControl
 		Me.ItemPostedTextBox.Name = "ItemPostedTextBox"
 		Me.ItemPostedTextBox.ReadOnly = True
 		Me.ItemPostedTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemPostedTextBox.SelectionEnabled = True
 		Me.ItemPostedTextBox.Size = New System.Drawing.Size(120, 22)
 		Me.ItemPostedTextBox.TabIndex = 2
 		Me.ItemPostedTextBox.Text = ""
@@ -167,6 +169,7 @@ Partial Class PublishUserControl
 		Me.ItemUpdatedTextBox.Name = "ItemUpdatedTextBox"
 		Me.ItemUpdatedTextBox.ReadOnly = True
 		Me.ItemUpdatedTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemUpdatedTextBox.SelectionEnabled = True
 		Me.ItemUpdatedTextBox.Size = New System.Drawing.Size(120, 22)
 		Me.ItemUpdatedTextBox.TabIndex = 3
 		Me.ItemUpdatedTextBox.Text = ""
@@ -212,8 +215,6 @@ Partial Class PublishUserControl
 		Me.ItemsPanel.Location = New System.Drawing.Point(3, 26)
 		Me.ItemsPanel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
 		Me.ItemsPanel.Name = "ItemsPanel"
-		Me.ItemsPanel.SelectedIndex = -1
-		Me.ItemsPanel.SelectedValue = Nothing
 		Me.ItemsPanel.Size = New System.Drawing.Size(764, 110)
 		Me.ItemsPanel.TabIndex = 31
 		'
@@ -223,11 +224,13 @@ Partial Class PublishUserControl
 		Me.ItemsDataGridView.AllowUserToDeleteRows = False
 		Me.ItemsDataGridView.AllowUserToOrderColumns = True
 		Me.ItemsDataGridView.AllowUserToResizeRows = False
+		Me.ItemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+		Me.ItemsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.ItemsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.ItemsDataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.ItemsDataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
 		Me.ItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.ItemsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.ItemsDataGridView.EnableHeadersVisualStyles = False
@@ -236,16 +239,16 @@ Partial Class PublishUserControl
 		Me.ItemsDataGridView.Name = "ItemsDataGridView"
 		Me.ItemsDataGridView.ReadOnly = True
 		Me.ItemsDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.ItemsDataGridView.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+		DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.ItemsDataGridView.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
 		Me.ItemsDataGridView.RowHeadersVisible = False
 		Me.ItemsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.ItemsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
 		Me.ItemsDataGridView.ShowCellErrors = False
 		Me.ItemsDataGridView.ShowRowErrors = False
-		Me.ItemsDataGridView.Size = New System.Drawing.Size(762, 82)
+		Me.ItemsDataGridView.Size = New System.Drawing.Size(764, 84)
 		Me.ItemsDataGridView.TabIndex = 3
 		'
 		'ToolStrip1
@@ -254,10 +257,10 @@ Partial Class PublishUserControl
 		Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom
 		Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
 		Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddItemToolStripButton, Me.ToolStripSeparator1, Me.SearchItemsToolStripComboBox, Me.SearchItemsToolStripTextBox, Me.SearchItemsToolStripButton, Me.ToolStripSeparator2, Me.ItemCountsToolStripLabel, Me.FindItemToolStripTextBox})
-		Me.ToolStrip1.Location = New System.Drawing.Point(0, 82)
+		Me.ToolStrip1.Location = New System.Drawing.Point(0, 84)
 		Me.ToolStrip1.Name = "ToolStrip1"
 		Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(3, 0, 3, 0)
-		Me.ToolStrip1.Size = New System.Drawing.Size(762, 26)
+		Me.ToolStrip1.Size = New System.Drawing.Size(764, 26)
 		Me.ToolStrip1.Stretch = True
 		Me.ToolStrip1.TabIndex = 30
 		Me.ToolStrip1.Text = "ToolStrip1"
@@ -316,9 +319,9 @@ Partial Class PublishUserControl
 		'
 		'FindItemToolStripTextBox
 		'
-		Me.FindItemToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+		Me.FindItemToolStripTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.FindItemToolStripTextBox.Name = "FindItemToolStripTextBox"
-		Me.FindItemToolStripTextBox.Size = New System.Drawing.Size(280, 26)
+		Me.FindItemToolStripTextBox.Size = New System.Drawing.Size(284, 23)
 		Me.FindItemToolStripTextBox.ToolTipText = "Title to find"
 		Me.FindItemToolStripTextBox.Visible = False
 		'
@@ -333,8 +336,6 @@ Partial Class PublishUserControl
 		Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.GamePanel.Location = New System.Drawing.Point(3, 0)
 		Me.GamePanel.Name = "GamePanel"
-		Me.GamePanel.SelectedIndex = -1
-		Me.GamePanel.SelectedValue = Nothing
 		Me.GamePanel.Size = New System.Drawing.Size(764, 26)
 		Me.GamePanel.TabIndex = 37
 		'
@@ -350,8 +351,6 @@ Partial Class PublishUserControl
 		'
 		Me.AppIdComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.AppIdComboBox.DataSource = Nothing
-		Me.AppIdComboBox.DisplayMember = ""
 		Me.AppIdComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.AppIdComboBox.IsReadOnly = False
 		Me.AppIdComboBox.Location = New System.Drawing.Point(45, 3)
@@ -359,14 +358,11 @@ Partial Class PublishUserControl
 		Me.AppIdComboBox.MaxDropDownItems = 30
 		Me.AppIdComboBox.MultipleInputsIsAllowed = True
 		Me.AppIdComboBox.Name = "AppIdComboBox"
-		Me.AppIdComboBox.SelectedIndex = -1
-		Me.AppIdComboBox.SelectedValue = ""
 		Me.AppIdComboBox.Size = New System.Drawing.Size(349, 23)
 		Me.AppIdComboBox.TabIndex = 0
 		Me.AppIdComboBox.TextHistoryIsKept = False
 		Me.AppIdComboBox.TextHistoryMaxSize = 15
 		Me.AppIdComboBox.TextIsPathFileNames = False
-		Me.AppIdComboBox.ValueMember = ""
 		'
 		'PublishRequiresSteamLabel
 		'
@@ -381,6 +377,7 @@ Partial Class PublishUserControl
 		'OpenSteamSubscriberAgreementButton
 		'
 		Me.OpenSteamSubscriberAgreementButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.OpenSteamSubscriberAgreementButton.ButtonCanBeFocused = True
 		Me.OpenSteamSubscriberAgreementButton.Location = New System.Drawing.Point(565, 3)
 		Me.OpenSteamSubscriberAgreementButton.Name = "OpenSteamSubscriberAgreementButton"
 		Me.OpenSteamSubscriberAgreementButton.Size = New System.Drawing.Size(199, 22)
@@ -458,8 +455,6 @@ Partial Class PublishUserControl
 		Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
 		Me.PanelEx1.Name = "PanelEx1"
-		Me.PanelEx1.SelectedIndex = -1
-		Me.PanelEx1.SelectedValue = Nothing
 		Me.PanelEx1.Size = New System.Drawing.Size(580, 293)
 		Me.PanelEx1.TabIndex = 39
 		'
@@ -503,6 +498,7 @@ Partial Class PublishUserControl
 		Me.ItemDescriptionTextBox.Location = New System.Drawing.Point(0, 0)
 		Me.ItemDescriptionTextBox.Name = "ItemDescriptionTextBox"
 		Me.ItemDescriptionTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemDescriptionTextBox.SelectionEnabled = True
 		Me.ItemDescriptionTextBox.Size = New System.Drawing.Size(292, 92)
 		Me.ItemDescriptionTextBox.TabIndex = 5
 		Me.ItemDescriptionTextBox.Text = ""
@@ -516,8 +512,6 @@ Partial Class PublishUserControl
 		Me.ItemDescriptionTopPanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.ItemDescriptionTopPanel.Location = New System.Drawing.Point(3, 0)
 		Me.ItemDescriptionTopPanel.Name = "ItemDescriptionTopPanel"
-		Me.ItemDescriptionTopPanel.SelectedIndex = -1
-		Me.ItemDescriptionTopPanel.SelectedValue = Nothing
 		Me.ItemDescriptionTopPanel.Size = New System.Drawing.Size(292, 19)
 		Me.ItemDescriptionTopPanel.TabIndex = 17
 		'
@@ -566,6 +560,7 @@ Partial Class PublishUserControl
 		Me.ItemChangeNoteTextBox.Location = New System.Drawing.Point(0, 0)
 		Me.ItemChangeNoteTextBox.Name = "ItemChangeNoteTextBox"
 		Me.ItemChangeNoteTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemChangeNoteTextBox.SelectionEnabled = True
 		Me.ItemChangeNoteTextBox.Size = New System.Drawing.Size(281, 92)
 		Me.ItemChangeNoteTextBox.TabIndex = 6
 		Me.ItemChangeNoteTextBox.Text = ""
@@ -579,8 +574,6 @@ Partial Class PublishUserControl
 		Me.ItemChangeNoteTopPanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.ItemChangeNoteTopPanel.Location = New System.Drawing.Point(0, 0)
 		Me.ItemChangeNoteTopPanel.Name = "ItemChangeNoteTopPanel"
-		Me.ItemChangeNoteTopPanel.SelectedIndex = -1
-		Me.ItemChangeNoteTopPanel.SelectedValue = Nothing
 		Me.ItemChangeNoteTopPanel.Size = New System.Drawing.Size(281, 19)
 		Me.ItemChangeNoteTopPanel.TabIndex = 18
 		'
@@ -591,8 +584,6 @@ Partial Class PublishUserControl
 		Me.ToggleWordWrapForChangeNotePanel.Dock = System.Windows.Forms.DockStyle.Right
 		Me.ToggleWordWrapForChangeNotePanel.Location = New System.Drawing.Point(267, 0)
 		Me.ToggleWordWrapForChangeNotePanel.Name = "ToggleWordWrapForChangeNotePanel"
-		Me.ToggleWordWrapForChangeNotePanel.SelectedIndex = -1
-		Me.ToggleWordWrapForChangeNotePanel.SelectedValue = Nothing
 		Me.ToggleWordWrapForChangeNotePanel.Size = New System.Drawing.Size(14, 19)
 		Me.ToggleWordWrapForChangeNotePanel.TabIndex = 18
 		'
@@ -635,8 +626,6 @@ Partial Class PublishUserControl
 		Me.ItemTopPanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.ItemTopPanel.Location = New System.Drawing.Point(0, 0)
 		Me.ItemTopPanel.Name = "ItemTopPanel"
-		Me.ItemTopPanel.SelectedIndex = -1
-		Me.ItemTopPanel.SelectedValue = Nothing
 		Me.ItemTopPanel.Size = New System.Drawing.Size(580, 68)
 		Me.ItemTopPanel.TabIndex = 36
 		'
@@ -659,6 +648,7 @@ Partial Class PublishUserControl
 		Me.ItemIDTextBox.Name = "ItemIDTextBox"
 		Me.ItemIDTextBox.ReadOnly = True
 		Me.ItemIDTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemIDTextBox.SelectionEnabled = True
 		Me.ItemIDTextBox.Size = New System.Drawing.Size(110, 22)
 		Me.ItemIDTextBox.TabIndex = 0
 		Me.ItemIDTextBox.Text = ""
@@ -674,6 +664,7 @@ Partial Class PublishUserControl
 		Me.ItemOwnerTextBox.Name = "ItemOwnerTextBox"
 		Me.ItemOwnerTextBox.ReadOnly = True
 		Me.ItemOwnerTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemOwnerTextBox.SelectionEnabled = True
 		Me.ItemOwnerTextBox.Size = New System.Drawing.Size(120, 22)
 		Me.ItemOwnerTextBox.TabIndex = 1
 		Me.ItemOwnerTextBox.Text = ""
@@ -708,6 +699,7 @@ Partial Class PublishUserControl
 		Me.ItemTitleTextBox.Multiline = False
 		Me.ItemTitleTextBox.Name = "ItemTitleTextBox"
 		Me.ItemTitleTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemTitleTextBox.SelectionEnabled = True
 		Me.ItemTitleTextBox.Size = New System.Drawing.Size(577, 22)
 		Me.ItemTitleTextBox.TabIndex = 4
 		Me.ItemTitleTextBox.Text = ""
@@ -731,8 +723,6 @@ Partial Class PublishUserControl
 		Me.ItemBottomPanel.Location = New System.Drawing.Point(0, 179)
 		Me.ItemBottomPanel.Name = "ItemBottomPanel"
 		Me.ItemBottomPanel.Padding = New System.Windows.Forms.Padding(0, 3, 0, 0)
-		Me.ItemBottomPanel.SelectedIndex = -1
-		Me.ItemBottomPanel.SelectedValue = Nothing
 		Me.ItemBottomPanel.Size = New System.Drawing.Size(580, 114)
 		Me.ItemBottomPanel.TabIndex = 37
 		'
@@ -780,6 +770,7 @@ Partial Class PublishUserControl
 		Me.ItemPreviewImagePathFileNameTextBox.Multiline = False
 		Me.ItemPreviewImagePathFileNameTextBox.Name = "ItemPreviewImagePathFileNameTextBox"
 		Me.ItemPreviewImagePathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemPreviewImagePathFileNameTextBox.SelectionEnabled = True
 		Me.ItemPreviewImagePathFileNameTextBox.Size = New System.Drawing.Size(415, 22)
 		Me.ItemPreviewImagePathFileNameTextBox.TabIndex = 9
 		Me.ItemPreviewImagePathFileNameTextBox.Text = ""
@@ -796,6 +787,7 @@ Partial Class PublishUserControl
 		Me.ItemContentPathFileNameTextBox.Multiline = False
 		Me.ItemContentPathFileNameTextBox.Name = "ItemContentPathFileNameTextBox"
 		Me.ItemContentPathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ItemContentPathFileNameTextBox.SelectionEnabled = True
 		Me.ItemContentPathFileNameTextBox.Size = New System.Drawing.Size(415, 22)
 		Me.ItemContentPathFileNameTextBox.TabIndex = 7
 		Me.ItemContentPathFileNameTextBox.Text = ""
@@ -804,6 +796,7 @@ Partial Class PublishUserControl
 		'BrowseItemContentPathFileNameButton
 		'
 		Me.BrowseItemContentPathFileNameButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.BrowseItemContentPathFileNameButton.ButtonCanBeFocused = True
 		Me.BrowseItemContentPathFileNameButton.Location = New System.Drawing.Point(424, 19)
 		Me.BrowseItemContentPathFileNameButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
 		Me.BrowseItemContentPathFileNameButton.Name = "BrowseItemContentPathFileNameButton"
@@ -816,6 +809,7 @@ Partial Class PublishUserControl
 		'BrowseItemPreviewImagePathFileNameButton
 		'
 		Me.BrowseItemPreviewImagePathFileNameButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.BrowseItemPreviewImagePathFileNameButton.ButtonCanBeFocused = True
 		Me.BrowseItemPreviewImagePathFileNameButton.Location = New System.Drawing.Point(424, 60)
 		Me.BrowseItemPreviewImagePathFileNameButton.Name = "BrowseItemPreviewImagePathFileNameButton"
 		Me.BrowseItemPreviewImagePathFileNameButton.Size = New System.Drawing.Size(75, 22)
@@ -836,8 +830,6 @@ Partial Class PublishUserControl
 		'
 		'ItemVisibilityComboBox
 		'
-		Me.ItemVisibilityComboBox.DataSource = Nothing
-		Me.ItemVisibilityComboBox.DisplayMember = ""
 		Me.ItemVisibilityComboBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.ItemVisibilityComboBox.IsReadOnly = False
 		Me.ItemVisibilityComboBox.Location = New System.Drawing.Point(63, 88)
@@ -845,14 +837,11 @@ Partial Class PublishUserControl
 		Me.ItemVisibilityComboBox.MaxDropDownItems = 30
 		Me.ItemVisibilityComboBox.MultipleInputsIsAllowed = True
 		Me.ItemVisibilityComboBox.Name = "ItemVisibilityComboBox"
-		Me.ItemVisibilityComboBox.SelectedIndex = -1
-		Me.ItemVisibilityComboBox.SelectedValue = ""
 		Me.ItemVisibilityComboBox.Size = New System.Drawing.Size(100, 23)
 		Me.ItemVisibilityComboBox.TabIndex = 11
 		Me.ItemVisibilityComboBox.TextHistoryIsKept = False
 		Me.ItemVisibilityComboBox.TextHistoryMaxSize = 15
 		Me.ItemVisibilityComboBox.TextIsPathFileNames = False
-		Me.ItemVisibilityComboBox.ValueMember = ""
 		'
 		'ItemVisibilityLabel
 		'
@@ -864,6 +853,7 @@ Partial Class PublishUserControl
 		'
 		'SaveAsTemplateOrDraftItemButton
 		'
+		Me.SaveAsTemplateOrDraftItemButton.ButtonCanBeFocused = True
 		Me.SaveAsTemplateOrDraftItemButton.Location = New System.Drawing.Point(169, 88)
 		Me.SaveAsTemplateOrDraftItemButton.Name = "SaveAsTemplateOrDraftItemButton"
 		Me.SaveAsTemplateOrDraftItemButton.Size = New System.Drawing.Size(111, 22)
@@ -874,6 +864,7 @@ Partial Class PublishUserControl
 		'
 		'RefreshOrRevertItemButton
 		'
+		Me.RefreshOrRevertItemButton.ButtonCanBeFocused = True
 		Me.RefreshOrRevertItemButton.Location = New System.Drawing.Point(286, 88)
 		Me.RefreshOrRevertItemButton.Name = "RefreshOrRevertItemButton"
 		Me.RefreshOrRevertItemButton.Size = New System.Drawing.Size(75, 22)
@@ -884,6 +875,7 @@ Partial Class PublishUserControl
 		'
 		'SaveTemplateButton
 		'
+		Me.SaveTemplateButton.ButtonCanBeFocused = True
 		Me.SaveTemplateButton.Location = New System.Drawing.Point(367, 88)
 		Me.SaveTemplateButton.Name = "SaveTemplateButton"
 		Me.SaveTemplateButton.Size = New System.Drawing.Size(75, 22)
@@ -894,6 +886,7 @@ Partial Class PublishUserControl
 		'
 		'OpenWorkshopPageButton
 		'
+		Me.OpenWorkshopPageButton.ButtonCanBeFocused = True
 		Me.OpenWorkshopPageButton.Enabled = False
 		Me.OpenWorkshopPageButton.Location = New System.Drawing.Point(367, 88)
 		Me.OpenWorkshopPageButton.Name = "OpenWorkshopPageButton"
@@ -906,6 +899,7 @@ Partial Class PublishUserControl
 		'DeleteItemButton
 		'
 		Me.DeleteItemButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.DeleteItemButton.ButtonCanBeFocused = True
 		Me.DeleteItemButton.Location = New System.Drawing.Point(505, 88)
 		Me.DeleteItemButton.Name = "DeleteItemButton"
 		Me.DeleteItemButton.Size = New System.Drawing.Size(75, 22)
@@ -919,8 +913,6 @@ Partial Class PublishUserControl
 		Me.ItemLeftMinScrollPanel.AutoScroll = True
 		Me.ItemLeftMinScrollPanel.Location = New System.Drawing.Point(0, 0)
 		Me.ItemLeftMinScrollPanel.Name = "ItemLeftMinScrollPanel"
-		Me.ItemLeftMinScrollPanel.SelectedIndex = -1
-		Me.ItemLeftMinScrollPanel.SelectedValue = Nothing
 		Me.ItemLeftMinScrollPanel.Size = New System.Drawing.Size(580, 175)
 		Me.ItemLeftMinScrollPanel.TabIndex = 38
 		'
@@ -952,6 +944,7 @@ Partial Class PublishUserControl
 		Me.LogTextBox.Name = "LogTextBox"
 		Me.LogTextBox.ReadOnly = True
 		Me.LogTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.LogTextBox.SelectionEnabled = True
 		Me.LogTextBox.Size = New System.Drawing.Size(633, 59)
 		Me.LogTextBox.TabIndex = 19
 		Me.LogTextBox.Text = ""
@@ -959,6 +952,7 @@ Partial Class PublishUserControl
 		'
 		'PublishItemButton
 		'
+		Me.PublishItemButton.ButtonCanBeFocused = True
 		Me.PublishItemButton.Location = New System.Drawing.Point(3, 0)
 		Me.PublishItemButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
 		Me.PublishItemButton.Name = "PublishItemButton"
@@ -972,6 +966,7 @@ Partial Class PublishUserControl
 		'
 		Me.QueueListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.QueueListView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.QueueListView.HideSelection = False
 		Me.QueueListView.Location = New System.Drawing.Point(568, 0)
 		Me.QueueListView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)

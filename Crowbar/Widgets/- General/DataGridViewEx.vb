@@ -12,11 +12,6 @@ Public Class DataGridViewEx
         'NOTE: Disable to use custom.
         MyBase.ScrollBars = Windows.Forms.ScrollBars.None
 
-        'Me.thePaddingColor = WidgetDeepBackColor
-        'Me.theNonClientPaddingColor = WidgetDeepBackColor
-        'TEST:
-        'Me.theNonClientPaddingColor = Color.Pink
-
         Me.CustomHorizontalScrollbar = New ScrollBarEx()
         Me.Controls.Add(Me.CustomHorizontalScrollbar)
         Me.CustomHorizontalScrollbar.Location = New System.Drawing.Point(0, Me.ClientRectangle.Height)
@@ -46,9 +41,6 @@ Public Class DataGridViewEx
         'Me.CellBorderStyle = DataGridViewCellBorderStyle.Single
         'Me.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
 
-        'Me.ForeColor = WidgetConstants.WidgetTextColor
-        'Me.BackgroundColor = WidgetConstants.WidgetBackColor
-
         'Me.ColumnHeadersDefaultCellStyle.ForeColor = WidgetConstants.WidgetTextColor
         'Me.ColumnHeadersDefaultCellStyle.BackColor = WidgetConstants.WidgetBackColor
         'Me.ColumnHeadersDefaultCellStyle.SelectionForeColor = WidgetConstants.WidgetTextColor
@@ -64,16 +56,12 @@ Public Class DataGridViewEx
         'Me.RowHeadersDefaultCellStyle.SelectionForeColor = WidgetConstants.WidgetTextColor
         'Me.RowHeadersDefaultCellStyle.SelectionBackColor = WidgetConstants.WidgetSelectedBackColor
 
-        'Me.GridColor = WidgetConstants.WidgetDisabledTextColor
-        'Me.GridColor = Color.Green
         Me.BorderStyle = BorderStyle.None
 
         Me.theCurrentCellIsChangingBecauseOfMe = False
         Me.theSelectionIsChangingBecauseOfMe = False
 
         Me.theCellWherePointerIs = Nothing
-
-        Me.UpdateTheme()
     End Sub
 
 #End Region
@@ -85,6 +73,8 @@ Public Class DataGridViewEx
         If TheApp Is Nothing Then
             Exit Sub
         End If
+
+        Me.UpdateTheme()
 
         AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
     End Sub
@@ -236,7 +226,7 @@ Public Class DataGridViewEx
                 Me.InvalidateCell(Me.theCellWherePointerIs)
             End If
             Me.theCellWherePointerIs = Me.Rows(e.RowIndex).Cells(e.ColumnIndex)
-            Me.InvalidateCell(e.ColumnIndex, e.RowIndex)
+            Me.InvalidateCell(Me.theCellWherePointerIs)
         End If
     End Sub
 
@@ -251,11 +241,11 @@ Public Class DataGridViewEx
     Protected Overrides Sub OnCellEnter(ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
         MyBase.OnCellEnter(e)
         If (e.RowIndex > -1) AndAlso (e.ColumnIndex > -1) Then
-            If Me.theCellWherePointerIs IsNot Nothing AndAlso (Me.theCellWherePointerIs.RowIndex > -1) AndAlso (Me.theCellWherePointerIs.ColumnIndex > -1) Then
+            If Me.theCellWherePointerIs IsNot Nothing Then
                 Me.InvalidateCell(Me.theCellWherePointerIs)
             End If
             Me.theCellWherePointerIs = Me.Rows(e.RowIndex).Cells(e.ColumnIndex)
-            Me.InvalidateCell(e.ColumnIndex, e.RowIndex)
+            Me.InvalidateCell(Me.theCellWherePointerIs)
         End If
     End Sub
 
@@ -268,15 +258,15 @@ Public Class DataGridViewEx
     End Sub
 
     Protected Overrides Sub OnCellPainting(ByVal e As DataGridViewCellPaintingEventArgs)
+        Dim g As Graphics = e.Graphics
+        Dim cellRect As Rectangle = e.CellBounds
+
         Dim theme As DataGridViewTheme = Nothing
         ' This check prevents problems with viewing and saving Forms in VS Designer.
         If TheApp IsNot Nothing Then
             theme = TheApp.Settings.SelectedAppTheme.DataGridViewTheme
         End If
         If theme IsNot Nothing Then
-            Dim g As Graphics = e.Graphics
-            Dim cellRect As Rectangle = e.CellBounds
-
             '' RowIndex = -1 for header cell.
             'If e.RowIndex = -1 AndAlso e.ColumnIndex > -1 Then
             '    Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.EnabledForeColor
@@ -418,6 +408,21 @@ Public Class DataGridViewEx
                     TextRenderer.DrawText(g, CType(cell.Value, String), Me.Font, cellRect, textColor, textBackColor, TextFormatFlags.VerticalCenter)
 
                     e.Handled = True
+                End If
+            End If
+        Else
+            ' Highlight when using "Windows Default" or no theme.
+            If (e.RowIndex > -1) AndAlso (e.ColumnIndex > -1) Then
+                If TypeOf Me.Columns(e.ColumnIndex) Is DataGridViewTextBoxColumn Then
+                    Dim cell As DataGridViewCell = Me.Rows(e.RowIndex).Cells(e.ColumnIndex)
+
+                    If Me.Enabled Then
+                        If cell Is Me.theCellWherePointerIs Then
+                            cell.Style.BackColor = SystemColors.Control
+                        Else
+                            cell.Style.BackColor = DefaultCellStyle.BackColor
+                        End If
+                    End If
                 End If
             End If
         End If
@@ -777,17 +782,25 @@ Public Class DataGridViewEx
             If Me.Enabled Then
                 Me.GridColor = theme.EnabledForeColor
                 Me.BackgroundColor = theme.EnabledBackColor
+                Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.EnabledForeColor
+                Me.ColumnHeadersDefaultCellStyle.BackColor = theme.EnabledBackColor
+                Me.DefaultCellStyle.ForeColor = theme.EnabledForeColor
+                Me.DefaultCellStyle.BackColor = theme.EnabledBackColor
             Else
                 Me.GridColor = theme.DisabledForeColor
                 Me.BackgroundColor = theme.DisabledBackColor
+                Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.DisabledForeColor
+                Me.ColumnHeadersDefaultCellStyle.BackColor = theme.DisabledBackColor
+                Me.DefaultCellStyle.ForeColor = theme.DisabledForeColor
+                Me.DefaultCellStyle.BackColor = theme.DisabledBackColor
             End If
-            Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.EnabledForeColor
-            Me.ColumnHeadersDefaultCellStyle.BackColor = theme.EnabledBackColor
         Else
             Me.GridColor = SystemColors.ControlDark
             Me.BackgroundColor = SystemColors.AppWorkspace
             Me.ColumnHeadersDefaultCellStyle.ForeColor = SystemColors.WindowText
             Me.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.Control
+            Me.DefaultCellStyle.ForeColor = SystemColors.WindowText
+            Me.DefaultCellStyle.BackColor = SystemColors.Control
         End If
     End Sub
 
@@ -890,7 +903,7 @@ Public Class DataGridViewEx
                 Dim aPoint As New Point(Me.Left - Me.NonClientPadding.Left, Me.Height + Me.NonClientPadding.Bottom - ScrollBarEx.Consts.ScrollBarSize)
                 'NOTE: Location must be relative to Parent.
                 aPoint = Me.PointToScreen(aPoint)
-                aPoint = Me.Parent.PointToClient(aPoint)
+                aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
                 Me.CustomHorizontalScrollbar.Location = aPoint
 
                 Me.theScrollingIsActive = False

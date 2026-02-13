@@ -17,8 +17,6 @@ Public Class TabControlEx
 		Me.ShowToolTips = True
 		Me.HotTrack = True
 		Me.theCursorIsOverTabs = False
-
-		Me.UpdateTheme()
 	End Sub
 
 #End Region
@@ -28,6 +26,7 @@ Public Class TabControlEx
 	Private Sub Init()
 		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
 		If TheApp IsNot Nothing Then
+			Me.UpdateTheme()
 			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 		End If
 	End Sub

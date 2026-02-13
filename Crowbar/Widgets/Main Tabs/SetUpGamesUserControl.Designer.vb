@@ -69,7 +69,7 @@ Partial Class SetUpGamesUserControl
 		Me.AddLibraryPathButton.Name = "AddLibraryPathButton"
 		Me.AddLibraryPathButton.Size = New System.Drawing.Size(75, 23)
 		Me.AddLibraryPathButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.AddLibraryPathButton.TabIndex = 51
+		Me.AddLibraryPathButton.TabIndex = 5
 		Me.AddLibraryPathButton.Text = "Add Macro"
 		Me.AddLibraryPathButton.UseVisualStyleBackColor = True
 		'
@@ -81,7 +81,7 @@ Partial Class SetUpGamesUserControl
 		Me.DeleteLibraryPathButton.Name = "DeleteLibraryPathButton"
 		Me.DeleteLibraryPathButton.Size = New System.Drawing.Size(75, 50)
 		Me.DeleteLibraryPathButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.DeleteLibraryPathButton.TabIndex = 50
+		Me.DeleteLibraryPathButton.TabIndex = 6
 		Me.DeleteLibraryPathButton.Text = "Delete Last Macro If Not Used"
 		Me.DeleteLibraryPathButton.UseVisualStyleBackColor = True
 		'
@@ -114,7 +114,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForSteamAppPathFileNameButton.Name = "BrowseForSteamAppPathFileNameButton"
 		Me.BrowseForSteamAppPathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForSteamAppPathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForSteamAppPathFileNameButton.TabIndex = 47
+		Me.BrowseForSteamAppPathFileNameButton.TabIndex = 3
 		Me.BrowseForSteamAppPathFileNameButton.Text = "Browse..."
 		Me.BrowseForSteamAppPathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -131,7 +131,7 @@ Partial Class SetUpGamesUserControl
 		Me.SteamAppPathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.SteamAppPathFileNameTextBox.SelectionEnabled = True
 		Me.SteamAppPathFileNameTextBox.Size = New System.Drawing.Size(604, 22)
-		Me.SteamAppPathFileNameTextBox.TabIndex = 46
+		Me.SteamAppPathFileNameTextBox.TabIndex = 2
 		Me.SteamAppPathFileNameTextBox.Text = ""
 		Me.SteamAppPathFileNameTextBox.WordWrap = False
 		'
@@ -143,7 +143,7 @@ Partial Class SetUpGamesUserControl
 		Me.AddGameSetupButton.Name = "AddGameSetupButton"
 		Me.AddGameSetupButton.Size = New System.Drawing.Size(75, 22)
 		Me.AddGameSetupButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.AddGameSetupButton.TabIndex = 43
+		Me.AddGameSetupButton.TabIndex = 1
 		Me.AddGameSetupButton.Text = "Add"
 		Me.AddGameSetupButton.UseVisualStyleBackColor = True
 		'
@@ -184,7 +184,7 @@ Partial Class SetUpGamesUserControl
 		Me.GameGroupBox.Name = "GameGroupBox"
 		Me.GameGroupBox.SelectedValue = Nothing
 		Me.GameGroupBox.Size = New System.Drawing.Size(778, 304)
-		Me.GameGroupBox.TabIndex = 44
+		Me.GameGroupBox.TabIndex = 3
 		Me.GameGroupBox.TabStop = False
 		Me.GameGroupBox.Text = "Game Setup"
 		'
@@ -194,7 +194,7 @@ Partial Class SetUpGamesUserControl
 		Me.EngineLabel.Location = New System.Drawing.Point(6, 49)
 		Me.EngineLabel.Name = "EngineLabel"
 		Me.EngineLabel.Size = New System.Drawing.Size(46, 13)
-		Me.EngineLabel.TabIndex = 43
+		Me.EngineLabel.TabIndex = 6
 		Me.EngineLabel.Text = "Engine:"
 		'
 		'EngineComboUserControl
@@ -206,7 +206,7 @@ Partial Class SetUpGamesUserControl
 		Me.EngineComboUserControl.MultipleInputsIsAllowed = True
 		Me.EngineComboUserControl.Name = "EngineComboUserControl"
 		Me.EngineComboUserControl.Size = New System.Drawing.Size(121, 23)
-		Me.EngineComboUserControl.TabIndex = 42
+		Me.EngineComboUserControl.TabIndex = 7
 		Me.EngineComboUserControl.TextHistoryIsKept = False
 		Me.EngineComboUserControl.TextHistoryMaxSize = 15
 		Me.EngineComboUserControl.TextIsPathFileNames = False
@@ -219,7 +219,7 @@ Partial Class SetUpGamesUserControl
 		Me.CreateModelsFolderTreeButton.Name = "CreateModelsFolderTreeButton"
 		Me.CreateModelsFolderTreeButton.Size = New System.Drawing.Size(270, 23)
 		Me.CreateModelsFolderTreeButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.CreateModelsFolderTreeButton.TabIndex = 40
+		Me.CreateModelsFolderTreeButton.TabIndex = 15
 		Me.CreateModelsFolderTreeButton.Text = "Create ""models"" folder tree from this game's VPKs"
 		Me.ToolTip1.SetToolTip(Me.CreateModelsFolderTreeButton, "Use this so HLMV can view models found in VPKs.")
 		Me.CreateModelsFolderTreeButton.UseVisualStyleBackColor = True
@@ -232,7 +232,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForMappingToolPathFileNameButton.Name = "BrowseForMappingToolPathFileNameButton"
 		Me.BrowseForMappingToolPathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForMappingToolPathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForMappingToolPathFileNameButton.TabIndex = 39
+		Me.BrowseForMappingToolPathFileNameButton.TabIndex = 11
 		Me.BrowseForMappingToolPathFileNameButton.Text = "Browse..."
 		Me.BrowseForMappingToolPathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -249,7 +249,7 @@ Partial Class SetUpGamesUserControl
 		Me.MappingToolPathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.MappingToolPathFileNameTextBox.SelectionEnabled = True
 		Me.MappingToolPathFileNameTextBox.Size = New System.Drawing.Size(589, 22)
-		Me.MappingToolPathFileNameTextBox.TabIndex = 38
+		Me.MappingToolPathFileNameTextBox.TabIndex = 10
 		Me.MappingToolPathFileNameTextBox.Text = ""
 		Me.MappingToolPathFileNameTextBox.WordWrap = False
 		'
@@ -285,7 +285,7 @@ Partial Class SetUpGamesUserControl
 		Me.GameAppOptionsTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.GameAppOptionsTextBox.SelectionEnabled = True
 		Me.GameAppOptionsTextBox.Size = New System.Drawing.Size(579, 22)
-		Me.GameAppOptionsTextBox.TabIndex = 32
+		Me.GameAppOptionsTextBox.TabIndex = 12
 		Me.GameAppOptionsTextBox.Text = ""
 		Me.GameAppOptionsTextBox.WordWrap = False
 		'
@@ -295,7 +295,7 @@ Partial Class SetUpGamesUserControl
 		Me.ExecutableOptionsLabel.Location = New System.Drawing.Point(6, 106)
 		Me.ExecutableOptionsLabel.Name = "ExecutableOptionsLabel"
 		Me.ExecutableOptionsLabel.Size = New System.Drawing.Size(108, 13)
-		Me.ExecutableOptionsLabel.TabIndex = 31
+		Me.ExecutableOptionsLabel.TabIndex = 11
 		Me.ExecutableOptionsLabel.Text = "Executable options:"
 		'
 		'ClearGameAppOptionsButton
@@ -306,7 +306,7 @@ Partial Class SetUpGamesUserControl
 		Me.ClearGameAppOptionsButton.Name = "ClearGameAppOptionsButton"
 		Me.ClearGameAppOptionsButton.Size = New System.Drawing.Size(75, 23)
 		Me.ClearGameAppOptionsButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.ClearGameAppOptionsButton.TabIndex = 33
+		Me.ClearGameAppOptionsButton.TabIndex = 13
 		Me.ClearGameAppOptionsButton.Text = "Clear"
 		Me.ClearGameAppOptionsButton.UseVisualStyleBackColor = True
 		'
@@ -318,7 +318,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForGameAppPathFileNameButton.Name = "BrowseForGameAppPathFileNameButton"
 		Me.BrowseForGameAppPathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForGameAppPathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForGameAppPathFileNameButton.TabIndex = 30
+		Me.BrowseForGameAppPathFileNameButton.TabIndex = 10
 		Me.BrowseForGameAppPathFileNameButton.Text = "Browse..."
 		Me.BrowseForGameAppPathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -335,7 +335,7 @@ Partial Class SetUpGamesUserControl
 		Me.GameAppPathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.GameAppPathFileNameTextBox.SelectionEnabled = True
 		Me.GameAppPathFileNameTextBox.Size = New System.Drawing.Size(579, 22)
-		Me.GameAppPathFileNameTextBox.TabIndex = 29
+		Me.GameAppPathFileNameTextBox.TabIndex = 9
 		Me.GameAppPathFileNameTextBox.Text = ""
 		Me.GameAppPathFileNameTextBox.WordWrap = False
 		'
@@ -346,7 +346,7 @@ Partial Class SetUpGamesUserControl
 		Me.ExecutableLabel.Margin = New System.Windows.Forms.Padding(3, 9, 3, 0)
 		Me.ExecutableLabel.Name = "ExecutableLabel"
 		Me.ExecutableLabel.Size = New System.Drawing.Size(99, 13)
-		Me.ExecutableLabel.TabIndex = 28
+		Me.ExecutableLabel.TabIndex = 8
 		Me.ExecutableLabel.Text = "Executable (*.exe):"
 		'
 		'PackerLabel
@@ -367,7 +367,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForUnpackerPathFileNameButton.Name = "BrowseForUnpackerPathFileNameButton"
 		Me.BrowseForUnpackerPathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForUnpackerPathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForUnpackerPathFileNameButton.TabIndex = 18
+		Me.BrowseForUnpackerPathFileNameButton.TabIndex = 12
 		Me.BrowseForUnpackerPathFileNameButton.Text = "Browse..."
 		Me.BrowseForUnpackerPathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -406,7 +406,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForViewerPathFileNameButton.Name = "BrowseForViewerPathFileNameButton"
 		Me.BrowseForViewerPathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForViewerPathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForViewerPathFileNameButton.TabIndex = 15
+		Me.BrowseForViewerPathFileNameButton.TabIndex = 9
 		Me.BrowseForViewerPathFileNameButton.Text = "Browse..."
 		Me.BrowseForViewerPathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -423,7 +423,7 @@ Partial Class SetUpGamesUserControl
 		Me.ViewerPathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.ViewerPathFileNameTextBox.SelectionEnabled = True
 		Me.ViewerPathFileNameTextBox.Size = New System.Drawing.Size(589, 22)
-		Me.ViewerPathFileNameTextBox.TabIndex = 14
+		Me.ViewerPathFileNameTextBox.TabIndex = 8
 		Me.ViewerPathFileNameTextBox.Text = ""
 		Me.ViewerPathFileNameTextBox.WordWrap = False
 		'
@@ -434,7 +434,7 @@ Partial Class SetUpGamesUserControl
 		Me.CloneGameSetupButton.Name = "CloneGameSetupButton"
 		Me.CloneGameSetupButton.Size = New System.Drawing.Size(75, 23)
 		Me.CloneGameSetupButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.CloneGameSetupButton.TabIndex = 12
+		Me.CloneGameSetupButton.TabIndex = 13
 		Me.CloneGameSetupButton.Text = "Clone"
 		Me.CloneGameSetupButton.UseVisualStyleBackColor = True
 		'
@@ -451,7 +451,7 @@ Partial Class SetUpGamesUserControl
 		Me.GameNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.GameNameTextBox.SelectionEnabled = True
 		Me.GameNameTextBox.Size = New System.Drawing.Size(717, 22)
-		Me.GameNameTextBox.TabIndex = 1
+		Me.GameNameTextBox.TabIndex = 5
 		Me.GameNameTextBox.Text = ""
 		Me.GameNameTextBox.WordWrap = False
 		'
@@ -461,7 +461,7 @@ Partial Class SetUpGamesUserControl
 		Me.NameLabel.Location = New System.Drawing.Point(6, 22)
 		Me.NameLabel.Name = "NameLabel"
 		Me.NameLabel.Size = New System.Drawing.Size(39, 13)
-		Me.NameLabel.TabIndex = 0
+		Me.NameLabel.TabIndex = 4
 		Me.NameLabel.Text = "Name:"
 		'
 		'DeleteGameSetupButton
@@ -471,7 +471,7 @@ Partial Class SetUpGamesUserControl
 		Me.DeleteGameSetupButton.Name = "DeleteGameSetupButton"
 		Me.DeleteGameSetupButton.Size = New System.Drawing.Size(75, 23)
 		Me.DeleteGameSetupButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.DeleteGameSetupButton.TabIndex = 8
+		Me.DeleteGameSetupButton.TabIndex = 14
 		Me.DeleteGameSetupButton.Text = "Delete"
 		Me.DeleteGameSetupButton.UseVisualStyleBackColor = True
 		'
@@ -483,7 +483,7 @@ Partial Class SetUpGamesUserControl
 		Me.BrowseForGamePathFileNameButton.Name = "BrowseForGamePathFileNameButton"
 		Me.BrowseForGamePathFileNameButton.Size = New System.Drawing.Size(75, 23)
 		Me.BrowseForGamePathFileNameButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.BrowseForGamePathFileNameButton.TabIndex = 4
+		Me.BrowseForGamePathFileNameButton.TabIndex = 5
 		Me.BrowseForGamePathFileNameButton.Text = "Browse..."
 		Me.BrowseForGamePathFileNameButton.UseVisualStyleBackColor = True
 		'
@@ -500,7 +500,7 @@ Partial Class SetUpGamesUserControl
 		Me.GamePathFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.GamePathFileNameTextBox.SelectionEnabled = True
 		Me.GamePathFileNameTextBox.Size = New System.Drawing.Size(589, 22)
-		Me.GamePathFileNameTextBox.TabIndex = 3
+		Me.GamePathFileNameTextBox.TabIndex = 4
 		Me.GamePathFileNameTextBox.Text = ""
 		Me.GamePathFileNameTextBox.WordWrap = False
 		'
@@ -561,7 +561,7 @@ Partial Class SetUpGamesUserControl
 		Me.GoBackButton.Name = "GoBackButton"
 		Me.GoBackButton.Size = New System.Drawing.Size(75, 23)
 		Me.GoBackButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.GoBackButton.TabIndex = 52
+		Me.GoBackButton.TabIndex = 7
 		Me.GoBackButton.Text = "Go Back"
 		Me.GoBackButton.UseVisualStyleBackColor = True
 		'
@@ -574,6 +574,7 @@ Partial Class SetUpGamesUserControl
 			Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.SteamLibraryPathsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+		Me.SteamLibraryPathsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.SteamLibraryPathsDataGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText
 		Me.SteamLibraryPathsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
 		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -596,7 +597,7 @@ Partial Class SetUpGamesUserControl
 		Me.SteamLibraryPathsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.SteamLibraryPathsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
 		Me.SteamLibraryPathsDataGridView.Size = New System.Drawing.Size(604, 131)
-		Me.SteamLibraryPathsDataGridView.TabIndex = 49
+		Me.SteamLibraryPathsDataGridView.TabIndex = 4
 		'
 		'Panel1
 		'
@@ -615,7 +616,7 @@ Partial Class SetUpGamesUserControl
 		Me.Panel1.Location = New System.Drawing.Point(0, 0)
 		Me.Panel1.Name = "Panel1"
 		Me.Panel1.Size = New System.Drawing.Size(784, 546)
-		Me.Panel1.TabIndex = 17
+		Me.Panel1.TabIndex = 0
 		'
 		'GameSetupComboUserControl
 		'
@@ -628,7 +629,7 @@ Partial Class SetUpGamesUserControl
 		Me.GameSetupComboUserControl.MultipleInputsIsAllowed = False
 		Me.GameSetupComboUserControl.Name = "GameSetupComboUserControl"
 		Me.GameSetupComboUserControl.Size = New System.Drawing.Size(697, 22)
-		Me.GameSetupComboUserControl.TabIndex = 53
+		Me.GameSetupComboUserControl.TabIndex = 0
 		Me.GameSetupComboUserControl.TextHistoryIsKept = False
 		Me.GameSetupComboUserControl.TextHistoryMaxSize = 15
 		Me.GameSetupComboUserControl.TextIsPathFileNames = False

@@ -5,6 +5,8 @@ Public Class GroupBoxEx
 	'thisGroupBoxEx.DataBindings.Add("SelectedValue", theDataSourceThatHasTheEnumProperty, "NameOfEnumProperty", False, DataSourceUpdateMode.OnPropertyChanged)
 
 
+#Region "Create and Destroy"
+
 	Public Sub New()
 		MyBase.New()
 
@@ -15,7 +17,28 @@ Public Class GroupBoxEx
 		'Me.SetStyle(ControlStyles.UserPaint, True)
 	End Sub
 
-	Public Event SelectedValueChanged As EventHandler
+#End Region
+
+#Region "Init and Free"
+
+	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			Me.UpdateTheme()
+			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
+	End Sub
+
+	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
+	End Sub
+
+#End Region
+
+#Region "Properties"
 
 	'Public Property DataSource() As Object
 	'	Get
@@ -64,12 +87,6 @@ Public Class GroupBoxEx
 		Set(ByVal value As Boolean)
 			If Me.theControlIsReadOnly <> value Then
 				Me.theControlIsReadOnly = value
-
-				If Me.theControlIsReadOnly Then
-					Me.ForeColor = WidgetDisabledTextColor
-				Else
-					Me.ForeColor = WidgetTextColor
-				End If
 			End If
 		End Set
 	End Property
@@ -141,7 +158,32 @@ Public Class GroupBoxEx
 		End Set
 	End Property
 
+#End Region
+
+#Region "Methods"
+
+#End Region
+
+#Region "Events"
+
+	Public Event SelectedValueChanged As EventHandler
+
+#End Region
+
 #Region "Widget Event Handlers"
+
+	Protected Overrides Sub OnHandleCreated(ByVal e As System.EventArgs)
+		MyBase.OnHandleCreated(e)
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
+	End Sub
+
+	Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+		Me.Free()
+		MyBase.OnHandleDestroyed(e)
+	End Sub
 
 	Protected Overloads Overrides Sub OnControlAdded(ByVal e As ControlEventArgs)
 		If TypeOf e.Control Is RadioButton Then
@@ -161,21 +203,7 @@ Public Class GroupBoxEx
 		MyBase.OnControlRemoved(e)
 	End Sub
 
-	'Protected Overrides Sub OnHandleCreated(e As EventArgs)
-	'	MyBase.OnHandleCreated(e)
-
-	'	Dim theme As GroupBoxTheme = Nothing
-	'	' This check prevents problems with viewing and saving Forms in VS Designer.
-	'	If TheApp IsNot Nothing Then
-	'		theme = TheApp.Settings.SelectedAppTheme.GroupBoxTheme
-	'	End If
-	'	If theme IsNot Nothing Then
-	'		'SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-	'		'SetStyle(ControlStyles.DoubleBuffer, True)
-	'		SetStyle(ControlStyles.UserPaint, True)
-	'	End If
-	'End Sub
-
+	' Works without needing to call SetStyle.
 	Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
 		Dim theme As GroupBoxTheme = Nothing
 		' This check prevents problems with viewing and saving Forms in VS Designer.
@@ -237,7 +265,38 @@ Public Class GroupBoxEx
 
 #End Region
 
+#Region "Core Event Handlers"
+
+	Private Sub AppSettings_PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
+		If e.PropertyName = "AppThemeName" Then
+			Me.UpdateTheme()
+			Me.Refresh()
+		End If
+	End Sub
+
+#End Region
+
 #Region "Private Methods"
+
+	Private Sub UpdateTheme()
+		Dim theme As GroupBoxTheme = Nothing
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.GroupBoxTheme
+		End If
+		If theme IsNot Nothing Then
+			If Me.theControlIsReadOnly Then
+				Me.ForeColor = theme.EnabledForeColor
+			Else
+				Me.ForeColor = theme.EnabledForeColor
+			End If
+			MyBase.BackColor = theme.EnabledBackColor
+			'MyBase.BackColor = Color.Red
+
+		Else
+			Me.ForeColor = Control.DefaultForeColor
+			MyBase.BackColor = Control.DefaultBackColor
+		End If
+	End Sub
 
 	Private Sub SetValue(ByVal value As System.Enum)
 		'If Me.theDataSource Is Nothing Then

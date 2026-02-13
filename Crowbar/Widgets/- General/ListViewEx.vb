@@ -3,6 +3,8 @@
 Public Class ListViewEx
 	Inherits ListView
 
+#Region "Create and Destroy"
+
 	Public Sub New()
 		MyBase.New()
 
@@ -43,6 +45,33 @@ Public Class ListViewEx
 		'Me.theHeaderHeight = 24
 	End Sub
 
+#End Region
+
+#Region "Init and Free"
+
+	Private Sub Init()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			Me.UpdateTheme()
+			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
+	End Sub
+
+	Private Sub Free()
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp IsNot Nothing Then
+			RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+		End If
+	End Sub
+
+#End Region
+
+#Region "Properties"
+
+#End Region
+
+#Region "Methods"
+
 	Public Overloads Sub AutoResizeColumns(headerAutoResize As ColumnHeaderAutoResizeStyle)
 		If Me.Columns.Count > 0 Then
 			MyBase.AutoResizeColumns(headerAutoResize)
@@ -50,7 +79,22 @@ Public Class ListViewEx
 		End If
 	End Sub
 
+#End Region
+
 #Region "Widget Event Handlers"
+
+	Protected Overrides Sub OnHandleCreated(ByVal e As System.EventArgs)
+		MyBase.OnHandleCreated(e)
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
+	End Sub
+
+	Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+		Me.Free()
+		MyBase.OnHandleDestroyed(e)
+	End Sub
 
 #Region "filler column"
 
@@ -107,13 +151,6 @@ Public Class ListViewEx
 		MyBase.OnColumnWidthChanged(e)
 		Me.Invalidate()
 	End Sub
-
-	'Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
-	'	If Me.ListViewHeader IsNot Nothing Then
-	'		Me.ListViewHeader.ReleaseHandle()
-	'	End If
-	'	MyBase.OnHandleDestroyed(e)
-	'End Sub
 
 	Protected Overrides Sub OnSizeChanged(e As EventArgs)
 		If Not Me.theListViewIsResizing AndAlso Me.Columns.Count > 0 Then
@@ -248,8 +285,8 @@ Public Class ListViewEx
 				'	Me.UpdateVerticalScrollbar()
 				Case Win32Api.WindowsMessages.WM_NCCALCSIZE
 					Me.OnNonClientCalcSize(m)
-				Case Win32Api.WindowsMessages.WM_NCPAINT
-					Me.OnNonClientPaint(m)
+					'Case Win32Api.WindowsMessages.WM_NCPAINT
+					'	Me.OnNonClientPaint(m)
 					'Case Win32Api.WindowsMessages.WM_PAINT
 					'	Me.OnClientPaint(m)
 					'Case Win32Api.ListViewMessages.LVM_INSERTITEM, Win32Api.ListViewMessages.LVM_DELETEITEM, Win32Api.ListViewMessages.LVM_DELETEALLITEMS
@@ -299,30 +336,32 @@ Public Class ListViewEx
 		'End Try
 	End Sub
 
-	Private Sub OnNonClientPaint(ByRef m As Message)
-		' Set background color here in case user changes theme while app is open.
-		Dim theme As ListViewTheme = Nothing
-		' This check prevents problems with viewing and saving Forms in VS Designer.
-		If TheApp IsNot Nothing Then
-			theme = TheApp.Settings.SelectedAppTheme.ListViewTheme
-		End If
-		If theme IsNot Nothing Then
-			Me.BackColor = theme.EnabledBackColor
-		End If
+	'Private Sub OnNonClientPaint(ByRef m As Message)
+	'	' Set background color here in case user changes theme while app is open.
+	'	Dim theme As ListViewTheme = Nothing
+	'	' This check prevents problems with viewing and saving Forms in VS Designer.
+	'	If TheApp IsNot Nothing Then
+	'		theme = TheApp.Settings.SelectedAppTheme.ListViewTheme
+	'	End If
+	'	If theme IsNot Nothing Then
+	'		Me.BackColor = theme.EnabledBackColor
+	'	Else
+	'		Me.BackColor = SystemColors.Control
+	'	End If
 
-		'Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
-		'Try
-		'	Using g As Graphics = Graphics.FromHdc(hDC)
-		'		Using backColorBrush As New SolidBrush(Color.Red)
-		'			Dim aRect As RectangleF = g.VisibleClipBounds
-		'			g.FillRectangle(backColorBrush, aRect)
-		'		End Using
-		'	End Using
-		'Finally
-		'	Win32Api.ReleaseDC(Me.Handle, hDC)
-		'End Try
-		'm.Result = IntPtr.Zero
-	End Sub
+	'	'Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+	'	'Try
+	'	'	Using g As Graphics = Graphics.FromHdc(hDC)
+	'	'		Using backColorBrush As New SolidBrush(Color.Red)
+	'	'			Dim aRect As RectangleF = g.VisibleClipBounds
+	'	'			g.FillRectangle(backColorBrush, aRect)
+	'	'		End Using
+	'	'	End Using
+	'	'Finally
+	'	'	Win32Api.ReleaseDC(Me.Handle, hDC)
+	'	'End Try
+	'	'm.Result = IntPtr.Zero
+	'End Sub
 
 	'Private Sub OnClientPaint(ByRef m As Message)
 	'	Dim hwnd As IntPtr = Win32Api.SendMessage(Me.Handle, Win32Api.ListViewMessages.LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero)
@@ -468,6 +507,37 @@ Public Class ListViewEx
 
 #End Region
 
+#Region "Core Event Handlers"
+
+	Private Sub AppSettings_PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
+		If e.PropertyName = "AppThemeName" Then
+			Me.UpdateTheme()
+			Me.Refresh()
+		End If
+	End Sub
+
+#End Region
+
+#Region "Events"
+
+#End Region
+
+#Region "Private Methods"
+
+	Private Sub UpdateTheme()
+		Dim theme As ListViewTheme = Nothing
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.ListViewTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.ForeColor = theme.EnabledForeColor
+			MyBase.BackColor = theme.EnabledBackColor
+		Else
+			Me.ForeColor = SystemColors.ControlText
+			MyBase.BackColor = SystemColors.Control
+		End If
+	End Sub
+
 	Private Sub UpdateNonClientPadding()
 		If Me.DesignMode Then
 			Exit Sub
@@ -574,6 +644,12 @@ Public Class ListViewEx
 			Else
 				Me.ScrollbarCornerPanel.Visible = False
 			End If
+		Else
+			Me.theScrollingIsActive = True
+			Me.CustomHorizontalScrollbar.Hide()
+			Me.CustomVerticalScrollBar.Hide()
+			Me.theScrollingIsActive = False
+			Me.ScrollbarCornerPanel.Visible = False
 		End If
 	End Sub
 
@@ -609,8 +685,7 @@ Public Class ListViewEx
 				'Dim aPoint As New Point(Me.ClientRectangle.Left, Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
-				'aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
-				aPoint = Me.PointToClient(aPoint)
+				aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
 				Me.CustomHorizontalScrollbar.Location = aPoint
 				Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
 				Me.CustomHorizontalScrollbar.Show()
@@ -667,7 +742,7 @@ Public Class ListViewEx
 				'Dim aPoint As New Point(Me.ClientRectangle.Width - ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Top)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
-				aPoint = Me.PointToClient(aPoint)
+				aPoint = Me.CustomVerticalScrollBar.Parent.PointToClient(aPoint)
 				Me.CustomVerticalScrollBar.Location = aPoint
 				Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height)
 				Me.CustomVerticalScrollBar.Show()
@@ -680,6 +755,10 @@ Public Class ListViewEx
 			End If
 		End If
 	End Sub
+
+#End Region
+
+#Region "Data"
 
 	'Private ListViewHeader As NativeListViewHeader = Nothing
 	Private NonClientPadding As Padding
@@ -697,6 +776,8 @@ Public Class ListViewEx
 	Private theFillerColumnIsBeingAdded As Boolean
 	Private theFillerColumnIsBeingDeleted As Boolean
 	Private theFillerColumnIsResizing As Boolean
+
+#End Region
 
 	'Friend Class NativeListViewHeader
 	'	Inherits NativeWindow

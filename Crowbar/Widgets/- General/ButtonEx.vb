@@ -10,8 +10,6 @@ Public Class ButtonEx
 
 		Me.theButtonCanBeFocused = True
 		Me.theMouseIsOverButton = False
-
-		'Me.UpdateTheme()
 	End Sub
 
 #End Region
@@ -21,6 +19,7 @@ Public Class ButtonEx
 	Private Sub Init()
 		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
 		If TheApp IsNot Nothing Then
+			'Me.UpdateTheme()
 			AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 		End If
 	End Sub

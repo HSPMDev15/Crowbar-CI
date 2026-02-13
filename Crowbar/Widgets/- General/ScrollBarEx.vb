@@ -382,22 +382,30 @@ Public Class ScrollBarEx
 	End Sub
 
 	Private Sub UpdateThumb(ByVal Optional forceRefresh As Boolean = False)
-		If ViewSize >= Maximum Then Return
+		If ViewSize >= Maximum Then
+			Return
+		End If
 		Dim maximumValue As Integer = Maximum - ViewSize
-		If Value > maximumValue Then Value = maximumValue
+		If Value > maximumValue Then
+			Value = maximumValue
+		End If
 		_viewContentRatio = CSng(ViewSize) / CSng(Maximum)
 		Dim viewAreaSize As Integer = Maximum - ViewSize
 		Dim positionRatio As Double = CSng(Value) / CSng(viewAreaSize)
 
 		If _scrollOrientation = DarkScrollOrientation.Vertical Then
 			Dim thumbSize As Integer = CInt((_trackArea.Height * _viewContentRatio))
-			If thumbSize < Consts.MinimumThumbSize Then thumbSize = Consts.MinimumThumbSize
+			If thumbSize < Consts.MinimumThumbSize Then
+				thumbSize = Consts.MinimumThumbSize
+			End If
 			Dim trackAreaSize As Integer = _trackArea.Height - thumbSize
 			Dim thumbPosition As Integer = CInt((trackAreaSize * positionRatio))
 			_thumbArea = New Rectangle(_trackArea.Left + 3, _trackArea.Top + thumbPosition, Consts.ScrollBarSize - 6, thumbSize)
 		ElseIf _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			Dim thumbSize As Integer = CInt((_trackArea.Width * _viewContentRatio))
-			If thumbSize < Consts.MinimumThumbSize Then thumbSize = Consts.MinimumThumbSize
+			If thumbSize < Consts.MinimumThumbSize Then
+				thumbSize = Consts.MinimumThumbSize
+			End If
 			Dim trackAreaSize As Integer = _trackArea.Width - thumbSize
 			Dim thumbPosition As Integer = CInt((trackAreaSize * positionRatio))
 			_thumbArea = New Rectangle(_trackArea.Left + thumbPosition, _trackArea.Top + 3, thumbSize, Consts.ScrollBarSize - 6)
@@ -413,8 +421,12 @@ Public Class ScrollBarEx
 		Dim g As Graphics = e.Graphics
 
 		Dim upIcon As Bitmap = If(_upArrowHot, My.Resources.scrollbar_arrow_hot, My.Resources.scrollbar_arrow_standard)
-		If _upArrowClicked Then upIcon = My.Resources.scrollbar_arrow_clicked
-		If Not Enabled Then upIcon = My.Resources.scrollbar_arrow_disabled
+		If _upArrowClicked Then
+			upIcon = My.Resources.scrollbar_arrow_clicked
+		End If
+		If Not Enabled Then
+			upIcon = My.Resources.scrollbar_arrow_disabled
+		End If
 
 		If _scrollOrientation = DarkScrollOrientation.Vertical Then
 			upIcon.RotateFlip(RotateFlipType.RotateNoneFlipY)
@@ -424,16 +436,24 @@ Public Class ScrollBarEx
 
 		g.DrawImageUnscaled(upIcon, CInt(_upArrowArea.Left + (_upArrowArea.Width / 2) - (upIcon.Width / 2)), CInt(_upArrowArea.Top + (_upArrowArea.Height / 2) - (upIcon.Height / 2)))
 		Dim downIcon As Bitmap = If(_downArrowHot, My.Resources.scrollbar_arrow_hot, My.Resources.scrollbar_arrow_standard)
-		If _downArrowClicked Then downIcon = My.Resources.scrollbar_arrow_clicked
-		If Not Enabled Then downIcon = My.Resources.scrollbar_arrow_disabled
-		If _scrollOrientation = DarkScrollOrientation.Horizontal Then downIcon.RotateFlip(RotateFlipType.Rotate270FlipNone)
+		If _downArrowClicked Then
+			downIcon = My.Resources.scrollbar_arrow_clicked
+		End If
+		If Not Enabled Then
+			downIcon = My.Resources.scrollbar_arrow_disabled
+		End If
+		If _scrollOrientation = DarkScrollOrientation.Horizontal Then
+			downIcon.RotateFlip(RotateFlipType.Rotate270FlipNone)
+		End If
 		g.DrawImageUnscaled(downIcon, CInt(_downArrowArea.Left + (_downArrowArea.Width / 2) - (downIcon.Width / 2)), CInt(_downArrowArea.Top + (_downArrowArea.Height / 2) - (downIcon.Height / 2)))
 
 		If Enabled Then
 			'Dim scrollColor As Color = If(_thumbHot, Colors.GreyHighlight, Colors.GreySelection)
 			'If _isScrolling Then scrollColor = Colors.ActiveControl
 			Dim scrollColor As Color = If(_thumbHot, Color.FromArgb(122, 128, 132), Color.FromArgb(92, 92, 92))
-			If _isScrolling Then scrollColor = Color.FromArgb(159, 178, 196)
+			If _isScrolling Then
+				scrollColor = Color.FromArgb(159, 178, 196)
+			End If
 
 			Using b As New SolidBrush(scrollColor)
 				g.FillRectangle(b, _thumbArea)

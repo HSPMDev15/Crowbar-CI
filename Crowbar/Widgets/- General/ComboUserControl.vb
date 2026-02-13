@@ -49,8 +49,6 @@ Public Class ComboUserControl
 		Me.TextHistoryDataGridView.AutoGenerateColumns = False
 
 		Me.thePointerIsOverTheDropDownButton = False
-
-		Me.UpdateTheme()
 	End Sub
 
 #End Region
@@ -62,6 +60,8 @@ Public Class ComboUserControl
 		If TheApp Is Nothing Then
 			Exit Sub
 		End If
+
+		Me.UpdateTheme()
 
 		Me.InitMultipleInputsPopop()
 		Me.InitTextHistoryPopop()
@@ -81,6 +81,30 @@ Public Class ComboUserControl
 #End Region
 
 #Region "Properties"
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property ForeColor As Color
+		Get
+			Return MyBase.ForeColor
+		End Get
+		Set
+			MyBase.ForeColor = Value
+		End Set
+	End Property
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property BackColor As Color
+		Get
+			Return MyBase.BackColor
+		End Get
+		Set
+			MyBase.BackColor = Value
+		End Set
+	End Property
 
 	'<Browsable(True)>
 	'<Category("Appearance")>
@@ -393,6 +417,16 @@ Public Class ComboUserControl
 		MyBase.OnHandleDestroyed(e)
 	End Sub
 
+	Protected Overrides Sub OnGotFocus(e As EventArgs)
+		MyBase.OnGotFocus(e)
+		'Me.Invalidate()
+		Me.Highlight()
+	End Sub
+
+	Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
+		MyBase.OnKeyDown(e)
+	End Sub
+
 	'Protected Overrides Sub OnMouseEnter(e As EventArgs)
 	'	MyBase.OnMouseEnter(e)
 	'	Me.theMouseIsOverWidget = True
@@ -630,10 +664,18 @@ Public Class ComboUserControl
 		Me.ClearTextHistory()
 	End Sub
 
+	Private Sub ComboTextBox_GotFocus(sender As Object, e As EventArgs) Handles ComboTextBox.GotFocus
+		Me.Highlight()
+	End Sub
+
 	Private Sub ComboTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles ComboTextBox.KeyDown
 		If e.KeyCode = Keys.Tab OrElse e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Return Then
 			Me.Validate()
 		End If
+	End Sub
+
+	Private Sub ComboTextBox_MouseDown(sender As Object, e As EventArgs) Handles ComboTextBox.MouseDown
+		Me.OnDropDownButton_MouseDown()
 	End Sub
 
 	Private Sub ComboTextBox_MouseEnter(sender As Object, e As EventArgs) Handles ComboTextBox.MouseEnter
@@ -647,23 +689,7 @@ Public Class ComboUserControl
 	End Sub
 
 	Private Sub ComboTextBox_MouseWheel(sender As Object, e As MouseEventArgs) Handles ComboTextBox.MouseWheel
-		If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
-			Dim selectedRow As DataGridViewRow = Me.TextHistoryDataGridView.SelectedRows(0)
-			Dim selectedRowIndex As Integer = selectedRow.Index
-			If e.Delta > 0 AndAlso selectedRowIndex > 0 Then
-				' Moving wheel away from user = up.
-				'Me.TextHistoryDataGridView.SelectedRows(0).Index -= 1
-				selectedRow.Selected = False
-				Me.TextHistoryDataGridView.Rows(selectedRowIndex - 1).Selected = True
-				Me.UpdateTextBoxWithSelectedHistoryText()
-			ElseIf e.Delta < 0 AndAlso selectedRowIndex < Me.TextHistoryDataGridView.Rows.Count - 1 Then
-				' Moving wheel toward user = down.
-				'Me.TextHistoryDataGridView.SelectedRows(0).Index += 1
-				selectedRow.Selected = False
-				Me.TextHistoryDataGridView.Rows(selectedRowIndex + 1).Selected = True
-				Me.UpdateTextBoxWithSelectedHistoryText()
-			End If
-		End If
+		Me.OnDropDownButton_MouseWheel(e.Delta)
 	End Sub
 
 	'NOTE: Using TextChanged() or TextUpdate() instead of Validated() causes every character change to be stored and user typing is reversed due to cursor reset.
@@ -728,10 +754,13 @@ Public Class ComboUserControl
 		Me.Diminish()
 	End Sub
 
-	Private Sub TextHistoryListBox_KeyDown(sender As Object, e As KeyEventArgs)
+	Private Sub TextHistoryDropDownButton_MouseWheel(sender As Object, e As MouseEventArgs) Handles TextHistoryDropDownButton.MouseWheel
+		Me.OnDropDownButton_MouseWheel(e.Delta)
+	End Sub
+
+	Private Sub TextHistoryListBox_KeyDown(sender As Object, e As KeyEventArgs) Handles TextHistoryDataGridView.KeyDown
 		If e.KeyCode = Keys.Tab OrElse e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Return Then
-			Me.TextHistoryPopup.Hide()
-			Me.UpdateTextBoxWithSelectedHistoryText()
+			Me.OnTextHistoryDataGridView_MouseClick()
 		End If
 	End Sub
 
@@ -933,9 +962,29 @@ Public Class ComboUserControl
 			Me.TextHistoryDataGridView.Focus()
 			Me.theDropDownButtonWasClickedWhenPopupShowing = True
 		Else
-			'NOTE: Make sure Popup hides because TextHistoryPopup can still be visible when user clicks very quickly .
+			'NOTE: Make sure Popup hides because TextHistoryPopup can still be visible when user clicks very quickly.
 			Me.TextHistoryPopup.Hide()
 			Me.theDropDownButtonWasClickedWhenPopupShowing = False
+		End If
+	End Sub
+
+	Private Sub OnDropDownButton_MouseWheel(ByVal delta As Integer)
+		If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
+			Dim selectedRow As DataGridViewRow = Me.TextHistoryDataGridView.SelectedRows(0)
+			Dim selectedRowIndex As Integer = selectedRow.Index
+			If delta > 0 AndAlso selectedRowIndex > 0 Then
+				' Moving wheel away from user = up.
+				'Me.TextHistoryDataGridView.SelectedRows(0).Index -= 1
+				selectedRow.Selected = False
+				Me.TextHistoryDataGridView.Rows(selectedRowIndex - 1).Selected = True
+				Me.UpdateTextBoxWithSelectedHistoryText()
+			ElseIf Delta < 0 AndAlso selectedRowIndex < Me.TextHistoryDataGridView.Rows.Count - 1 Then
+				' Moving wheel toward user = down.
+				'Me.TextHistoryDataGridView.SelectedRows(0).Index += 1
+				selectedRow.Selected = False
+				Me.TextHistoryDataGridView.Rows(selectedRowIndex + 1).Selected = True
+				Me.UpdateTextBoxWithSelectedHistoryText()
+			End If
 		End If
 	End Sub
 
@@ -945,7 +994,7 @@ Public Class ComboUserControl
 
 			Dim cursorPositionInClient As Point = Me.PointToClient(Cursor.Position)
 			Dim aControl As Control = Me.GetChildAtPoint(cursorPositionInClient)
-			If aControl IsNot Me.TextHistoryDropDownButton Then
+			If aControl IsNot Me.TextHistoryDropDownButton AndAlso aControl IsNot Me.ComboTextBox Then
 				Me.theDropDownButtonWasClickedWhenPopupShowing = False
 			End If
 		End If

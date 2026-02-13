@@ -1,4 +1,6 @@
-﻿Public Class ToolStripEx
+﻿Imports System.ComponentModel
+
+Public Class ToolStripEx
 	Inherits ToolStrip
 
 	Public Sub New()
@@ -6,6 +8,30 @@
 
 		Me.Renderer = New ToolStripRendererOverride()
 	End Sub
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property ForeColor As Color
+		Get
+			Return MyBase.ForeColor
+		End Get
+		Set
+			MyBase.ForeColor = Value
+		End Set
+	End Property
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property BackColor As Color
+		Get
+			Return MyBase.BackColor
+		End Get
+		Set
+			MyBase.BackColor = Value
+		End Set
+	End Property
 
 	'Public Overloads Property Renderer() As ToolStripRenderer
 	'	Get

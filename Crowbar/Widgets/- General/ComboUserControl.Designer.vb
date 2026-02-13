@@ -52,6 +52,7 @@ Partial Class ComboUserControl
 		Me.ComboTextBox.Multiline = False
 		Me.ComboTextBox.Name = "ComboTextBox"
 		Me.ComboTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+		Me.ComboTextBox.SelectionEnabled = True
 		Me.ComboTextBox.Size = New System.Drawing.Size(124, 22)
 		Me.ComboTextBox.TabIndex = 0
 		Me.ComboTextBox.Text = ""
@@ -60,6 +61,7 @@ Partial Class ComboUserControl
 		'MultipleInputsDropDownButton
 		'
 		Me.MultipleInputsDropDownButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.MultipleInputsDropDownButton.ButtonCanBeFocused = True
 		Me.MultipleInputsDropDownButton.Location = New System.Drawing.Point(124, 0)
 		Me.MultipleInputsDropDownButton.Margin = New System.Windows.Forms.Padding(0)
 		Me.MultipleInputsDropDownButton.Name = "MultipleInputsDropDownButton"
@@ -72,6 +74,7 @@ Partial Class ComboUserControl
 		'TextHistoryDropDownButton
 		'
 		Me.TextHistoryDropDownButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.TextHistoryDropDownButton.ButtonCanBeFocused = True
 		Me.TextHistoryDropDownButton.FlatAppearance.BorderSize = 0
 		Me.TextHistoryDropDownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
 		Me.TextHistoryDropDownButton.Location = New System.Drawing.Point(124, 0)
@@ -79,7 +82,7 @@ Partial Class ComboUserControl
 		Me.TextHistoryDropDownButton.Name = "TextHistoryDropDownButton"
 		Me.TextHistoryDropDownButton.Size = New System.Drawing.Size(18, 22)
 		Me.TextHistoryDropDownButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
-		Me.TextHistoryDropDownButton.TabIndex = 0
+		Me.TextHistoryDropDownButton.TabIndex = 1
 		Me.TextHistoryDropDownButton.UseVisualStyleBackColor = False
 		'
 		'DropDownPanel
@@ -106,7 +109,11 @@ Partial Class ComboUserControl
 		Me.MultipleInputsDataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
 		Me.MultipleInputsDataGridView.ColumnHeadersVisible = False
 		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
 		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+		DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+		DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
 		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
 		Me.MultipleInputsDataGridView.DefaultCellStyle = DataGridViewCellStyle2
 		Me.MultipleInputsDataGridView.EnableHeadersVisualStyles = False
@@ -143,7 +150,11 @@ Partial Class ComboUserControl
 		Me.TextHistoryDataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
 		Me.TextHistoryDataGridView.ColumnHeadersVisible = False
 		DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
 		DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+		DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+		DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
 		DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
 		Me.TextHistoryDataGridView.DefaultCellStyle = DataGridViewCellStyle5
 		Me.TextHistoryDataGridView.EnableHeadersVisualStyles = False

@@ -11,7 +11,12 @@ Public Class TreeViewEx
 	Public Sub New()
 		MyBase.New()
 
-		Me.BorderStyle = BorderStyle.None
+		' This stuff is needed to handle custom scrollbars.
+		' Must override BorderStyle because TreeView will paint its scrollbars over borders 
+		'    if custom scrollbars are thinner than TreeView scrollbars.
+		MyBase.BorderStyle = BorderStyle.None
+		Me.theBorderStyle = BorderStyle.FixedSingle
+		Me.theBorderColor = SystemColors.WindowFrame
 		Me.DrawMode = TreeViewDrawMode.OwnerDrawAll
 		Me.theTreePlusIcon = New VisualStyleRenderer(VisualStyleElement.TreeView.Glyph.Closed)
 		Me.theTreeMinusIcon = New VisualStyleRenderer(VisualStyleElement.TreeView.Glyph.Opened)
@@ -23,9 +28,6 @@ Public Class TreeViewEx
 		MyBase.Scrollable = True
 		'Me.theAutoScroll = True
 
-		Me.theNonClientPaddingColor = WidgetDeepBackColor
-		'TEST:
-		'Me.theNonClientPaddingColor = Color.Pink
 		Me.theScrollingIsActive = False
 		Me.theMouseWheelHasMoved = False
 
@@ -66,6 +68,32 @@ Public Class TreeViewEx
 
 #Region "Properties"
 
+	<Browsable(True)>
+	<Category("Appearance")>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property BorderColor As Color
+		Get
+			Return Me.theBorderColor
+		End Get
+		Set
+			Me.theBorderColor = Value
+		End Set
+	End Property
+
+	<Browsable(True)>
+	<Category("Appearance")>
+	<Description("Colorable BorderStyle.")>
+	<DefaultValue(BorderStyle.FixedSingle)>
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property BorderStyle As BorderStyle
+		Get
+			Return Me.theBorderStyle
+		End Get
+		Set
+			Me.theBorderStyle = Value
+		End Set
+	End Property
+
 	'<Browsable(True)>
 	'<Category("Layout")>
 	'<Description("Scrollbars appear when needed.")>
@@ -90,6 +118,21 @@ Public Class TreeViewEx
 #End Region
 
 #Region "Widget Event Handlers"
+
+	Protected Overrides Sub OnHandleCreated(e As EventArgs)
+		MyBase.OnHandleCreated(e)
+
+		If Me.theOriginalFont Is Nothing Then
+			Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 8.25)
+			'NOTE: Font gets changed at some point after changing style, messing up when cue banner is turned off, 
+			'      so save the Font before changing style.
+			Me.theOriginalFont = New System.Drawing.Font(Me.Font.FontFamily, Me.Font.Size, Me.Font.Style, Me.Font.Unit)
+
+			''SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+			''SetStyle(ControlStyles.DoubleBuffer, True)
+			'SetStyle(ControlStyles.UserPaint, True)
+		End If
+	End Sub
 
 	Protected Overrides Sub OnAfterSelect(e As TreeViewEventArgs)
 		MyBase.OnAfterSelect(e)
@@ -185,21 +228,6 @@ Public Class TreeViewEx
 			e.DrawDefault = True
 		End If
 		MyBase.OnDrawNode(e)
-	End Sub
-
-	Protected Overrides Sub OnHandleCreated(e As EventArgs)
-		MyBase.OnHandleCreated(e)
-
-		If Me.theOriginalFont Is Nothing Then
-			Me.Font = New Font(SystemFonts.MessageBoxFont.Name, 8.25)
-			'NOTE: Font gets changed at some point after changing style, messing up when cue banner is turned off, 
-			'      so save the Font before changing style.
-			Me.theOriginalFont = New System.Drawing.Font(Me.Font.FontFamily, Me.Font.Size, Me.Font.Style, Me.Font.Unit)
-
-			''SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-			''SetStyle(ControlStyles.DoubleBuffer, True)
-			'SetStyle(ControlStyles.UserPaint, True)
-		End If
 	End Sub
 
 	' Can not use this because it updates the scrollbar on the *next* wheel move.
@@ -306,30 +334,32 @@ Public Class TreeViewEx
 		End If
 		If theme IsNot Nothing Then
 			Me.BackColor = theme.EnabledBackColor
+		Else
+			Me.BackColor = SystemColors.Control
 		End If
 
-		'Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
-		'Try
-		'	Using g As Graphics = Graphics.FromHdc(hDC)
-		'		Using backColorBrush As New SolidBrush(Me.theNonClientPaddingColor)
-		'			'Dim rect As Rectangle = Me.ClientRectangle
-		'			'rect.Offset(Me.NonClientPadding.Left, Me.NonClientPadding.Top)
-		'			'g.ExcludeClip(rect)
-		'			Dim aRect As RectangleF = g.VisibleClipBounds
-		'			g.FillRectangle(backColorBrush, aRect)
-		'		End Using
-		'		'Using borderColorPen As New Pen(Color.Green)
-		'		'	Dim aRect As RectangleF = g.VisibleClipBounds
-		'		'	'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
-		'		'	aRect.Width -= 1
-		'		'	aRect.Height -= 1
-		'		'	g.DrawRectangle(borderColorPen, aRect.Left, aRect.Top, aRect.Width, aRect.Height)
-		'		'End Using
-		'	End Using
-		'Finally
-		'	Win32Api.ReleaseDC(Me.Handle, hDC)
-		'End Try
-		'm.Result = IntPtr.Zero
+		Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+		Try
+			Using g As Graphics = Graphics.FromHdc(hDC)
+				Using backColorBrush As New SolidBrush(Me.theBorderColor)
+					'Dim rect As Rectangle = Me.ClientRectangle
+					'rect.Offset(Me.NonClientPadding.Left, Me.NonClientPadding.Top)
+					'g.ExcludeClip(rect)
+					Dim aRect As RectangleF = g.VisibleClipBounds
+					g.FillRectangle(backColorBrush, aRect)
+				End Using
+				'Using borderColorPen As New Pen(Color.Green)
+				'	Dim aRect As RectangleF = g.VisibleClipBounds
+				'	'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+				'	aRect.Width -= 1
+				'	aRect.Height -= 1
+				'	g.DrawRectangle(borderColorPen, aRect.Left, aRect.Top, aRect.Width, aRect.Height)
+				'End Using
+			End Using
+		Finally
+			Win32Api.ReleaseDC(Me.Handle, hDC)
+		End Try
+		m.Result = IntPtr.Zero
 	End Sub
 
 	Private Sub HorizontalScrollbar_ValueChanged(ByVal sender As Object, ByVal e As ScrollValueEventArgs) Handles CustomHorizontalScrollbar.ValueChanged
@@ -510,13 +540,21 @@ Public Class TreeViewEx
 			Dim resultIsSuccess As Boolean = Win32Api.GetScrollBarInfo(Me.Handle, Win32Api.OBJID_VSCROLL, scrollBarInfo)
 			If (scrollBarInfo.scrollbar And Win32Api.STATE_SYSTEM_INVISIBLE) = 0 Then
 				'right += scrollBarInfo.dxyLineButton
-				right += scrollBarInfo.dxyLineButton - ScrollBarEx.Consts.ScrollBarSize
+				'right += scrollBarInfo.dxyLineButton - ScrollBarEx.Consts.ScrollBarSize
+				right += ScrollBarEx.Consts.ScrollBarSize - scrollBarInfo.dxyLineButton
 			End If
 			resultIsSuccess = Win32Api.GetScrollBarInfo(Me.Handle, Win32Api.OBJID_HSCROLL, scrollBarInfo)
 			If (scrollBarInfo.scrollbar And Win32Api.STATE_SYSTEM_INVISIBLE) = 0 Then
 				'bottom += scrollBarInfo.dxyLineButton
-				bottom += scrollBarInfo.dxyLineButton - ScrollBarEx.Consts.ScrollBarSize
+				'bottom += scrollBarInfo.dxyLineButton - ScrollBarEx.Consts.ScrollBarSize
+				bottom += ScrollBarEx.Consts.ScrollBarSize - scrollBarInfo.dxyLineButton
 			End If
+		End If
+		If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
+			left += 1
+			top += 1
+			right += 1
+			bottom += 1
 		End If
 
 		Me.NonClientPadding = New Padding(left, top, right, bottom)
@@ -526,11 +564,11 @@ Public Class TreeViewEx
 		rect.Left += padding.Left
 		rect.Top += padding.Top
 
-		'rect.Right -= padding.Right
-		'rect.Bottom -= padding.Bottom
+		rect.Right -= padding.Right
+		rect.Bottom -= padding.Bottom
 		'------
-		rect.Right += padding.Right
-		rect.Bottom += padding.Bottom
+		'rect.Right += padding.Right
+		'rect.Bottom += padding.Bottom
 	End Sub
 
 	'Private Sub UpdateScrolling(ByVal leftOrRightValue As Integer, ByVal upOrDownValue As Integer)
@@ -608,32 +646,77 @@ Public Class TreeViewEx
 		If Me.DesignMode Then
 			Exit Sub
 		End If
+		Dim theme As TreeViewTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.TreeViewTheme
+		End If
+		If theme IsNot Nothing Then
+			Me.UpdateHorizontalScrollbar()
+			Me.UpdateVerticalScrollbar()
 
-		Me.UpdateHorizontalScrollbar()
-		Me.UpdateVerticalScrollbar()
+			If Me.CustomHorizontalScrollbar.Visible AndAlso Me.CustomVerticalScrollBar.Visible Then
+				'Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
+				'Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize)
+				'------
+				'Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - 1 - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
+				'Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.Height - 1 - ScrollBarEx.Consts.ScrollBarSize)
+				'------
+				Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
+				Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
 
-		If Me.CustomHorizontalScrollbar.Visible AndAlso Me.CustomVerticalScrollBar.Visible Then
-			'Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
-			'Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize)
-			'------
-			'Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - 1 - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
-			'Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.Height - 1 - ScrollBarEx.Consts.ScrollBarSize)
-			'------
-			Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
-			Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
-
-			'NOTE: Assign to Parent so it can draw over non-client area.
-			Me.ScrollbarCornerPanel.Parent = Me.Parent
-			Me.ScrollbarCornerPanel.BringToFront()
-			Dim aPoint As New Point(Me.Width - ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
-			'NOTE: Location must be relative to Parent.
-			aPoint = Me.PointToScreen(aPoint)
-			aPoint = Me.ScrollbarCornerPanel.Parent.PointToClient(aPoint)
-			Me.ScrollbarCornerPanel.Location = aPoint
-			Me.ScrollbarCornerPanel.Visible = True
+				'NOTE: Assign to Parent so it can draw over non-client area.
+				Me.ScrollbarCornerPanel.Parent = Me.Parent
+				Me.ScrollbarCornerPanel.BringToFront()
+				Dim aPoint As New Point(Me.Width - ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
+				'NOTE: Location must be relative to Parent.
+				aPoint = Me.PointToScreen(aPoint)
+				aPoint = Me.ScrollbarCornerPanel.Parent.PointToClient(aPoint)
+				Me.ScrollbarCornerPanel.Location = aPoint
+				Me.ScrollbarCornerPanel.Visible = True
+			Else
+				Me.ScrollbarCornerPanel.Visible = False
+			End If
 		Else
+			Me.theScrollingIsActive = True
+			Me.CustomHorizontalScrollbar.Hide()
+			Me.CustomVerticalScrollBar.Hide()
+			Me.theScrollingIsActive = False
 			Me.ScrollbarCornerPanel.Visible = False
 		End If
+	End Sub
+
+	Private Sub UpdateBottomBorder()
+		Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Parent.Handle)
+		Try
+			Using g As Graphics = Graphics.FromHdc(hDC)
+				Using borderColorPen As New Pen(Me.theBorderColor)
+					Dim aPoint As New Point(Me.ClientRectangle.Left, Me.ClientRectangle.Height + ScrollBarEx.Consts.ScrollBarSize)
+					'NOTE: Location must be relative to Parent.
+					aPoint = Me.PointToScreen(aPoint)
+					aPoint = Me.Parent.PointToClient(aPoint)
+					Dim aPoint2 As New Point(Me.ClientRectangle.Left + Me.ClientRectangle.Width, Me.ClientRectangle.Height + ScrollBarEx.Consts.ScrollBarSize)
+					'NOTE: Location must be relative to Parent.
+					aPoint2 = Me.PointToScreen(aPoint2)
+					aPoint2 = Me.Parent.PointToClient(aPoint2)
+					g.DrawLine(borderColorPen, aPoint, aPoint2)
+				End Using
+			End Using
+		Finally
+			Win32Api.ReleaseDC(Me.Parent.Handle, hDC)
+		End Try
+		''NOTE: Assign to Parent so it can draw over non-client area.
+		'Me.CustomHorizontalScrollbar.Parent = Me.Parent
+		'Me.CustomHorizontalScrollbar.BringToFront()
+		'Dim aPoint As New Point(Me.ClientRectangle.Left, Me.ClientRectangle.Height)
+		''Dim aPoint As New Point(Me.ClientRectangle.Left, CInt(Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize))
+		''Dim aPoint As New Point(Me.ClientRectangle.Left, CInt(Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize * 0.5))
+		''NOTE: Location must be relative to Parent.
+		'aPoint = Me.PointToScreen(aPoint)
+		'aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
+		'Me.CustomHorizontalScrollbar.Location = aPoint
+		'Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
+		'Me.CustomHorizontalScrollbar.Show()
 	End Sub
 
 	'Private Sub UpdateHorizontalScrollbar()
@@ -714,10 +797,14 @@ Public Class TreeViewEx
 				'Dim aPoint As New Point(Me.ClientRectangle.Left, CInt(Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize * 0.5))
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
-				aPoint = Me.PointToClient(aPoint)
+				aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
 				Me.CustomHorizontalScrollbar.Location = aPoint
 				Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
 				Me.CustomHorizontalScrollbar.Show()
+
+				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
+					Me.UpdateBottomBorder()
+				End If
 
 				Me.theScrollingIsActive = False
 			Else
@@ -807,7 +894,7 @@ Public Class TreeViewEx
 				'Dim aPoint As New Point(Me.ClientRectangle.Width - ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Top)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
-				aPoint = Me.PointToClient(aPoint)
+				aPoint = Me.CustomVerticalScrollBar.Parent.PointToClient(aPoint)
 				Me.CustomVerticalScrollBar.Location = aPoint
 				Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height)
 				Me.CustomVerticalScrollBar.Show()
@@ -825,6 +912,8 @@ Public Class TreeViewEx
 
 #Region "Data"
 
+	Private theBorderColor As Color
+	Private theBorderStyle As BorderStyle
 	Private NonClientPadding As Padding
 	Private theNonClientPaddingColor As Color
 	'Private theAutoScroll As Boolean

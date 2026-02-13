@@ -65,8 +65,6 @@ Public Class PanelEx
         Me.theControlHasShown = False
 
         Me.theSelectedIndex = -1
-
-        Me.UpdateTheme()
     End Sub
 
 #End Region
@@ -76,6 +74,7 @@ Public Class PanelEx
     Private Sub Init()
         ' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
         If TheApp IsNot Nothing Then
+            Me.UpdateTheme()
             AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
         End If
     End Sub
@@ -103,6 +102,18 @@ Public Class PanelEx
     '		Me.theAutoScroll = Value
     '	End Set
     'End Property
+
+    <Browsable(True)>
+    <Category("Appearance")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+    Public Overloads Property ForeColor As Color
+        Get
+            Return MyBase.ForeColor
+        End Get
+        Set
+            MyBase.ForeColor = Value
+        End Set
+    End Property
 
     <Browsable(True)>
     <Category("Appearance")>
@@ -722,7 +733,7 @@ Public Class PanelEx
                 'Dim aPoint As New Point(Me.ClientRectangle.Left, CInt(Me.ClientRectangle.Height - ScrollBarEx.Consts.ScrollBarSize * 0.5))
                 'NOTE: Location must be relative to Parent.
                 aPoint = Me.PointToScreen(aPoint)
-                aPoint = Me.PointToClient(aPoint)
+                aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
                 Me.CustomHorizontalScrollbar.Location = aPoint
                 Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
                 Me.CustomHorizontalScrollbar.Show()
@@ -817,7 +828,7 @@ Public Class PanelEx
                 'Dim aPoint As New Point(Me.Width, Me.Top)
                 'NOTE: Location must be relative to Parent.
                 aPoint = Me.PointToScreen(aPoint)
-                aPoint = Me.PointToClient(aPoint)
+                aPoint = Me.CustomVerticalScrollBar.Parent.PointToClient(aPoint)
                 Me.CustomVerticalScrollBar.Location = aPoint
                 Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height)
                 Me.CustomVerticalScrollBar.Show()
