@@ -375,28 +375,34 @@ Public Class TreeViewEx
 		Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
 		Try
 			Using g As Graphics = Graphics.FromHdc(hDC)
-				'Using backColorBrush As New SolidBrush(Me.BackColor)
+				' Draw border.
+				'Using backColorBrush As New SolidBrush(Me.theBorderColor)
 				'	Dim aRect As RectangleF = g.VisibleClipBounds
 				'	g.FillRectangle(backColorBrush, aRect)
 				'End Using
-				'g.ResetClip()
-				Using backColorBrush As New SolidBrush(Me.theBorderColor)
-					'Dim rect As Rectangle = Me.ClientRectangle
-					'rect.Offset(Me.NonClientPadding.Left, Me.NonClientPadding.Top)
-					'g.ExcludeClip(rect)
-					Dim aRect As RectangleF = g.VisibleClipBounds
-					g.FillRectangle(backColorBrush, aRect)
+				Using borderColorPen As New Pen(Me.theBorderColor, Me.theBorderWidth)
+					borderColorPen.Alignment = Drawing2D.PenAlignment.Inset
+					Dim aRect As Rectangle = Rectangle.Truncate(g.VisibleClipBounds)
+					'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+					aRect.Width -= 1
+					aRect.Height -= 1
+					g.DrawRectangle(borderColorPen, aRect)
 				End Using
-				'g.SetClip(Me.ClientRectangle)
-				'Using borderColorPen As New Pen(Color.Green)
-				'	borderColorPen.Width = 5
-				'	Dim aRect As RectangleF = g.VisibleClipBounds
-				'	'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
-				'	aRect.Width -= 1
-				'	aRect.Height -= 1
-				'	aRect.Inflate(-2, -2)
-				'	g.DrawRectangle(borderColorPen, aRect.Left, aRect.Top, aRect.Width, aRect.Height)
-				'End Using
+
+				' Paint TreeView padding.
+				Using backColorPen As New Pen(Me.BackColor)
+					Dim aRect As Rectangle = Me.ClientRectangle
+					''NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+					'aRect.Width -= 1
+					'aRect.Height -= 1
+					'aRect.Inflate(-Me.theBorderWidth, -Me.theBorderWidth)
+					'aRect.X += Me.theBorderWidth
+					'aRect.Inflate(1, 1)
+					aRect.Offset(Me.theBorderWidth, Me.theBorderWidth)
+					aRect.Width += 1
+					aRect.Height += 1
+					g.DrawRectangle(backColorPen, aRect)
+				End Using
 			End Using
 		Finally
 			Win32Api.ReleaseDC(Me.Handle, hDC)
@@ -525,8 +531,14 @@ Public Class TreeViewEx
 			Me.BackColor = theme.EnabledBackColor
 			Me.theBorderColor = theme.EnabledBorderColor
 
+			Me.CustomHorizontalScrollbar.LeftAndTopPaddingColor = Me.BackColor
+			Me.CustomHorizontalScrollbar.LeftAndTopPaddingColorIsUsed = True
 			Me.CustomHorizontalScrollbar.RightAndBottomBorderColor = Me.theBorderColor
+
+			Me.CustomVerticalScrollBar.LeftAndTopPaddingColor = Me.BackColor
+			Me.CustomVerticalScrollBar.LeftAndTopPaddingColorIsUsed = True
 			Me.CustomVerticalScrollBar.RightAndBottomBorderColor = Me.theBorderColor
+
 			Me.ScrollbarCornerPanel.BackColor = Me.BackColor
 			Me.ScrollbarCornerPanel.RightAndBottomBorderColor = Me.theBorderColor
 		Else
@@ -593,10 +605,11 @@ Public Class TreeViewEx
 			Exit Sub
 		End If
 
-		Dim left As Integer = 0
-		Dim top As Integer = 0
-		Dim right As Integer = 0
-		Dim bottom As Integer = 0
+		' Default TreeView has 1-pixel padding.
+		Dim left As Integer = 1
+		Dim top As Integer = 1
+		Dim right As Integer = 1
+		Dim bottom As Integer = 1
 		'TEST: Use 2 for testing. Use 0 for final.
 		'Dim left As Integer = 2
 		'Dim top As Integer = 2
@@ -744,22 +757,18 @@ Public Class TreeViewEx
 			Me.UpdateVerticalScrollbar()
 
 			If Me.CustomHorizontalScrollbar.Visible AndAlso Me.CustomVerticalScrollBar.Visible Then
+				' +1 for TreeView padding
 				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
-					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth)
-					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
-
-					Me.ScrollbarCornerPanel.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth)
+					Me.ScrollbarCornerPanel.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth + 1, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth + 1)
 					Me.ScrollbarCornerPanel.RightAndBottomBorderWidth = 1
 				Else
-					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.Width - ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
-					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
-
-					Me.ScrollbarCornerPanel.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, ScrollBarEx.Consts.ScrollBarSize)
+					Me.ScrollbarCornerPanel.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + 1, ScrollBarEx.Consts.ScrollBarSize + 1)
 					Me.ScrollbarCornerPanel.RightAndBottomBorderWidth = 0
 				End If
 				'NOTE: Assign to Parent so it can draw over non-client area.
 				Me.ScrollbarCornerPanel.Parent = Me.Parent
 				Me.ScrollbarCornerPanel.BringToFront()
+				' +1 for TreeView padding
 				Dim aPoint As New Point(Me.ClientRectangle.Width, Me.ClientRectangle.Height)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
@@ -902,16 +911,18 @@ Public Class TreeViewEx
 				'NOTE: Assign to Parent so it can draw over non-client area.
 				Me.CustomHorizontalScrollbar.Parent = Me.Parent
 				Me.CustomHorizontalScrollbar.BringToFront()
-				Dim aPoint As New Point(Me.ClientRectangle.Left, Me.ClientRectangle.Height)
+				' -1 for TreeView padding
+				Dim aPoint As New Point(Me.ClientRectangle.Left - 1, Me.ClientRectangle.Height)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
 				aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
 				Me.CustomHorizontalScrollbar.Location = aPoint
+				' +2,+1 for TreeView padding
 				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
-					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth)
+					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width + 2, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth + 1)
 					Me.CustomHorizontalScrollbar.RightAndBottomBorderWidth = 1
 				Else
-					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
+					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width + 2, ScrollBarEx.Consts.ScrollBarSize + 1)
 					Me.CustomHorizontalScrollbar.RightAndBottomBorderWidth = 0
 				End If
 				Me.CustomHorizontalScrollbar.Show()
@@ -952,16 +963,18 @@ Public Class TreeViewEx
 				'NOTE: Assign to Parent so it can draw over non-client area.
 				Me.CustomVerticalScrollBar.Parent = Me.Parent
 				Me.CustomVerticalScrollBar.BringToFront()
-				Dim aPoint As New Point(Me.ClientRectangle.Width, Me.ClientRectangle.Top)
+				' -1 for TreeView padding
+				Dim aPoint As New Point(Me.ClientRectangle.Width, Me.ClientRectangle.Top - 1)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
 				aPoint = Me.CustomVerticalScrollBar.Parent.PointToClient(aPoint)
 				Me.CustomVerticalScrollBar.Location = aPoint
+				' +1,+2 for TreeView padding
 				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
-					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth, Me.ClientRectangle.Height)
+					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth + 1, Me.ClientRectangle.Height + 2)
 					Me.CustomVerticalScrollBar.RightAndBottomBorderWidth = 1
 				Else
-					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height)
+					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + 1, Me.ClientRectangle.Height + 2)
 					Me.CustomVerticalScrollBar.RightAndBottomBorderWidth = 0
 				End If
 				Me.CustomVerticalScrollBar.Show()

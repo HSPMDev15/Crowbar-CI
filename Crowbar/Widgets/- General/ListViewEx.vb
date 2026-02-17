@@ -9,7 +9,7 @@ Public Class ListViewEx
 	Public Sub New()
 		MyBase.New()
 
-		Me.BorderStyle = BorderStyle.None
+		MyBase.BorderStyle = BorderStyle.None
 		Me.theBorderStyle = BorderStyle.FixedSingle
 		Me.theBorderWidth = 1
 		Me.OwnerDraw = True
@@ -109,6 +109,7 @@ Public Class ListViewEx
 	Public Overloads Sub AutoResizeColumns(headerAutoResize As ColumnHeaderAutoResizeStyle)
 		If Me.Columns.Count > 0 Then
 			MyBase.AutoResizeColumns(headerAutoResize)
+			'Me.ResizeLastColumn()
 			Me.UpdateScrollbars()
 		End If
 	End Sub
@@ -218,6 +219,7 @@ Public Class ListViewEx
 
 		'	Me.theListViewIsResizing = False
 		'End If
+		'Me.ResizeLastColumn()
 
 		'NOTE: Need this "If" to prevent unneeded resizing and painting when scrolling.
 		If Not Me.theScrollingIsActive Then
@@ -270,15 +272,15 @@ Public Class ListViewEx
 			'	e.Graphics.Clip = New Region(rect)
 			'End If
 			'Me.theHeaderHeight = e.Bounds.Height
-			Using aBrush As New SolidBrush(theme.EnabledBackColor)
-				Dim aRect As Rectangle = e.Bounds
-				aRect.Inflate(-1, 0)
-				e.Graphics.FillRectangle(aBrush, aRect)
+			Using aBrush As New SolidBrush(theme.FocusBackColor)
+				Me.theHeaderBounds = e.Bounds
+				Me.theHeaderBounds.Inflate(-1, 0)
+				e.Graphics.FillRectangle(aBrush, Me.theHeaderBounds)
 			End Using
 			Dim textRect As Rectangle = e.Bounds
 			textRect.X += 1
-			Dim textForeColor As Color = theme.EnabledForeColor
-			Dim textBackColor As Color = theme.EnabledBackColor
+			Dim textForeColor As Color = theme.FocusForeColor
+			Dim textBackColor As Color = theme.FocusBackColor
 			TextRenderer.DrawText(e.Graphics, e.Header.Text, Me.Font, textRect, textForeColor, textBackColor, TextFormatFlags.Left Or TextFormatFlags.VerticalCenter Or TextFormatFlags.SingleLine Or TextFormatFlags.EndEllipsis Or TextFormatFlags.PreserveGraphicsClipping)
 			'If Me.CustomVerticalScrollBar.Visible Then
 			'	e.Graphics.ResetClip()
@@ -286,8 +288,8 @@ Public Class ListViewEx
 			e.DrawDefault = False
 		Else
 			e.DrawDefault = True
+			MyBase.OnDrawColumnHeader(e)
 		End If
-		MyBase.OnDrawColumnHeader(e)
 	End Sub
 
 	Protected Overrides Sub OnDrawItem(e As DrawListViewItemEventArgs)
@@ -321,8 +323,8 @@ Public Class ListViewEx
 				'	Me.UpdateVerticalScrollbar()
 				Case Win32Api.WindowsMessages.WM_NCCALCSIZE
 					Me.OnNonClientCalcSize(m)
-					'Case Win32Api.WindowsMessages.WM_NCPAINT
-					'	Me.OnNonClientPaint(m)
+				Case Win32Api.WindowsMessages.WM_NCPAINT
+					Me.OnNonClientPaint(m)
 					'Case Win32Api.WindowsMessages.WM_PAINT
 					'	Me.OnClientPaint(m)
 					'Case Win32Api.ListViewMessages.LVM_INSERTITEM, Win32Api.ListViewMessages.LVM_DELETEITEM, Win32Api.ListViewMessages.LVM_DELETEALLITEMS
@@ -372,20 +374,58 @@ Public Class ListViewEx
 		'End Try
 	End Sub
 
-	'Private Sub OnNonClientPaint(ByRef m As Message)
-	'	Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
-	'	Try
-	'		Using g As Graphics = Graphics.FromHdc(hDC)
-	'			Using backColorBrush As New SolidBrush(Me.theBorderColor)
-	'				Dim aRect As RectangleF = g.VisibleClipBounds
-	'				g.FillRectangle(backColorBrush, aRect)
-	'			End Using
-	'		End Using
-	'	Finally
-	'		Win32Api.ReleaseDC(Me.Handle, hDC)
-	'	End Try
-	'	m.Result = IntPtr.Zero
-	'End Sub
+	Private Sub OnNonClientPaint(ByRef m As Message)
+		Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+		Try
+			Using g As Graphics = Graphics.FromHdc(hDC)
+				' Can not use FillRectangle because header cells get painted BEFORE this call.
+				Using backColorBrush As New SolidBrush(Color.Cyan)
+					Dim aRect As RectangleF = g.VisibleClipBounds
+					g.FillRectangle(backColorBrush, aRect)
+				End Using
+
+				' Draw border.
+				Using borderColorPen As New Pen(Me.theBorderColor, Me.theBorderWidth)
+					borderColorPen.Alignment = Drawing2D.PenAlignment.Inset
+					Dim aRect As Rectangle = Rectangle.Truncate(g.VisibleClipBounds)
+					'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+					aRect.Width -= 1
+					aRect.Height -= 1
+					g.DrawRectangle(borderColorPen, aRect)
+				End Using
+
+				' Paint ListView padding.
+				Using backColorPen As New Pen(Color.Red)
+					Dim aRect As Rectangle = Rectangle.Truncate(g.VisibleClipBounds)
+					'NOTE: DrawRectangle width and height are interpreted as the right and bottom pixels to draw.
+					aRect.Width -= 1
+					aRect.Height -= 1
+					aRect.Inflate(-Me.theBorderWidth, -Me.theBorderWidth)
+					g.DrawRectangle(backColorPen, aRect)
+				End Using
+				'Dim headerHandle As IntPtr = Win32Api.SendMessage(Me.Handle, Win32Api.ListViewMessages.LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero)
+				'If headerHandle <> IntPtr.Zero Then
+				'	Dim r As New Win32Api.RECT()
+				'	If Win32Api.GetWindowRect(headerHandle, r) <> 0 Then
+				'		Dim aRect As New Rectangle(r.Left, r.Top, r.Right - r.Left, r.Bottom - r.Top + 1)
+				'		aRect = Me.RectangleToClient(aRect)
+				'		aRect.X = 0
+				'		aRect.Width = Me.Width
+				'		g.ExcludeClip(aRect)
+				'	End If
+				'End If
+				'Using backColorBrush As New SolidBrush(Color.Red)
+				'	Dim aRect As RectangleF = g.VisibleClipBounds
+				'	aRect.Inflate(-Me.theBorderWidth, -Me.theBorderWidth)
+				'	g.FillRectangle(backColorBrush, aRect)
+				'End Using
+				'g.ResetClip()
+			End Using
+		Finally
+			Win32Api.ReleaseDC(Me.Handle, hDC)
+		End Try
+		m.Result = IntPtr.Zero
+	End Sub
 
 	'Private Sub OnClientPaint(ByRef m As Message)
 	'	Dim hwnd As IntPtr = Win32Api.SendMessage(Me.Handle, Win32Api.ListViewMessages.LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero)
@@ -593,10 +633,11 @@ Public Class ListViewEx
 			theme = TheApp.Settings.SelectedAppTheme.ListViewTheme
 		End If
 		If theme IsNot Nothing Then
-			Dim left As Integer = 0
-			Dim top As Integer = 0
-			Dim right As Integer = 0
-			Dim bottom As Integer = 0
+			' Default ListView has 1-pixel padding.
+			Dim left As Integer = 1
+			Dim top As Integer = 1
+			Dim right As Integer = 1
+			Dim bottom As Integer = 1
 			'TEST: Use 2 for testing. Use 0 for final.
 			'Dim left As Integer = 2
 			'Dim top As Integer = 2
@@ -656,6 +697,21 @@ Public Class ListViewEx
 		rect.Bottom -= padding.Bottom
 	End Sub
 
+	'Private Sub ResizeLastColumn()
+	'	' Resize last column to fill the space so that the "empty" header space 
+	'	'    (which has been difficult to paint) is never shown.
+	'	If Me.Columns.Count > 0 Then
+	'		Dim columnsTotalWidth As Integer = 0
+	'		For i As Integer = 0 To Me.Columns.Count - 2
+	'			columnsTotalWidth += Me.Columns(i).Width
+	'			'= CInt((colPercentage * PackageListView.ClientRectangle.Width))
+	'		Next
+	'		If columnsTotalWidth < Me.Width Then
+	'			Me.Columns(Me.Columns.Count - 1).Width = Me.Width - columnsTotalWidth
+	'		End If
+	'	End If
+	'End Sub
+
 	Private Sub UpdateScrollbars()
 		If Me.DesignMode Then
 			Exit Sub
@@ -688,7 +744,8 @@ Public Class ListViewEx
 				Me.ScrollbarCornerPanel.Parent = Me.Parent
 				Me.ScrollbarCornerPanel.BringToFront()
 				'Dim aPoint As New Point(Me.Width - ScrollBarEx.Consts.ScrollBarSize, Me.Height - ScrollBarEx.Consts.ScrollBarSize)
-				Dim aPoint As New Point(Me.ClientRectangle.Width, Me.ClientRectangle.Height)
+				' +1 for ListView padding
+				Dim aPoint As New Point(Me.ClientRectangle.Width + 1, Me.ClientRectangle.Height + 1)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
 				aPoint = Me.ScrollbarCornerPanel.Parent.PointToClient(aPoint)
@@ -733,13 +790,15 @@ Public Class ListViewEx
 				'NOTE: Assign to Parent so it can draw over non-client area.
 				Me.CustomHorizontalScrollbar.Parent = Me.Parent
 				Me.CustomHorizontalScrollbar.BringToFront()
-				Dim aPoint As New Point(Me.ClientRectangle.Left, Me.ClientRectangle.Height)
+				' -1,+1 for ListView padding
+				Dim aPoint As New Point(Me.ClientRectangle.Left - 1, Me.ClientRectangle.Height + 1)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
 				aPoint = Me.CustomHorizontalScrollbar.Parent.PointToClient(aPoint)
 				Me.CustomHorizontalScrollbar.Location = aPoint
 				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
-					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth)
+					' +2 for ListView padding
+					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width + 2, ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth)
 					Me.CustomHorizontalScrollbar.RightAndBottomBorderWidth = 1
 				Else
 					Me.CustomHorizontalScrollbar.Size = New System.Drawing.Size(Me.ClientRectangle.Width, ScrollBarEx.Consts.ScrollBarSize)
@@ -795,13 +854,15 @@ Public Class ListViewEx
 				'NOTE: Assign to Parent so it can draw over non-client area.
 				Me.CustomVerticalScrollBar.Parent = Me.Parent
 				Me.CustomVerticalScrollBar.BringToFront()
-				Dim aPoint As New Point(Me.ClientRectangle.Width, Me.ClientRectangle.Top)
+				' +1,-1 for ListView padding
+				Dim aPoint As New Point(Me.ClientRectangle.Width + 1, Me.ClientRectangle.Top - 1)
 				'NOTE: Location must be relative to Parent.
 				aPoint = Me.PointToScreen(aPoint)
 				aPoint = Me.CustomVerticalScrollBar.Parent.PointToClient(aPoint)
 				Me.CustomVerticalScrollBar.Location = aPoint
 				If Me.theBorderStyle = Windows.Forms.BorderStyle.FixedSingle Then
-					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth, Me.ClientRectangle.Height)
+					' +2 for ListView padding
+					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize + Me.theBorderWidth, Me.ClientRectangle.Height + 2)
 					Me.CustomVerticalScrollBar.RightAndBottomBorderWidth = 1
 				Else
 					Me.CustomVerticalScrollBar.Size = New System.Drawing.Size(ScrollBarEx.Consts.ScrollBarSize, Me.ClientRectangle.Height)
@@ -840,6 +901,7 @@ Public Class ListViewEx
 	Private theFillerColumnIsBeingAdded As Boolean
 	Private theFillerColumnIsBeingDeleted As Boolean
 	Private theFillerColumnIsResizing As Boolean
+	Private theHeaderBounds As Rectangle
 
 #End Region
 

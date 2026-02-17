@@ -780,14 +780,14 @@ Public Class DataGridViewEx
         End If
         If theme IsNot Nothing Then
             If Me.Enabled Then
-                Me.GridColor = theme.EnabledForeColor
+                Me.GridColor = theme.EnabledBackColor
                 Me.BackgroundColor = theme.EnabledBackColor
-                Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.EnabledForeColor
-                Me.ColumnHeadersDefaultCellStyle.BackColor = theme.EnabledBackColor
+                Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.FocusForeColor
+                Me.ColumnHeadersDefaultCellStyle.BackColor = theme.FocusBackColor
                 Me.DefaultCellStyle.ForeColor = theme.EnabledForeColor
                 Me.DefaultCellStyle.BackColor = theme.EnabledBackColor
             Else
-                Me.GridColor = theme.DisabledForeColor
+                Me.GridColor = theme.DisabledBackColor
                 Me.BackgroundColor = theme.DisabledBackColor
                 Me.ColumnHeadersDefaultCellStyle.ForeColor = theme.DisabledForeColor
                 Me.ColumnHeadersDefaultCellStyle.BackColor = theme.DisabledBackColor

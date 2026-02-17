@@ -449,6 +449,7 @@ Partial Class UnpackUserControl
 		Me.PackageListView.AllowColumnReorder = True
 		Me.PackageListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.PackageListView.Dock = System.Windows.Forms.DockStyle.Fill
+		Me.PackageListView.FullRowSelect = True
 		Me.PackageListView.HideSelection = False
 		Me.PackageListView.Location = New System.Drawing.Point(0, 0)
 		Me.PackageListView.Name = "PackageListView"

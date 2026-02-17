@@ -17,6 +17,7 @@ Public Class ScrollBarEx
 		_scrollTimer.Interval = Consts.SmallChangeStartDelay
 		AddHandler _scrollTimer.Tick, AddressOf ScrollTimerTick
 
+		Me.theRightAndBottomPaddingColorIsUsed = False
 		Me.theRightAndBottomBorderWidth = 0
 	End Sub
 
@@ -149,6 +150,30 @@ Public Class ScrollBarEx
 	End Property
 
 	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Overloads Property LeftAndTopPaddingColorIsUsed As Boolean
+		Get
+			Return Me.theRightAndBottomPaddingColorIsUsed
+		End Get
+		Set(ByVal value As Boolean)
+			If Me.theRightAndBottomPaddingColorIsUsed <> value Then
+				Me.theRightAndBottomPaddingColorIsUsed = value
+			End If
+		End Set
+	End Property
+
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+	Public Property LeftAndTopPaddingColor() As Color
+		Get
+			Return Me.theRightAndBottomPaddingColor
+		End Get
+		Set(ByVal value As Color)
+			If Me.theRightAndBottomPaddingColor <> value Then
+				Me.theRightAndBottomPaddingColor = value
+			End If
+		End Set
+	End Property
+
+	<DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
 	Public Property RightAndBottomBorderWidth() As Integer
 		Get
 			Return Me.theRightAndBottomBorderWidth
@@ -203,21 +228,36 @@ Public Class ScrollBarEx
 	End Sub
 
 	Public Sub UpdateScrollBar()
-		Dim area As Rectangle = ClientRectangle
+		Dim area As Rectangle = Me.ClientRectangle
 
 		If _scrollOrientation = DarkScrollOrientation.Vertical Then
 			_upArrowArea = New Rectangle(area.Left, area.Top, Consts.ArrowButtonSize, Consts.ArrowButtonSize)
 			_downArrowArea = New Rectangle(area.Left, area.Bottom - Consts.ArrowButtonSize, Consts.ArrowButtonSize, Consts.ArrowButtonSize)
+			If Me.theRightAndBottomPaddingColorIsUsed Then
+				_upArrowArea.X += 1
+				_downArrowArea.X += 1
+			End If
 		ElseIf _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			_upArrowArea = New Rectangle(area.Left, area.Top, Consts.ArrowButtonSize, Consts.ArrowButtonSize)
 			_downArrowArea = New Rectangle(area.Right - Consts.ArrowButtonSize, area.Top, Consts.ArrowButtonSize, Consts.ArrowButtonSize)
+			If Me.theRightAndBottomPaddingColorIsUsed Then
+				_upArrowArea.Y += 1
+				_downArrowArea.Y += 1
+			End If
 		End If
 
 		If _scrollOrientation = DarkScrollOrientation.Vertical Then
 			_trackArea = New Rectangle(area.Left, area.Top + Consts.ArrowButtonSize, area.Width, area.Height - (Consts.ArrowButtonSize * 2))
+			If Me.theRightAndBottomPaddingColorIsUsed Then
+				_trackArea.X += 1
+			End If
 		ElseIf _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			_trackArea = New Rectangle(area.Left + Consts.ArrowButtonSize, area.Top, area.Width - (Consts.ArrowButtonSize * 2), area.Height)
+			If Me.theRightAndBottomPaddingColorIsUsed Then
+				_trackArea.Y += 1
+			End If
 		End If
+
 
 		UpdateThumb()
 		Invalidate()
@@ -419,14 +459,13 @@ Public Class ScrollBarEx
 		If Not Enabled Then
 			upIcon = My.Resources.scrollbar_arrow_disabled
 		End If
-
 		If _scrollOrientation = DarkScrollOrientation.Vertical Then
 			upIcon.RotateFlip(RotateFlipType.RotateNoneFlipY)
 		ElseIf _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			upIcon.RotateFlip(RotateFlipType.Rotate90FlipNone)
 		End If
+		g.DrawImageUnscaled(upIcon, CInt(_upArrowArea.Left + (_upArrowArea.Width * 0.5) - (upIcon.Width * 0.5)), CInt(_upArrowArea.Top + (_upArrowArea.Height * 0.5) - (upIcon.Height * 0.5)))
 
-		g.DrawImageUnscaled(upIcon, CInt(_upArrowArea.Left + (_upArrowArea.Width / 2) - (upIcon.Width / 2)), CInt(_upArrowArea.Top + (_upArrowArea.Height / 2) - (upIcon.Height / 2)))
 		Dim downIcon As Bitmap = If(_downArrowHot, My.Resources.scrollbar_arrow_hot, My.Resources.scrollbar_arrow_standard)
 		If _downArrowClicked Then
 			downIcon = My.Resources.scrollbar_arrow_clicked
@@ -437,7 +476,7 @@ Public Class ScrollBarEx
 		If _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			downIcon.RotateFlip(RotateFlipType.Rotate270FlipNone)
 		End If
-		g.DrawImageUnscaled(downIcon, CInt(_downArrowArea.Left + (_downArrowArea.Width / 2) - (downIcon.Width / 2)), CInt(_downArrowArea.Top + (_downArrowArea.Height / 2) - (downIcon.Height / 2)))
+		g.DrawImageUnscaled(downIcon, CInt(_downArrowArea.Left + (_downArrowArea.Width * 0.5) - (downIcon.Width * 0.5)), CInt(_downArrowArea.Top + (_downArrowArea.Height * 0.5) - (downIcon.Height * 0.5)))
 
 		If Enabled Then
 			'Dim scrollColor As Color = If(_thumbHot, Colors.GreyHighlight, Colors.GreySelection)
@@ -449,6 +488,21 @@ Public Class ScrollBarEx
 
 			Using b As New SolidBrush(scrollColor)
 				g.FillRectangle(b, _thumbArea)
+			End Using
+		End If
+
+		' Paint right and bottom padding lines (to the left and above scrollbars).
+		If Me.theRightAndBottomPaddingColorIsUsed Then
+			Using borderColorPen As New Pen(Me.theRightAndBottomPaddingColor)
+				' - 1 for 0-based coord
+				Dim leftTopPoint As New Point(0, 0)
+				If Me._scrollOrientation = DarkScrollOrientation.Horizontal Then
+					Dim rightTopPoint As New Point(Me.ClientRectangle.Right - 1, 0)
+					g.DrawLine(borderColorPen, leftTopPoint, rightTopPoint)
+				Else
+					Dim leftBottomPoint As New Point(0, Me.ClientRectangle.Bottom - 1)
+					g.DrawLine(borderColorPen, leftTopPoint, leftBottomPoint)
+				End If
 			End Using
 		End If
 
@@ -546,6 +600,9 @@ Public Class ScrollBarEx
 			Dim thumbPosition As Integer = CInt((trackAreaSize * positionRatio))
 			'_thumbArea = New Rectangle(_trackArea.Left + 3, _trackArea.Top + thumbPosition, Consts.ScrollBarSize - 6, thumbSize)
 			_thumbArea = New Rectangle(_trackArea.Left + CInt(Math.Truncate(0.5 * (Consts.ScrollBarSize - Me.theThumbWidth))), _trackArea.Top + thumbPosition, Me.theThumbWidth, thumbSize)
+			'If Me.theRightAndBottomPaddingColorIsUsed Then
+			'	_thumbArea.X += 1
+			'End If
 		ElseIf _scrollOrientation = DarkScrollOrientation.Horizontal Then
 			Dim thumbSize As Integer = CInt((_trackArea.Width * _viewContentRatio))
 			If thumbSize < Consts.MinimumThumbSize Then
@@ -555,6 +612,9 @@ Public Class ScrollBarEx
 			Dim thumbPosition As Integer = CInt((trackAreaSize * positionRatio))
 			'_thumbArea = New Rectangle(_trackArea.Left + thumbPosition, _trackArea.Top + 3, thumbSize, Consts.ScrollBarSize - 6)
 			_thumbArea = New Rectangle(_trackArea.Left + thumbPosition, _trackArea.Top + CInt(Math.Truncate(0.5 * (Consts.ScrollBarSize - Me.theThumbWidth))), thumbSize, Me.theThumbWidth)
+			'If Me.theRightAndBottomPaddingColorIsUsed Then
+			'	_thumbArea.Y += 1
+			'End If
 		End If
 
 		If forceRefresh Then
@@ -632,6 +692,8 @@ Public Class ScrollBarEx
 	Private theSmallChange As Integer
 	Private ReadOnly _DefaultCursor As Cursor
 
+	Private theRightAndBottomPaddingColorIsUsed As Boolean
+	Private theRightAndBottomPaddingColor As Color
 	Private theRightAndBottomBorderWidth As Integer
 	Private theRightAndBottomBorderColor As Color
 
