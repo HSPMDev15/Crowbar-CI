@@ -9,7 +9,8 @@ Public Class RichTextBoxTheme
         MyBase.New()
 
         Me.theEnabledBackColor = New XmlColor(Color.FromArgb(&HFF1E1E1E))
-        Me.theDisabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
+        Me.theDisabledForeColor = New XmlColor(Color.FromArgb(&HFFC0C0C0))
+        Me.theDisabledBackColor = New XmlColor(Color.FromArgb(&HFF262626))
     End Sub
 
 #End Region

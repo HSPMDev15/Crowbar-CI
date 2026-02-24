@@ -840,10 +840,6 @@ Public Class RichTextBoxEx
 			Dim aRect As Rectangle = Me.ClientRectangle
 			e.Graphics.FillRectangle(backColorBrush, aRect)
 		End Using
-		'Using backColorBrush As New SolidBrush(Color.Red)
-		'	Dim aRect As Rectangle = Me.ClientRectangle
-		'	e.Graphics.FillRectangle(backColorBrush, aRect)
-		'End Using
 	End Sub
 
 	Protected Overrides Sub OnSizeChanged(e As EventArgs)
@@ -935,6 +931,11 @@ Public Class RichTextBoxEx
 		Try
 			Using g As Graphics = Graphics.FromHdc(hDC)
 				Dim aRectF As RectangleF = g.VisibleClipBounds
+				' Important to clip away the client rectangle to prevent text painting issues when scrolling widget into view.
+				Dim textPositionRect As Rectangle = Me.ClientRectangle
+				textPositionRect.X = Me.NonClientPadding.Left
+				textPositionRect.Y = Me.NonClientPadding.Top
+				g.ExcludeClip(textPositionRect)
 
 				' Draw background.
 				Using backColorBrush As New SolidBrush(MyBase.BackColor)
@@ -966,6 +967,8 @@ Public Class RichTextBoxEx
 						End Using
 					End If
 				End If
+
+				g.ResetClip()
 			End Using
 		Finally
 			Win32Api.ReleaseDC(Me.Handle, hDC)
@@ -1057,14 +1060,11 @@ Public Class RichTextBoxEx
 		End If
 		If theme IsNot Nothing Then
 			If Me.theThemeIsUsed Then
-				If Me.Enabled Then
-					Me.ForeColor = theme.EnabledForeColor
-				Else
-					Me.ForeColor = theme.DisabledForeColor
-				End If
 				If MyBase.[ReadOnly] Then
+					Me.ForeColor = theme.DisabledForeColor
 					MyBase.BackColor = theme.DisabledBackColor
 				Else
+					Me.ForeColor = theme.EnabledForeColor
 					MyBase.BackColor = theme.EnabledBackColor
 				End If
 			End If
@@ -1085,6 +1085,19 @@ Public Class RichTextBoxEx
 			Else
 				MyBase.BackColor = SystemColors.Window
 			End If
+
+			' Draw background here because the OnPaintBackground will not be called. 
+			Dim hDC As IntPtr = Win32Api.GetWindowDC(Me.Handle)
+			Try
+				Using g As Graphics = Graphics.FromHdc(hDC)
+					Using backColorBrush As New SolidBrush(MyBase.BackColor)
+						Dim aRect As Rectangle = Me.ClientRectangle
+						g.FillRectangle(backColorBrush, aRect)
+					End Using
+				End Using
+			Finally
+				Win32Api.ReleaseDC(Me.Handle, hDC)
+			End Try
 
 			'If Me.theControlIsBehavingAsMultiLine Then
 			'	'MyBase.BorderStyle = BorderStyle.None
