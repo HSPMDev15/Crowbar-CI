@@ -16,7 +16,7 @@ Partial Class PatchUserControl
 		Me.BrowseForMdlFileButton = New Crowbar.ButtonEx()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.Panel2 = New Crowbar.PanelEx()
-		Me.DecompileComboBox = New Crowbar.ComboBoxEx()
+		Me.DecompileComboBox = New Crowbar.ComboUserControl()
 		Me.GotoMdlFileButton = New Crowbar.ButtonEx()
 		Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
 		Me.PatchableValuesForSingleMDLGroupBox = New Crowbar.GroupBoxEx()
@@ -185,11 +185,6 @@ Partial Class PatchUserControl
 		'
 		'DecompileComboBox
 		'
-		Me.DecompileComboBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer), CType(CType(75, Byte), Integer))
-		Me.DecompileComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-		Me.DecompileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-		Me.DecompileComboBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
-		Me.DecompileComboBox.FormattingEnabled = True
 		Me.DecompileComboBox.IsReadOnly = False
 		Me.DecompileComboBox.Location = New System.Drawing.Point(63, 4)
 		Me.DecompileComboBox.Name = "DecompileComboBox"
@@ -1149,7 +1144,7 @@ Partial Class PatchUserControl
 	Friend WithEvents PatchableValuesForSingleMDLGroupBox As GroupBoxEx
 	Friend WithEvents MessageTextBox As Crowbar.RichTextBoxEx
 	Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
-	Friend WithEvents DecompileComboBox As ComboBoxEx
+	Friend WithEvents DecompileComboBox As ComboUserControl
 	Friend WithEvents CancelDecompileButton As ButtonEx
 	Friend WithEvents SkipCurrentModelButton As ButtonEx
 	Friend WithEvents Label4 As System.Windows.Forms.Label

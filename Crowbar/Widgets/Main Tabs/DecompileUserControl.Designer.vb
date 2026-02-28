@@ -183,16 +183,12 @@ Partial Class DecompileUserControl
 		'
 		'OverrideMdlVersionComboUserControl
 		'
-		Me.OverrideMdlVersionComboUserControl.DataSource = Nothing
-		Me.OverrideMdlVersionComboUserControl.DisplayMember = ""
 		Me.OverrideMdlVersionComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.OverrideMdlVersionComboUserControl.IsReadOnly = False
 		Me.OverrideMdlVersionComboUserControl.Location = New System.Drawing.Point(123, 199)
 		Me.OverrideMdlVersionComboUserControl.MaxDropDownItems = 30
 		Me.OverrideMdlVersionComboUserControl.MultipleInputsIsAllowed = True
 		Me.OverrideMdlVersionComboUserControl.Name = "OverrideMdlVersionComboUserControl"
-		Me.OverrideMdlVersionComboUserControl.SelectedIndex = -1
-		Me.OverrideMdlVersionComboUserControl.SelectedValue = ""
 		Me.OverrideMdlVersionComboUserControl.Size = New System.Drawing.Size(110, 23)
 		Me.OverrideMdlVersionComboUserControl.TabIndex = 45
 		Me.OverrideMdlVersionComboUserControl.TextHistoryIsKept = False

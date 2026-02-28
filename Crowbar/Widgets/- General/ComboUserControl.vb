@@ -984,6 +984,9 @@ Public Class ComboUserControl
 			position = Me.PointToScreen(position)
 			Me.TextHistoryPopup.Show(position)
 			Me.TextHistoryDataGridView.Show()
+			' No idea why, but must have this line (here and not anywhere else in this Sub) changing the Width 
+			' to prevent showing the DGV smaller in width than its parent Popup.
+			Me.TextHistoryDataGridView.Width = Me.Width + 1
 			Me.TextHistoryDataGridView.Focus()
 			If Me.TextHistoryDataGridView.SelectedRows.Count > 0 Then
 				Me.TextHistoryDataGridView.FirstDisplayedScrollingRowIndex = Me.TextHistoryDataGridView.SelectedRows(0).Index

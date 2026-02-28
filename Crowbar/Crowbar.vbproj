@@ -146,20 +146,17 @@
     <Compile Include="Widgets\- General\ComboUserControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\HelperFunctions.vb" />
-    <Compile Include="Widgets\- General\ListBoxEx.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Widgets\- General\ScrollBarPanel.vb">
+    <Compile Include="Widgets\- General\Helpers\HelperFunctions.vb" />
+    <Compile Include="Widgets\- General\Helpers\ScrollBarPanel.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\TabPageEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\TabScroller.vb">
+    <Compile Include="Widgets\- General\Helpers\TabScroller.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\Workarounds.vb" />
+    <Compile Include="Widgets\- General\Helpers\Workarounds.vb" />
     <Compile Include="Core\- General\XmlColor.vb" />
     <Compile Include="Core\- General\DuplicateKeyComparer.vb" />
     <Compile Include="Core\- General\EnumHelper.vb" />
@@ -591,55 +588,46 @@
     <Compile Include="Widgets\- General\CheckBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ComboBoxEx.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Widgets\- General\DataGridViewEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\DataGridViewRadioButtonColumn.vb" />
-    <Compile Include="Widgets\- General\DateTimeTextBoxEx.vb">
+    <Compile Include="Widgets\- General\Helpers\DataGridViewRadioButtonColumn.vb" />
+    <Compile Include="Widgets\- General\Helpers\DateTimeTextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\FileDragDropHelper.vb" />
+    <Compile Include="Widgets\- General\Helpers\FileDragDropHelper.vb" />
     <Compile Include="Widgets\- General\GroupBoxEx.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Widgets\- General\ListViewEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\PanelEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\Popup.vb">
+    <Compile Include="Widgets\- General\Helpers\Popup.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ScrollBarEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ScrollBarEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ScrollValueEventArgs.vb" />
+    <Compile Include="Widgets\- General\Helpers\ScrollValueEventArgs.vb" />
     <Compile Include="Widgets\- General\TabControlEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\SingleLineTextBoxEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripButtonEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ToolStripButtonEx.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Widgets\- General\ToolStripComboBoxEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripComboBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\ToolStripEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ToolStripLabelEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripLabelEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ToolStripSeparatorEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripSeparatorEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\ToolStripTextBoxEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripTextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\TreeViewEx.vb">
@@ -657,10 +645,7 @@
     <Compile Include="Widgets\- General\SplitContainerEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Widgets\- General\TextBoxEx.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Widgets\- General\ToolStripSpringTextBoxEx.vb">
+    <Compile Include="Widgets\- General\Helpers\ToolStripSpringTextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\Main Tabs\AboutUserControl.Designer.vb">

@@ -22,7 +22,7 @@ Partial Class GarrysModTagsUserControl
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Me.ComboBox1 = New ComboBoxEx()
+		Me.ComboBox1 = New ComboUserControl()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.CheckBox1 = New Crowbar.CheckBoxEx()
 		Me.CheckBox2 = New Crowbar.CheckBoxEx()
@@ -41,8 +41,6 @@ Partial Class GarrysModTagsUserControl
 		'
 		'ComboBox1
 		'
-		Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-		Me.ComboBox1.FormattingEnabled = True
 		Me.ComboBox1.Location = New System.Drawing.Point(42, 0)
 		Me.ComboBox1.Name = "ComboBox1"
 		Me.ComboBox1.Size = New System.Drawing.Size(110, 21)
@@ -226,7 +224,7 @@ Partial Class GarrysModTagsUserControl
 
 	End Sub
 
-	Friend WithEvents ComboBox1 As ComboBoxEx
+	Friend WithEvents ComboBox1 As ComboUserControl
 	Friend WithEvents Label1 As Label
 	Friend WithEvents CheckBox1 As CheckBoxEx
 	Friend WithEvents CheckBox2 As CheckBoxEx

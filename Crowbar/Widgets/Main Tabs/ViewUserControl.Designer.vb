@@ -128,11 +128,17 @@ Partial Class ViewUserControl
 		'
 		'OverrideMdlVersionComboBox
 		'
-		Me.OverrideMdlVersionComboUserControl.IsReadOnly = False
+		Me.OverrideMdlVersionComboUserControl.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		Me.OverrideMdlVersionComboUserControl.IsReadOnly = True
 		Me.OverrideMdlVersionComboUserControl.Location = New System.Drawing.Point(123, 32)
+		Me.OverrideMdlVersionComboUserControl.MaxDropDownItems = 30
+		Me.OverrideMdlVersionComboUserControl.MultipleInputsIsAllowed = False
 		Me.OverrideMdlVersionComboUserControl.Name = "OverrideMdlVersionComboBox"
 		Me.OverrideMdlVersionComboUserControl.Size = New System.Drawing.Size(110, 23)
 		Me.OverrideMdlVersionComboUserControl.TabIndex = 47
+		Me.OverrideMdlVersionComboUserControl.TextHistoryIsKept = False
+		Me.OverrideMdlVersionComboUserControl.TextHistoryMaxSize = 15
+		Me.OverrideMdlVersionComboUserControl.TextIsPathFileNames = False
 		'
 		'GotoMdlFileButton
 		'

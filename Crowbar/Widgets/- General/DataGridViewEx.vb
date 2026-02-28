@@ -879,7 +879,9 @@ Public Class DataGridViewEx
 			End If
 
 			MyBase.ScrollBars = Windows.Forms.ScrollBars.None
+			Me.CustomHorizontalScrollbar.BackColor = theme.EnabledBackColor
 			Me.CustomHorizontalScrollbar.RightAndBottomBorderColor = Me.theBorderColor
+			Me.CustomVerticalScrollBar.BackColor = theme.EnabledBackColor
 			Me.CustomVerticalScrollBar.RightAndBottomBorderColor = Me.theBorderColor
 			Me.ScrollbarCornerPanel.BackColor = Me.BackColor
 			Me.ScrollbarCornerPanel.RightAndBottomBorderColor = Me.theBorderColor

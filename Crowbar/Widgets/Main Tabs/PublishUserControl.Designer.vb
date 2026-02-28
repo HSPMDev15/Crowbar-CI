@@ -80,7 +80,7 @@ Partial Class PublishUserControl
 		Me.ItemTagsGroupBox = New Crowbar.GroupBoxEx()
 		Me.LogTextBox = New Crowbar.RichTextBoxEx()
 		Me.PublishItemButton = New Crowbar.ButtonEx()
-		Me.QueueListView = New Crowbar.ListViewEx()
+		Me.QueueListView = New Crowbar.DataGridViewEx()
 		CType(Me.TopMiddleSplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TopMiddleSplitContainer.Panel1.SuspendLayout()
 		Me.TopMiddleSplitContainer.Panel2.SuspendLayout()
@@ -962,19 +962,16 @@ Partial Class PublishUserControl
 		Me.PublishItemButton.Text = "Publish"
 		Me.PublishItemButton.UseVisualStyleBackColor = True
 		'
-		'QueueListView
+		'QueueDataGridView
 		'
 		Me.QueueListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.QueueListView.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.QueueListView.HideSelection = False
 		Me.QueueListView.Location = New System.Drawing.Point(568, 0)
 		Me.QueueListView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-		Me.QueueListView.Name = "QueueListView"
-		Me.QueueListView.OwnerDraw = True
+		Me.QueueListView.Name = "QueueDataGridView"
 		Me.QueueListView.Size = New System.Drawing.Size(199, 63)
 		Me.QueueListView.TabIndex = 20
-		Me.QueueListView.UseCompatibleStateImageBehavior = False
 		Me.QueueListView.Visible = False
 		'
 		'PublishUserControl
@@ -1055,7 +1052,7 @@ Partial Class PublishUserControl
 	Friend WithEvents ItemPreviewImagePictureBox As PictureBox
 	Friend WithEvents ItemIDLabel As Label
 	Friend WithEvents ItemTagsGroupBox As GroupBoxEx
-	Friend WithEvents QueueListView As ListViewEx
+	Friend WithEvents QueueListView As DataGridViewEx
 	Friend WithEvents LogTextBox As RichTextBoxEx
 	Friend WithEvents PublishItemButton As ButtonEx
 	Friend WithEvents ToolStrip1 As ToolStripEx
