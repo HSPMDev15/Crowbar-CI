@@ -11,34 +11,42 @@ Public Class GlobalTheme
         Me.theHighEnabledForeColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
         Me.theHighEnabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
         Me.theHighEnabledBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theHighEnabledBorderWidth = 1
 
         Me.theHighDisabledForeColor = New XmlColor(Color.FromArgb(&HFF808080))
         Me.theHighDisabledBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
         Me.theHighDisabledBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theHighDisabledBorderWidth = 1
 
         Me.theHighSelectedForeColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
         Me.theHighSelectedBackColor = New XmlColor("WindowColorizationColor")
         Me.theHighSelectedBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theHighSelectedBorderWidth = 1
 
         Me.theHighFocusForeColor = New XmlColor("WindowColorizationColor")
         Me.theHighFocusBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
         Me.theHighFocusBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theHighFocusBorderWidth = 1
 
         Me.theDeepEnabledForeColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
         Me.theDeepEnabledBackColor = New XmlColor(Color.FromArgb(&HFF1E1E1E))
         Me.theDeepEnabledBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theDeepEnabledBorderWidth = 1
 
         Me.theDeepDisabledForeColor = New XmlColor(Color.FromArgb(&HFF808080))
         Me.theDeepDisabledBackColor = New XmlColor(Color.FromArgb(&HFF2D2D2D))
         Me.theDeepDisabledBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theDeepDisabledBorderWidth = 1
 
         Me.theDeepSelectedForeColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
         Me.theDeepSelectedBackColor = New XmlColor("WindowColorizationColor")
         Me.theDeepSelectedBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theDeepSelectedBorderWidth = 1
 
         Me.theDeepFocusForeColor = New XmlColor("WindowColorizationColor")
         Me.theDeepFocusBackColor = New XmlColor(Color.FromArgb(&HFF4B4B4B))
         Me.theDeepFocusBorderColor = New XmlColor(Color.FromArgb(&HFFF1F1F1))
+        Me.theDeepFocusBorderWidth = 1
     End Sub
 
 #End Region
@@ -82,6 +90,15 @@ Public Class GlobalTheme
         End Set
     End Property
 
+    Public Property HighEnabledBorderWidth As Integer
+        Get
+            Return Me.theHighEnabledBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theHighEnabledBorderWidth = value
+        End Set
+    End Property
+
     Public Property HighDisabledForeColor As XmlColor
         Get
             Return Me.theHighDisabledForeColor
@@ -106,6 +123,15 @@ Public Class GlobalTheme
         End Get
         Set(value As XmlColor)
             Me.theHighDisabledBorderColor = value
+        End Set
+    End Property
+
+    Public Property HighDisabledBorderWidth As Integer
+        Get
+            Return Me.theHighDisabledBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theHighDisabledBorderWidth = value
         End Set
     End Property
 
@@ -136,6 +162,15 @@ Public Class GlobalTheme
         End Set
     End Property
 
+    Public Property HighSelectedBorderWidth As Integer
+        Get
+            Return Me.theHighSelectedBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theHighSelectedBorderWidth = value
+        End Set
+    End Property
+
     Public Property HighFocusForeColor As XmlColor
         Get
             Return Me.theHighFocusForeColor
@@ -160,6 +195,15 @@ Public Class GlobalTheme
         End Get
         Set(value As XmlColor)
             Me.theHighFocusBorderColor = value
+        End Set
+    End Property
+
+    Public Property HighFocusBorderWidth As Integer
+        Get
+            Return Me.theHighFocusBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theHighFocusBorderWidth = value
         End Set
     End Property
 
@@ -190,6 +234,15 @@ Public Class GlobalTheme
         End Set
     End Property
 
+    Public Property DeepEnabledBorderWidth As Integer
+        Get
+            Return Me.theDeepEnabledBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theDeepEnabledBorderWidth = value
+        End Set
+    End Property
+
     Public Property DeepDisabledForeColor As XmlColor
         Get
             Return Me.theDeepDisabledForeColor
@@ -214,6 +267,15 @@ Public Class GlobalTheme
         End Get
         Set(value As XmlColor)
             Me.theDeepDisabledBorderColor = value
+        End Set
+    End Property
+
+    Public Property DeepDisabledBorderWidth As Integer
+        Get
+            Return Me.theDeepDisabledBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theDeepDisabledBorderWidth = value
         End Set
     End Property
 
@@ -244,6 +306,15 @@ Public Class GlobalTheme
         End Set
     End Property
 
+    Public Property DeepSelectedBorderWidth As Integer
+        Get
+            Return Me.theDeepSelectedBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theDeepSelectedBorderWidth = value
+        End Set
+    End Property
+
     Public Property DeepFocusForeColor As XmlColor
         Get
             Return Me.theDeepFocusForeColor
@@ -271,6 +342,15 @@ Public Class GlobalTheme
         End Set
     End Property
 
+    Public Property DeepFocusBorderWidth As Integer
+        Get
+            Return Me.theDeepFocusBorderWidth
+        End Get
+        Set(value As Integer)
+            Me.theDeepFocusBorderWidth = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -291,34 +371,42 @@ Public Class GlobalTheme
     Protected theHighEnabledForeColor As XmlColor
     Protected theHighEnabledBackColor As XmlColor
     Protected theHighEnabledBorderColor As XmlColor
+    Protected theHighEnabledBorderWidth As Integer
 
     Protected theHighDisabledForeColor As XmlColor
     Protected theHighDisabledBackColor As XmlColor
     Protected theHighDisabledBorderColor As XmlColor
+    Protected theHighDisabledBorderWidth As Integer
 
     Protected theHighSelectedForeColor As XmlColor
     Protected theHighSelectedBackColor As XmlColor
     Protected theHighSelectedBorderColor As XmlColor
+    Protected theHighSelectedBorderWidth As Integer
 
     Protected theHighFocusForeColor As XmlColor
     Protected theHighFocusBackColor As XmlColor
     Protected theHighFocusBorderColor As XmlColor
+    Protected theHighFocusBorderWidth As Integer
 
     Protected theDeepEnabledForeColor As XmlColor
     Protected theDeepEnabledBackColor As XmlColor
     Protected theDeepEnabledBorderColor As XmlColor
+    Protected theDeepEnabledBorderWidth As Integer
 
     Protected theDeepDisabledForeColor As XmlColor
     Protected theDeepDisabledBackColor As XmlColor
     Protected theDeepDisabledBorderColor As XmlColor
+    Protected theDeepDisabledBorderWidth As Integer
 
     Protected theDeepSelectedForeColor As XmlColor
     Protected theDeepSelectedBackColor As XmlColor
     Protected theDeepSelectedBorderColor As XmlColor
+    Protected theDeepSelectedBorderWidth As Integer
 
     Protected theDeepFocusForeColor As XmlColor
     Protected theDeepFocusBackColor As XmlColor
     Protected theDeepFocusBorderColor As XmlColor
+    Protected theDeepFocusBorderWidth As Integer
 
 #End Region
 

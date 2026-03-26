@@ -113,7 +113,6 @@
     <Compile Include="Core\- AppThemes\RadioButtonTheme.vb" />
     <Compile Include="Core\- AppThemes\ToolStripTheme.vb" />
     <Compile Include="Core\- AppThemes\TreeViewTheme.vb" />
-    <Compile Include="Core\- AppThemes\ListViewTheme.vb" />
     <Compile Include="Core\- AppThemes\ProgressBarTheme.vb" />
     <Compile Include="Core\- AppThemes\TabControlTheme.vb" />
     <Compile Include="Core\- AppThemes\RichTextBoxTheme.vb" />

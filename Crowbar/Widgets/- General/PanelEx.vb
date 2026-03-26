@@ -468,6 +468,9 @@ Public Class PanelEx
             Me.ForeColor = Control.DefaultForeColor
             MyBase.BackColor = Control.DefaultBackColor
         End If
+
+        'NOTE: Raise the OnNonClientCalcSize and OnNonClientPaint "events".
+        Win32Api.SetWindowPos(Me.Handle, IntPtr.Zero, 0, 0, 0, 0, Win32Api.SWP.SWP_FRAMECHANGED Or Win32Api.SWP.SWP_NOMOVE Or Win32Api.SWP.SWP_NOSIZE Or Win32Api.SWP.SWP_NOZORDER)
     End Sub
 
     Private Sub UpdateNonClientPadding()
