@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ "change_color_theme" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Dowload
+      uses: actions/checkout@v4
+
+    - name: setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: restore NuGet packages (if any)
+      run: nuget restore Crowbar.sln
+
+    - name: Compile
+      run: msbuild Crowbar.sln /p:Configuration=Release /p:Platform=x86
+
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Crowbar-Build
+        path: "**/bin/x86/Release/Crowbar.exe"
