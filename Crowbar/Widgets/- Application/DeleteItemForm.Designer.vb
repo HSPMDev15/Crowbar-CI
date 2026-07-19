@@ -22,16 +22,16 @@ Partial Class DeleteItemForm
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Me.TextBox1 = New Crowbar.TextBoxEx()
-		Me.DeleteButton = New System.Windows.Forms.Button()
-		Me.CancelDeleteButton = New System.Windows.Forms.Button()
+		Me.TextBox1 = New Crowbar.RichTextBoxEx()
+		Me.DeleteButton = New ButtonEx()
+		Me.CancelDeleteButton = New ButtonEx()
 		Me.SuspendLayout()
 		'
 		'TextBox1
 		'
 		Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+		Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
 		Me.TextBox1.CueBannerText = ""
 		Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.TextBox1.Location = New System.Drawing.Point(12, 12)
@@ -41,7 +41,6 @@ Partial Class DeleteItemForm
 		Me.TextBox1.Size = New System.Drawing.Size(420, 50)
 		Me.TextBox1.TabIndex = 0
 		Me.TextBox1.TabStop = False
-		Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 		'
 		'DeleteButton
 		'
@@ -80,7 +79,7 @@ Partial Class DeleteItemForm
 
 	End Sub
 
-	Friend WithEvents TextBox1 As TextBoxEx
-	Friend WithEvents DeleteButton As Button
-	Friend WithEvents CancelDeleteButton As Button
+	Friend WithEvents TextBox1 As Crowbar.RichTextBoxEx
+	Friend WithEvents DeleteButton As ButtonEx
+	Friend WithEvents CancelDeleteButton As ButtonEx
 End Class

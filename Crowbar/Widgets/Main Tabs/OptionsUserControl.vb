@@ -3,8 +3,22 @@ Public Class OptionsUserControl
 #Region "Creation and Destruction"
 
 	Public Sub New()
+		MyBase.New()
 		' This call is required by the Windows Form Designer.
 		InitializeComponent()
+	End Sub
+
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing Then
+				Me.Free()
+				If components IsNot Nothing Then
+					components.Dispose()
+				End If
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
 	End Sub
 
 #End Region
@@ -12,7 +26,18 @@ Public Class OptionsUserControl
 #Region "Init and Free"
 
 	Protected Overrides Sub Init()
+		MyBase.Init()
+
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If TheApp Is Nothing Then
+			Exit Sub
+		End If
+
+		'Me.UpdateTheme()
+
 		Me.SingleInstanceCheckBox.DataBindings.Add("Checked", TheApp.Settings, "AppIsSingleInstance", False, DataSourceUpdateMode.OnPropertyChanged)
+
+		Me.InitThemeComboBox()
 
 		' Auto-Open
 
@@ -92,13 +117,21 @@ Public Class OptionsUserControl
 		Me.DragAndDropFolderForPackRadioButton.Checked = (TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Pack)
 	End Sub
 
-	' Do not need Free() because this widget is destroyed only on program exit.
-	'Protected Overrides Sub Free()
-	'	RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
+	Protected Overrides Sub Free()
+		MyBase.Free()
+
+		' [04-Feb-2026] Because Me.DesignMode is unreliable in nested widgets, must do this check to prevent a crash.
+		If Not Me.InitHasBeenCalled OrElse TheApp Is Nothing Then
+			Exit Sub
+		End If
+
+		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 
 	'	Me.SingleInstanceCheckBox.DataBindings.Clear()
 
-	'	' Auto-Open
+		Me.FreeThemeComboBox()
+
+		' Auto-Open
 
 	'	Me.AutoOpenVpkFileCheckBox.DataBindings.Clear()
 	'	Me.AutoOpenGmaFileCheckBox.DataBindings.Clear()
@@ -132,6 +165,28 @@ Public Class OptionsUserControl
 	'	Me.OptionsContextMenuCompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
 	'End Sub
 
+	Private Sub InitThemeComboBox()
+		Me.ThemeComboUserControl.DataBindings.Clear()
+		Try
+			'NOTE: Prevent changing this combobox's SelectedIndex when another combobox's (which also accesses "SelectedIndex" and TheApp.Settings) SelectedIndex changes.
+			Me.ThemeComboUserControl.BindingContext = New BindingContext()
+			'NOTE: The DataSource, DisplayMember, and ValueMember need to be set before DataBindings, or else an exception is raised.
+			Me.ThemeComboUserControl.DataSource = TheApp.AppThemes
+			Me.ThemeComboUserControl.ValueMember = "Name"
+			Me.ThemeComboUserControl.DisplayMember = "Name"
+			Me.ThemeComboUserControl.DataBindings.Add("SelectedValue", TheApp.Settings, "AppThemeName", False, DataSourceUpdateMode.OnPropertyChanged)
+		Catch ex As Exception
+			Dim debug As Integer = 4242
+		End Try
+
+		'AddHandler Me.ThemeComboUserControl.SelectedValueChanged, AddressOf Me.ThemeComboUserControl_SelectedValueChanged
+	End Sub
+
+	Private Sub FreeThemeComboBox()
+		'RemoveHandler Me.ThemeComboUserControl.SelectedValueChanged, AddressOf Me.ThemeComboUserControl_SelectedValueChanged
+		Me.ThemeComboUserControl.DataBindings.Clear()
+	End Sub
+
 #End Region
 
 #Region "Properties"
@@ -140,90 +195,104 @@ Public Class OptionsUserControl
 
 #Region "Widget Event Handlers"
 
+	Private Sub OptionsUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
+		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
+		'If Not Me.DesignMode Then
+		Me.Init()
+		'End If
+	End Sub
+
+#End Region
+
+	'Protected Overrides Sub OnHandleDestroyed(e As EventArgs)
+	'	Me.Free()
+	'	MyBase.OnHandleDestroyed(e)
+	'End Sub
+
 #End Region
 
 #Region "Child Widget Event Handlers"
 
-	Private Sub AutoOpenVpkFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenVpkFileForUnpackRadioButton.CheckedChanged, AutoOpenVpkFileForPublishRadioButton.CheckedChanged
-		If Me.AutoOpenVpkFileForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenVpkFileOption = ActionType.Unpack
-		Else
-			TheApp.Settings.OptionsAutoOpenVpkFileOption = ActionType.Publish
-		End If
-	End Sub
+	'Private Sub AutoOpenVpkFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenVpkFileForUnpackRadioButton.CheckedChanged, AutoOpenVpkFileForPublishRadioButton.CheckedChanged
+	'	If Me.AutoOpenVpkFileForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenVpkFileOption = ActionType.Unpack
+	'	Else
+	'		TheApp.Settings.OptionsAutoOpenVpkFileOption = ActionType.Publish
+	'	End If
+	'End Sub
 
-	Private Sub AutoOpenGmaFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenGmaFileForUnpackRadioButton.CheckedChanged, AutoOpenGmaFileForPublishRadioButton.CheckedChanged
-		If Me.AutoOpenGmaFileForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenGmaFileOption = ActionType.Unpack
-		Else
-			TheApp.Settings.OptionsAutoOpenGmaFileOption = ActionType.Publish
-		End If
-	End Sub
+	'Private Sub AutoOpenGmaFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenGmaFileForUnpackRadioButton.CheckedChanged, AutoOpenGmaFileForPublishRadioButton.CheckedChanged
+	'	If Me.AutoOpenGmaFileForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenGmaFileOption = ActionType.Unpack
+	'	Else
+	'		TheApp.Settings.OptionsAutoOpenGmaFileOption = ActionType.Publish
+	'	End If
+	'End Sub
 
-	Private Sub AutoOpenMdlFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenMdlFileForPreviewingRadioButton.CheckedChanged, AutoOpenMdlFileForDecompilingRadioButton.CheckedChanged, AutoOpenMdlFileForViewingRadioButton.CheckedChanged
-		If Me.AutoOpenMdlFileForPreviewingRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.Preview
-		ElseIf Me.AutoOpenMdlFileForDecompilingRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.Decompile
-		Else
-			TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.View
-		End If
-	End Sub
+	'Private Sub AutoOpenMdlFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenMdlFileForPreviewingRadioButton.CheckedChanged, AutoOpenMdlFileForDecompilingRadioButton.CheckedChanged, AutoOpenMdlFileForViewingRadioButton.CheckedChanged
+	'	If Me.AutoOpenMdlFileForPreviewingRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.Preview
+	'	ElseIf Me.AutoOpenMdlFileForDecompilingRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.Decompile
+	'	Else
+	'		TheApp.Settings.OptionsAutoOpenMdlFileOption = ActionType.View
+	'	End If
+	'End Sub
 
 	Private Sub AutoOpenUseDefaultsButton_Click(sender As Object, e As EventArgs) Handles AutoOpenUseDefaultsButton.Click
 		TheApp.Settings.SetDefaultOptionsAutoOpenOptions()
 		Me.InitAutoOpenRadioButtons()
 	End Sub
 
-	Private Sub AutoOpenFolderRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenFolderForUnpackRadioButton.CheckedChanged, AutoOpenFolderForDecompileRadioButton.CheckedChanged, AutoOpenFolderForCompileRadioButton.CheckedChanged, AutoOpenFolderForPackRadioButton.CheckedChanged
-		If Me.AutoOpenFolderForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Unpack
-		ElseIf Me.AutoOpenFolderForDecompileRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Decompile
-		ElseIf Me.AutoOpenFolderForCompileRadioButton.Checked Then
-			TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Compile
-		Else
-			TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Pack
-		End If
-	End Sub
+	'Private Sub AutoOpenFolderRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AutoOpenFolderForUnpackRadioButton.CheckedChanged, AutoOpenFolderForDecompileRadioButton.CheckedChanged, AutoOpenFolderForCompileRadioButton.CheckedChanged, AutoOpenFolderForPackRadioButton.CheckedChanged
+	'	If Me.AutoOpenFolderForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Unpack
+	'	ElseIf Me.AutoOpenFolderForDecompileRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Decompile
+	'	ElseIf Me.AutoOpenFolderForCompileRadioButton.Checked Then
+	'		TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Compile
+	'	Else
+	'		TheApp.Settings.OptionsAutoOpenFolderOption = ActionType.Pack
+	'	End If
+	'End Sub
 
-	Private Sub DragAndDropVpkFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropVpkFileForUnpackRadioButton.CheckedChanged, DragAndDropVpkFileForPublishRadioButton.CheckedChanged
-		If Me.DragAndDropVpkFileForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropVpkFileOption = ActionType.Unpack
-		Else
-			TheApp.Settings.OptionsDragAndDropVpkFileOption = ActionType.Publish
-		End If
-	End Sub
+	'Private Sub DragAndDropVpkFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropVpkFileForUnpackRadioButton.CheckedChanged, DragAndDropVpkFileForPublishRadioButton.CheckedChanged
+	'	If Me.DragAndDropVpkFileForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropVpkFileOption = ActionType.Unpack
+	'	Else
+	'		TheApp.Settings.OptionsDragAndDropVpkFileOption = ActionType.Publish
+	'	End If
+	'End Sub
 
-	Private Sub DragAndDropGmaFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropGmaFileForUnpackRadioButton.CheckedChanged, DragAndDropGmaFileForPublishRadioButton.CheckedChanged
-		If Me.DragAndDropGmaFileForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropGmaFileOption = ActionType.Unpack
-		Else
-			TheApp.Settings.OptionsDragAndDropGmaFileOption = ActionType.Publish
-		End If
-	End Sub
+	'Private Sub DragAndDropGmaFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropGmaFileForUnpackRadioButton.CheckedChanged, DragAndDropGmaFileForPublishRadioButton.CheckedChanged
+	'	If Me.DragAndDropGmaFileForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropGmaFileOption = ActionType.Unpack
+	'	Else
+	'		TheApp.Settings.OptionsDragAndDropGmaFileOption = ActionType.Publish
+	'	End If
+	'End Sub
 
-	Private Sub DragAndDropMdlFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropMdlFileForPreviewingRadioButton.CheckedChanged, DragAndDropMdlFileForDecompilingRadioButton.CheckedChanged, DragAndDropMdlFileForViewingRadioButton.CheckedChanged
-		If Me.DragAndDropMdlFileForPreviewingRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.Preview
-		ElseIf Me.DragAndDropMdlFileForDecompilingRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.Decompile
-		Else
-			TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.View
-		End If
-	End Sub
+	'Private Sub DragAndDropMdlFileRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropMdlFileForPreviewingRadioButton.CheckedChanged, DragAndDropMdlFileForDecompilingRadioButton.CheckedChanged, DragAndDropMdlFileForViewingRadioButton.CheckedChanged
+	'	If Me.DragAndDropMdlFileForPreviewingRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.Preview
+	'	ElseIf Me.DragAndDropMdlFileForDecompilingRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.Decompile
+	'	Else
+	'		TheApp.Settings.OptionsDragAndDropMdlFileOption = ActionType.View
+	'	End If
+	'End Sub
 
-	Private Sub DragAndDropFolderRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropFolderForUnpackRadioButton.CheckedChanged, DragAndDropFolderForDecompileRadioButton.CheckedChanged, DragAndDropFolderForCompileRadioButton.CheckedChanged, DragAndDropFolderForPackRadioButton.CheckedChanged
-		If Me.DragAndDropFolderForUnpackRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Unpack
-		ElseIf Me.DragAndDropFolderForDecompileRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Decompile
-		ElseIf Me.DragAndDropFolderForCompileRadioButton.Checked Then
-			TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Compile
-		Else
-			TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Pack
-		End If
-	End Sub
+	'Private Sub DragAndDropFolderRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DragAndDropFolderForUnpackRadioButton.CheckedChanged, DragAndDropFolderForDecompileRadioButton.CheckedChanged, DragAndDropFolderForCompileRadioButton.CheckedChanged, DragAndDropFolderForPackRadioButton.CheckedChanged
+	'	If Me.DragAndDropFolderForUnpackRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Unpack
+	'	ElseIf Me.DragAndDropFolderForDecompileRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Decompile
+	'	ElseIf Me.DragAndDropFolderForCompileRadioButton.Checked Then
+	'		TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Compile
+	'	Else
+	'		TheApp.Settings.OptionsDragAndDropFolderOption = ActionType.Pack
+	'	End If
+	'End Sub
 
 	Private Sub DragAndDropUseDefaultsButton_Click(sender As Object, e As EventArgs) Handles DragAndDropUseDefaultsButton.Click
 		TheApp.Settings.SetDefaultOptionsDragAndDropOptions()
@@ -245,6 +314,9 @@ Public Class OptionsUserControl
 	Private Sub AppSettings_PropertyChanged(ByVal sender As System.Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
 		If e.PropertyName = "AppIsSingleInstance" Then
 			TheApp.SaveAppSettings()
+			'ElseIf e.PropertyName = "AppThemeName" Then
+			'	Me.UpdateTheme()
+			'	Me.Refresh()
 		ElseIf e.PropertyName = "OptionsAutoOpenVpkFileIsChecked" Then
 			Me.ApplyAutoOpenVpkFileOptions()
 		ElseIf e.PropertyName = "OptionsAutoOpenGmaFileIsChecked" Then
@@ -261,6 +333,20 @@ Public Class OptionsUserControl
 #End Region
 
 #Region "Private Methods"
+
+	'Private Sub UpdateTheme()
+	'	Dim theme As PanelTheme = Nothing
+	'	If TheApp IsNot Nothing Then
+	'		theme = TheApp.Settings.SelectedAppTheme.PanelTheme
+	'	End If
+	'	If theme IsNot Nothing Then
+	'		Me.ForeColor = theme.EnabledForeColor
+	'		Me.BackColor = theme.EnabledBackColor
+	'	Else
+	'		Me.ForeColor = Control.DefaultForeColor
+	'		Me.BackColor = Control.DefaultBackColor
+	'	End If
+	'End Sub
 
 	Private Sub ApplyAutoOpenVpkFileOptions()
 		If TheApp.Settings.OptionsAutoOpenVpkFileIsChecked Then

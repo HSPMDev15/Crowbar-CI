@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class DownloadUserControl
     Inherits BaseUserControl
 
@@ -20,38 +20,38 @@ Partial Class DownloadUserControl
 	<System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Me.ItemIdTextBox = New Crowbar.TextBoxEx()
-		Me.DownloadButton = New System.Windows.Forms.Button()
+		Me.ItemIdTextBox = New Crowbar.RichTextBoxEx()
+		Me.DownloadButton = New Crowbar.ButtonEx()
 		Me.LogTextBox = New Crowbar.RichTextBoxEx()
 		Me.ItemIdOrLinkLabel = New System.Windows.Forms.Label()
 		Me.OuputToLabel = New System.Windows.Forms.Label()
-		Me.OutputPathComboBox = New System.Windows.Forms.ComboBox()
-		Me.OutputPathTextBox = New Crowbar.TextBoxEx()
-		Me.GotoOutputPathButton = New System.Windows.Forms.Button()
-		Me.BrowseForOutputPathButton = New System.Windows.Forms.Button()
+		Me.OutputPathComboBox = New Crowbar.ComboUserControl()
+		Me.OutputPathTextBox = New Crowbar.RichTextBoxEx()
+		Me.GotoOutputPathButton = New Crowbar.ButtonEx()
+		Me.BrowseForOutputPathButton = New Crowbar.ButtonEx()
 		Me.OptionsGroupBox = New Crowbar.GroupBoxEx()
-		Me.OptionsGroupBoxFillPanel = New System.Windows.Forms.Panel()
+		Me.OptionsGroupBoxFillPanel = New Crowbar.PanelEx()
 		Me.UseIdCheckBox = New Crowbar.CheckBoxEx()
 		Me.PrependTitleCheckBox = New Crowbar.CheckBoxEx()
 		Me.AppendDateTimeCheckBox = New Crowbar.CheckBoxEx()
 		Me.ReplaceSpacesWithUnderscoresCheckBox = New Crowbar.CheckBoxEx()
-		Me.OptionsUseDefaultsButton = New System.Windows.Forms.Button()
+		Me.OptionsUseDefaultsButton = New Crowbar.ButtonEx()
 		Me.ConvertToExpectedFileOrFolderCheckBox = New Crowbar.CheckBoxEx()
 		Me.ExampleOutputFileNameLabel = New System.Windows.Forms.Label()
-		Me.ExampleOutputFileNameTextBox = New Crowbar.TextBoxEx()
-		Me.CancelDownloadButton = New System.Windows.Forms.Button()
+		Me.ExampleOutputFileNameTextBox = New Crowbar.RichTextBoxEx()
+		Me.CancelDownloadButton = New Crowbar.ButtonEx()
 		Me.DownloadProgressBar = New Crowbar.ProgressBarEx()
-		Me.OpenWorkshopPageButton = New System.Windows.Forms.Button()
-		Me.DocumentsOutputPathTextBox = New Crowbar.TextBoxEx()
-		Me.DownloadedItemTextBox = New Crowbar.TextBoxEx()
+		Me.OpenWorkshopPageButton = New Crowbar.ButtonEx()
+		Me.DocumentsOutputPathTextBox = New Crowbar.RichTextBoxEx()
+		Me.DownloadedItemTextBox = New Crowbar.RichTextBoxEx()
 		Me.DownloadedLabel = New System.Windows.Forms.Label()
-		Me.GotoDownloadedItemButton = New System.Windows.Forms.Button()
+		Me.GotoDownloadedItemButton = New Crowbar.ButtonEx()
 		Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-		Me.DownloadUserControlFillPanel = New System.Windows.Forms.Panel()
+		Me.DownloadUserControlFillPanel = New Crowbar.PanelEx()
 		Me.Options_LogSplitContainer = New System.Windows.Forms.SplitContainer()
-		Me.DownloadButtonsPanel = New System.Windows.Forms.Panel()
-		Me.PostDownloadPanel = New System.Windows.Forms.Panel()
-		Me.UseInUnpackButton = New System.Windows.Forms.Button()
+		Me.DownloadButtonsPanel = New Crowbar.PanelEx()
+		Me.PostDownloadPanel = New Crowbar.PanelEx()
+		Me.UseInUnpackButton = New Crowbar.ButtonEx()
 		Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
 		Me.OptionsGroupBox.SuspendLayout()
 		Me.OptionsGroupBoxFillPanel.SuspendLayout()
@@ -69,10 +69,16 @@ Partial Class DownloadUserControl
 		Me.ItemIdTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.ItemIdTextBox.CueBannerText = ""
-		Me.ItemIdTextBox.Location = New System.Drawing.Point(87, 3)
+		Me.ItemIdTextBox.DetectUrls = False
+		Me.ItemIdTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		Me.ItemIdTextBox.Location = New System.Drawing.Point(87, 4)
+		Me.ItemIdTextBox.Multiline = False
 		Me.ItemIdTextBox.Name = "ItemIdTextBox"
+		Me.ItemIdTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.ItemIdTextBox.Size = New System.Drawing.Size(616, 22)
 		Me.ItemIdTextBox.TabIndex = 1
+		Me.ItemIdTextBox.Text = ""
+		Me.ItemIdTextBox.WordWrap = False
 		'
 		'DownloadButton
 		'
@@ -86,11 +92,14 @@ Partial Class DownloadUserControl
 		'LogTextBox
 		'
 		Me.LogTextBox.CueBannerText = ""
+		Me.LogTextBox.DetectUrls = False
 		Me.LogTextBox.Dock = System.Windows.Forms.DockStyle.Fill
+		Me.LogTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.LogTextBox.HideSelection = False
 		Me.LogTextBox.Location = New System.Drawing.Point(0, 26)
 		Me.LogTextBox.Name = "LogTextBox"
 		Me.LogTextBox.ReadOnly = True
+		Me.LogTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.LogTextBox.Size = New System.Drawing.Size(770, 226)
 		Me.LogTextBox.TabIndex = 13
 		Me.LogTextBox.Text = ""
@@ -115,11 +124,10 @@ Partial Class DownloadUserControl
 		'
 		'OutputPathComboBox
 		'
-		Me.OutputPathComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-		Me.OutputPathComboBox.FormattingEnabled = True
+		Me.OutputPathComboBox.IsReadOnly = False
 		Me.OutputPathComboBox.Location = New System.Drawing.Point(87, 33)
 		Me.OutputPathComboBox.Name = "OutputPathComboBox"
-		Me.OutputPathComboBox.Size = New System.Drawing.Size(140, 21)
+		Me.OutputPathComboBox.Size = New System.Drawing.Size(140, 23)
 		Me.OutputPathComboBox.TabIndex = 4
 		'
 		'OutputPathTextBox
@@ -128,10 +136,15 @@ Partial Class DownloadUserControl
 		Me.OutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.OutputPathTextBox.CueBannerText = ""
-		Me.OutputPathTextBox.Location = New System.Drawing.Point(233, 32)
+		Me.OutputPathTextBox.DetectUrls = False
+		Me.OutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		Me.OutputPathTextBox.Location = New System.Drawing.Point(233, 33)
+		Me.OutputPathTextBox.Multiline = False
 		Me.OutputPathTextBox.Name = "OutputPathTextBox"
+		Me.OutputPathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.OutputPathTextBox.Size = New System.Drawing.Size(421, 22)
 		Me.OutputPathTextBox.TabIndex = 5
+		Me.OutputPathTextBox.Text = ""
 		'
 		'GotoOutputPathButton
 		'
@@ -180,12 +193,15 @@ Partial Class DownloadUserControl
 		Me.OptionsGroupBoxFillPanel.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.OptionsGroupBoxFillPanel.Location = New System.Drawing.Point(3, 18)
 		Me.OptionsGroupBoxFillPanel.Name = "OptionsGroupBoxFillPanel"
+		Me.OptionsGroupBoxFillPanel.SelectedIndex = -1
+		Me.OptionsGroupBoxFillPanel.SelectedValue = Nothing
 		Me.OptionsGroupBoxFillPanel.Size = New System.Drawing.Size(764, 172)
 		Me.OptionsGroupBoxFillPanel.TabIndex = 8
 		'
 		'UseIdCheckBox
 		'
 		Me.UseIdCheckBox.AutoSize = True
+		Me.UseIdCheckBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.UseIdCheckBox.IsReadOnly = False
 		Me.UseIdCheckBox.Location = New System.Drawing.Point(3, 3)
 		Me.UseIdCheckBox.Name = "UseIdCheckBox"
@@ -197,6 +213,7 @@ Partial Class DownloadUserControl
 		'PrependTitleCheckBox
 		'
 		Me.PrependTitleCheckBox.AutoSize = True
+		Me.PrependTitleCheckBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.PrependTitleCheckBox.IsReadOnly = False
 		Me.PrependTitleCheckBox.Location = New System.Drawing.Point(3, 26)
 		Me.PrependTitleCheckBox.Name = "PrependTitleCheckBox"
@@ -208,6 +225,7 @@ Partial Class DownloadUserControl
 		'AppendDateTimeCheckBox
 		'
 		Me.AppendDateTimeCheckBox.AutoSize = True
+		Me.AppendDateTimeCheckBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.AppendDateTimeCheckBox.IsReadOnly = False
 		Me.AppendDateTimeCheckBox.Location = New System.Drawing.Point(3, 49)
 		Me.AppendDateTimeCheckBox.Name = "AppendDateTimeCheckBox"
@@ -219,6 +237,7 @@ Partial Class DownloadUserControl
 		'ReplaceSpacesWithUnderscoresCheckBox
 		'
 		Me.ReplaceSpacesWithUnderscoresCheckBox.AutoSize = True
+		Me.ReplaceSpacesWithUnderscoresCheckBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.ReplaceSpacesWithUnderscoresCheckBox.IsReadOnly = False
 		Me.ReplaceSpacesWithUnderscoresCheckBox.Location = New System.Drawing.Point(3, 72)
 		Me.ReplaceSpacesWithUnderscoresCheckBox.Name = "ReplaceSpacesWithUnderscoresCheckBox"
@@ -239,6 +258,7 @@ Partial Class DownloadUserControl
 		'ConvertToExpectedFileOrFolderCheckBox
 		'
 		Me.ConvertToExpectedFileOrFolderCheckBox.AutoSize = True
+		Me.ConvertToExpectedFileOrFolderCheckBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.ConvertToExpectedFileOrFolderCheckBox.IsReadOnly = False
 		Me.ConvertToExpectedFileOrFolderCheckBox.Location = New System.Drawing.Point(230, 3)
 		Me.ConvertToExpectedFileOrFolderCheckBox.Name = "ConvertToExpectedFileOrFolderCheckBox"
@@ -262,11 +282,17 @@ Partial Class DownloadUserControl
 		Me.ExampleOutputFileNameTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.ExampleOutputFileNameTextBox.CueBannerText = ""
+		Me.ExampleOutputFileNameTextBox.DetectUrls = False
+		Me.ExampleOutputFileNameTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+		Me.ExampleOutputFileNameTextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
 		Me.ExampleOutputFileNameTextBox.Location = New System.Drawing.Point(3, 147)
+		Me.ExampleOutputFileNameTextBox.Multiline = False
 		Me.ExampleOutputFileNameTextBox.Name = "ExampleOutputFileNameTextBox"
 		Me.ExampleOutputFileNameTextBox.ReadOnly = True
+		Me.ExampleOutputFileNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.ExampleOutputFileNameTextBox.Size = New System.Drawing.Size(758, 22)
 		Me.ExampleOutputFileNameTextBox.TabIndex = 6
+		Me.ExampleOutputFileNameTextBox.Text = ""
 		'
 		'CancelDownloadButton
 		'
@@ -282,7 +308,6 @@ Partial Class DownloadUserControl
 		'
 		Me.DownloadProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.DownloadProgressBar.ForeColor = System.Drawing.SystemColors.ControlText
 		Me.DownloadProgressBar.Location = New System.Drawing.Point(252, 0)
 		Me.DownloadProgressBar.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
 		Me.DownloadProgressBar.Name = "DownloadProgressBar"
@@ -304,22 +329,32 @@ Partial Class DownloadUserControl
 		Me.DocumentsOutputPathTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.DocumentsOutputPathTextBox.CueBannerText = ""
+		Me.DocumentsOutputPathTextBox.DetectUrls = False
+		Me.DocumentsOutputPathTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.DocumentsOutputPathTextBox.Location = New System.Drawing.Point(233, 32)
+		Me.DocumentsOutputPathTextBox.Multiline = False
 		Me.DocumentsOutputPathTextBox.Name = "DocumentsOutputPathTextBox"
 		Me.DocumentsOutputPathTextBox.ReadOnly = True
+		Me.DocumentsOutputPathTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.DocumentsOutputPathTextBox.Size = New System.Drawing.Size(421, 22)
 		Me.DocumentsOutputPathTextBox.TabIndex = 6
+		Me.DocumentsOutputPathTextBox.Text = ""
 		'
 		'DownloadedItemTextBox
 		'
 		Me.DownloadedItemTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.DownloadedItemTextBox.CueBannerText = ""
+		Me.DownloadedItemTextBox.DetectUrls = False
+		Me.DownloadedItemTextBox.Font = New System.Drawing.Font("Segoe UI", 8.25!)
 		Me.DownloadedItemTextBox.Location = New System.Drawing.Point(83, 3)
+		Me.DownloadedItemTextBox.Multiline = False
 		Me.DownloadedItemTextBox.Name = "DownloadedItemTextBox"
 		Me.DownloadedItemTextBox.ReadOnly = True
+		Me.DownloadedItemTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
 		Me.DownloadedItemTextBox.Size = New System.Drawing.Size(542, 22)
 		Me.DownloadedItemTextBox.TabIndex = 15
+		Me.DownloadedItemTextBox.Text = ""
 		'
 		'DownloadedLabel
 		'
@@ -355,6 +390,8 @@ Partial Class DownloadUserControl
 		Me.DownloadUserControlFillPanel.Dock = System.Windows.Forms.DockStyle.Fill
 		Me.DownloadUserControlFillPanel.Location = New System.Drawing.Point(0, 0)
 		Me.DownloadUserControlFillPanel.Name = "DownloadUserControlFillPanel"
+		Me.DownloadUserControlFillPanel.SelectedIndex = -1
+		Me.DownloadUserControlFillPanel.SelectedValue = Nothing
 		Me.DownloadUserControlFillPanel.Size = New System.Drawing.Size(776, 536)
 		Me.DownloadUserControlFillPanel.TabIndex = 17
 		'
@@ -389,6 +426,8 @@ Partial Class DownloadUserControl
 		Me.DownloadButtonsPanel.Dock = System.Windows.Forms.DockStyle.Top
 		Me.DownloadButtonsPanel.Location = New System.Drawing.Point(0, 0)
 		Me.DownloadButtonsPanel.Name = "DownloadButtonsPanel"
+		Me.DownloadButtonsPanel.SelectedIndex = -1
+		Me.DownloadButtonsPanel.SelectedValue = Nothing
 		Me.DownloadButtonsPanel.Size = New System.Drawing.Size(770, 26)
 		Me.DownloadButtonsPanel.TabIndex = 19
 		'
@@ -401,6 +440,8 @@ Partial Class DownloadUserControl
 		Me.PostDownloadPanel.Dock = System.Windows.Forms.DockStyle.Bottom
 		Me.PostDownloadPanel.Location = New System.Drawing.Point(0, 252)
 		Me.PostDownloadPanel.Name = "PostDownloadPanel"
+		Me.PostDownloadPanel.SelectedIndex = -1
+		Me.PostDownloadPanel.SelectedValue = Nothing
 		Me.PostDownloadPanel.Size = New System.Drawing.Size(770, 26)
 		Me.PostDownloadPanel.TabIndex = 18
 		'
@@ -441,37 +482,37 @@ Partial Class DownloadUserControl
 
 	End Sub
 
-	Friend WithEvents ItemIdTextBox As TextBoxEx
-	Friend WithEvents DownloadButton As Button
+	Friend WithEvents ItemIdTextBox As Crowbar.RichTextBoxEx
+	Friend WithEvents DownloadButton As ButtonEx
 	Friend WithEvents LogTextBox As RichTextBoxEx
 	Friend WithEvents ItemIdOrLinkLabel As Label
 	Friend WithEvents OuputToLabel As Label
-	Friend WithEvents OutputPathComboBox As ComboBox
-	Friend WithEvents OutputPathTextBox As TextBoxEx
-	Friend WithEvents GotoOutputPathButton As Button
-	Friend WithEvents BrowseForOutputPathButton As Button
+	Friend WithEvents OutputPathTextBox As Crowbar.RichTextBoxEx
+	Friend WithEvents GotoOutputPathButton As ButtonEx
+	Friend WithEvents BrowseForOutputPathButton As ButtonEx
 	Friend WithEvents OptionsGroupBox As GroupBoxEx
-	Friend WithEvents CancelDownloadButton As Button
+	Friend WithEvents CancelDownloadButton As ButtonEx
 	Friend WithEvents ExampleOutputFileNameLabel As Label
 	Friend WithEvents AppendDateTimeCheckBox As CheckBoxEx
 	Friend WithEvents PrependTitleCheckBox As CheckBoxEx
 	Friend WithEvents UseIdCheckBox As CheckBoxEx
 	Friend WithEvents ReplaceSpacesWithUnderscoresCheckBox As CheckBoxEx
-	Friend WithEvents OptionsUseDefaultsButton As Button
+	Friend WithEvents OptionsUseDefaultsButton As ButtonEx
 	Friend WithEvents DownloadProgressBar As ProgressBarEx
-	Friend WithEvents OpenWorkshopPageButton As Button
-	Friend WithEvents DocumentsOutputPathTextBox As TextBoxEx
-	Friend WithEvents DownloadedItemTextBox As TextBoxEx
+	Friend WithEvents OpenWorkshopPageButton As ButtonEx
+	Friend WithEvents DocumentsOutputPathTextBox As Crowbar.RichTextBoxEx
+	Friend WithEvents DownloadedItemTextBox As Crowbar.RichTextBoxEx
 	Friend WithEvents DownloadedLabel As Label
-	Friend WithEvents GotoDownloadedItemButton As Button
-	Friend WithEvents ExampleOutputFileNameTextBox As TextBoxEx
+	Friend WithEvents GotoDownloadedItemButton As ButtonEx
+	Friend WithEvents ExampleOutputFileNameTextBox As Crowbar.RichTextBoxEx
 	Friend WithEvents ConvertToExpectedFileOrFolderCheckBox As CheckBoxEx
 	Friend WithEvents ToolTip1 As ToolTip
-	Friend WithEvents DownloadUserControlFillPanel As Panel
 	Friend WithEvents Timer1 As Timer
 	Friend WithEvents Options_LogSplitContainer As SplitContainer
-	Friend WithEvents PostDownloadPanel As Panel
-	Friend WithEvents DownloadButtonsPanel As Panel
-	Friend WithEvents OptionsGroupBoxFillPanel As Panel
-	Friend WithEvents UseInUnpackButton As Button
+	Friend WithEvents UseInUnpackButton As ButtonEx
+	Friend WithEvents OutputPathComboBox As ComboUserControl
+	Friend WithEvents DownloadUserControlFillPanel As PanelEx
+	Friend WithEvents PostDownloadPanel As PanelEx
+	Friend WithEvents DownloadButtonsPanel As PanelEx
+	Friend WithEvents OptionsGroupBoxFillPanel As PanelEx
 End Class

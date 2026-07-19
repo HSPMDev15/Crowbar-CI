@@ -10,6 +10,7 @@
 		InitializeComponent()
 
 		Me.theControlIsInDesignMode = False
+		Me.InitHasBeenCalled = False
 	End Sub
 
 	'UserControl overrides dispose to clean up the component list.
@@ -28,6 +29,7 @@
 	End Sub
 
 	Protected Overridable Sub Init()
+		Me.InitHasBeenCalled = True
 	End Sub
 
 	Protected Overridable Sub Free()
@@ -42,5 +44,6 @@
 	End Sub
 
 	Protected theControlIsInDesignMode As Boolean
+	Protected InitHasBeenCalled As Boolean
 
 End Class

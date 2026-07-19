@@ -23,17 +23,16 @@ Partial Class AgreementRequiresAcceptanceForm
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AgreementRequiresAcceptanceForm))
-		Me.TextBox1 = New Crowbar.TextBoxEx()
-		Me.OpenSteamSubscriberAgreementButton = New System.Windows.Forms.Button()
-		Me.CancelDeleteButton = New System.Windows.Forms.Button()
-		Me.OpenWorkshopPageButton = New System.Windows.Forms.Button()
+		Me.TextBox1 = New Crowbar.RichTextBoxEx()
+		Me.OpenSteamSubscriberAgreementButton = New ButtonEx()
+		Me.CancelDeleteButton = New ButtonEx()
+		Me.OpenWorkshopPageButton = New ButtonEx()
 		Me.SuspendLayout()
 		'
 		'TextBox1
 		'
 		Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.TextBox1.CueBannerText = ""
 		Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.TextBox1.Location = New System.Drawing.Point(12, 12)
@@ -44,7 +43,6 @@ Partial Class AgreementRequiresAcceptanceForm
 		Me.TextBox1.TabIndex = 0
 		Me.TextBox1.TabStop = False
 		Me.TextBox1.Text = resources.GetString("TextBox1.Text")
-		Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 		'
 		'OpenSteamSubscriberAgreementButton
 		'
@@ -93,8 +91,8 @@ Partial Class AgreementRequiresAcceptanceForm
 
 	End Sub
 
-	Friend WithEvents TextBox1 As TextBoxEx
-	Friend WithEvents OpenSteamSubscriberAgreementButton As Button
-	Friend WithEvents CancelDeleteButton As Button
-	Friend WithEvents OpenWorkshopPageButton As Button
+	Friend WithEvents TextBox1 As Crowbar.RichTextBoxEx
+	Friend WithEvents OpenSteamSubscriberAgreementButton As ButtonEx
+	Friend WithEvents CancelDeleteButton As ButtonEx
+	Friend WithEvents OpenWorkshopPageButton As ButtonEx
 End Class

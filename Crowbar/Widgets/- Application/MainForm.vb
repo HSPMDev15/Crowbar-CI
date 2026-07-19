@@ -1,6 +1,7 @@
 Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Text
+Imports Microsoft.Win32
 
 Public Class MainForm
 
@@ -90,6 +91,9 @@ Public Class MainForm
 		Me.PreviewViewUserControl.RunDataViewer()
 		Me.ViewViewUserControl.RunDataViewer()
 
+		AddHandler SystemEvents.UserPreferenceChanged, AddressOf OnUserPreferenceChanged
+		AddHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
+
 		AddHandler Me.SetUpGamesUserControl1.GoBackButton.Click, AddressOf Me.SetUpGamesGoBackButton_Click
 		AddHandler Me.DownloadUserControl1.UseInUnpackButton.Click, AddressOf Me.DownloadUserControl1_UseInUnpackButton_Click
 		AddHandler Me.UnpackUserControl1.UseAllInDecompileButton.Click, AddressOf Me.UnpackUserControl_UseAllInDecompileButton_Click
@@ -135,6 +139,9 @@ Public Class MainForm
 		RemoveHandler Me.PackUserControl1.UseAllInPublishButton.Click, AddressOf Me.PackUserControl1_UseAllInPublishButton_Click
 		RemoveHandler Me.PublishUserControl1.UseInDownloadToolStripMenuItem.Click, AddressOf Me.PublishUserControl1_UseInDownloadToolStripMenuItem_Click
 		RemoveHandler Me.UpdateUserControl1.UpdateAvailable, AddressOf Me.UpdateUserControl1_UpdateAvailable
+
+		RemoveHandler SystemEvents.UserPreferenceChanged, AddressOf OnUserPreferenceChanged
+		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf Me.AppSettings_PropertyChanged
 
 		If Me.WindowState = FormWindowState.Normal Then
 			TheApp.Settings.WindowLocation = Me.Location
@@ -322,6 +329,19 @@ Public Class MainForm
 #End Region
 
 #Region "Core Event Handlers"
+
+	Private Sub OnUserPreferenceChanged(sender As Object, e As UserPreferenceChangedEventArgs)
+		If e.Category = UserPreferenceCategory.General Then
+			TheApp.LoadThemeData()
+			Me.Refresh()
+		End If
+	End Sub
+
+	Private Sub AppSettings_PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs)
+		If e.PropertyName = "AppThemeName" Then
+			Me.Refresh()
+		End If
+	End Sub
 
 #End Region
 

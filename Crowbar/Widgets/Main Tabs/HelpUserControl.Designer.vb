@@ -26,14 +26,15 @@ Partial Class HelpUserControl
 		Me.ContentsLinkLabel = New System.Windows.Forms.LinkLabel()
 		Me.IndexLinkLabel = New System.Windows.Forms.LinkLabel()
 		Me.TipsLinkLabel = New System.Windows.Forms.LinkLabel()
-		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+		Me.GroupBox1 = New Crowbar.GroupBoxEx()
 		Me.Label4 = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.Label5 = New System.Windows.Forms.Label()
 		Me.Label6 = New System.Windows.Forms.Label()
-		Me.CrowbarGuideButton = New System.Windows.Forms.Button()
+		Me.CrowbarGuideButton = New Crowbar.ButtonEx()
+		Me.PanelEx1 = New Crowbar.PanelEx()
 		Me.GroupBox1.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -103,8 +104,10 @@ Partial Class HelpUserControl
 		Me.GroupBox1.Controls.Add(Me.TipsLinkLabel)
 		Me.GroupBox1.Controls.Add(Me.ContentsLinkLabel)
 		Me.GroupBox1.Controls.Add(Me.IndexLinkLabel)
+		Me.GroupBox1.IsReadOnly = False
 		Me.GroupBox1.Location = New System.Drawing.Point(49, 388)
 		Me.GroupBox1.Name = "GroupBox1"
+		Me.GroupBox1.SelectedValue = Nothing
 		Me.GroupBox1.Size = New System.Drawing.Size(640, 132)
 		Me.GroupBox1.TabIndex = 5
 		Me.GroupBox1.TabStop = False
@@ -158,7 +161,7 @@ Partial Class HelpUserControl
 		Me.Label5.Name = "Label5"
 		Me.Label5.Size = New System.Drawing.Size(577, 16)
 		Me.Label5.TabIndex = 7
-		Me.Label5.Text = "Crowbar allows you to quickly access many tools for modding models for Source-eng" & _
+		Me.Label5.Text = "Crowbar allows you to quickly access many tools for modding models for Source-eng" &
 	"ine games."
 		Me.Label5.Visible = False
 		'
@@ -179,18 +182,30 @@ Partial Class HelpUserControl
 		Me.CrowbarGuideButton.Image = Global.Crowbar.My.Resources.Resources.CrowbarGuideBanner
 		Me.CrowbarGuideButton.Location = New System.Drawing.Point(3, 3)
 		Me.CrowbarGuideButton.Name = "CrowbarGuideButton"
-		Me.CrowbarGuideButton.Size = New System.Drawing.Size(530, 147)
+		Me.CrowbarGuideButton.Size = New System.Drawing.Size(551, 166)
+		Me.CrowbarGuideButton.SpecialImage = Crowbar.ButtonEx.SpecialImageType.None
 		Me.CrowbarGuideButton.TabIndex = 9
 		Me.CrowbarGuideButton.UseVisualStyleBackColor = True
+		'
+		'PanelEx1
+		'
+		Me.PanelEx1.Controls.Add(Me.CrowbarGuideButton)
+		Me.PanelEx1.Controls.Add(Me.Label6)
+		Me.PanelEx1.Controls.Add(Me.Label5)
+		Me.PanelEx1.Controls.Add(Me.GroupBox1)
+		Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
+		Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+		Me.PanelEx1.Name = "PanelEx1"
+		Me.PanelEx1.SelectedIndex = -1
+		Me.PanelEx1.SelectedValue = Nothing
+		Me.PanelEx1.Size = New System.Drawing.Size(200, 100)
+		Me.PanelEx1.TabIndex = 10
 		'
 		'HelpUserControl
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.Controls.Add(Me.CrowbarGuideButton)
-		Me.Controls.Add(Me.Label6)
-		Me.Controls.Add(Me.Label5)
-		Me.Controls.Add(Me.GroupBox1)
+		Me.Controls.Add(Me.PanelEx1)
 		Me.Name = "HelpUserControl"
 		Me.Size = New System.Drawing.Size(776, 536)
 		Me.GroupBox1.ResumeLayout(False)
@@ -203,13 +218,13 @@ Partial Class HelpUserControl
 	Friend WithEvents ContentsLinkLabel As System.Windows.Forms.LinkLabel
 	Friend WithEvents IndexLinkLabel As System.Windows.Forms.LinkLabel
 	Friend WithEvents TipsLinkLabel As System.Windows.Forms.LinkLabel
-	Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+	Friend WithEvents GroupBox1 As GroupBoxEx
 	Friend WithEvents Label4 As System.Windows.Forms.Label
 	Friend WithEvents Label3 As System.Windows.Forms.Label
 	Friend WithEvents Label2 As System.Windows.Forms.Label
 	Friend WithEvents Label1 As System.Windows.Forms.Label
 	Friend WithEvents Label5 As System.Windows.Forms.Label
 	Friend WithEvents Label6 As System.Windows.Forms.Label
-	Friend WithEvents CrowbarGuideButton As System.Windows.Forms.Button
-
+	Friend WithEvents CrowbarGuideButton As ButtonEx
+	Friend WithEvents PanelEx1 As PanelEx
 End Class

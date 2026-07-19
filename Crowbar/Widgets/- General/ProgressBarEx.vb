@@ -12,6 +12,7 @@ Public Class ProgressBarEx
 		MyBase.New()
 
 		Me.theText = ""
+
 		Me.SetStyle(ControlStyles.UserPaint, True)
 		Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
 		Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
@@ -49,45 +50,66 @@ Public Class ProgressBarEx
 		Dim range As Integer = Maximum - Minimum
 		Dim percent As Double = CDbl(Value - Minimum) / CDbl(range)
 		Dim rect As Rectangle = Me.ClientRectangle
-		Dim bounds As Rectangle = e.ClipRectangle
-		If rect.Width > 0 AndAlso percent > 0 Then
-			If ProgressBarRenderer.IsSupported Then
-				ProgressBarRenderer.DrawHorizontalBar(g, Me.DisplayRectangle)
-				rect.Inflate(-2, -2)
+		Dim barColor As Color
+		Dim borderColor As Color
+
+		Dim theme As ProgressBarTheme = Nothing
+		' This check prevents problems with viewing and saving Forms in VS Designer.
+		If TheApp IsNot Nothing Then
+			theme = TheApp.Settings.SelectedAppTheme.ProgressBarTheme
+		End If
+		If theme IsNot Nothing Then
+			'Me.ForeColor = WidgetTextColor
+			'Me.BackColor = WidgetHighDisabledBackColor
+			'barColor = WidgetDeepBackColor
+			'borderColor = WidgetDisabledTextColor
+			Me.ForeColor = theme.EnabledForeColor
+			Me.BackColor = theme.DisabledBackColor
+			barColor = theme.EnabledBackColor
+			borderColor = theme.EnabledBorderColor
+		ElseIf ProgressBarRenderer.IsSupported Then
+			ProgressBarRenderer.DrawHorizontalBar(g, Me.DisplayRectangle)
+			If rect.Width > 0 AndAlso percent > 0 Then
 				rect.Width = CInt(rect.Width * percent)
-				If rect.Width = 0 Then
-					rect.Width = 1
-				End If
-				'NOTE: This always draws with Green color, so use other code to draw with widget's colors.
-				'ProgressBarRenderer.DrawHorizontalChunks(e.Graphics, rect)
-				Dim gradientBrush As LinearGradientBrush = New LinearGradientBrush(rect, BackColor, ForeColor, LinearGradientMode.Vertical)
-				e.Graphics.FillRectangle(gradientBrush, rect)
-			Else
-				Dim barWidth As Double = percent * bounds.Width
-				Using backBrush As New SolidBrush(BackColor)
-					g.FillRectangle(backBrush, bounds)
-				End Using
-				Using foreBrush As New SolidBrush(ForeColor)
-					g.FillRectangle(foreBrush, New RectangleF(0, 0, CSng(barWidth), bounds.Height))
-				End Using
-				ControlPaint.DrawBorder(g, bounds, Color.Black, ButtonBorderStyle.Solid)
+				'NOTE: This always draws with Green color; it is *NOT* the Windows Accent Color.
+				ProgressBarRenderer.DrawHorizontalChunks(g, rect)
 			End If
 		Else
-			If ProgressBarRenderer.IsSupported Then
-				ProgressBarRenderer.DrawHorizontalBar(g, Me.DisplayRectangle)
-			Else
-				ControlPaint.DrawBorder(g, bounds, Color.Black, ButtonBorderStyle.Solid)
-			End If
+			Me.ForeColor = MyBase.DefaultForeColor
+			Me.BackColor = MyBase.DefaultBackColor
+			barColor = SystemColors.ControlDarkDark
+			borderColor = SystemColors.ControlDark
 		End If
 
+		' Draw progressbar manually.
+		If Not ProgressBarRenderer.IsSupported Then
+			' Draw background.
+			Using backBrush As New SolidBrush(Me.BackColor)
+				g.FillRectangle(backBrush, rect)
+			End Using
+
+			' Draw progress bar.
+			If rect.Width > 0 AndAlso percent > 0 Then
+				Dim barRect As Rectangle = rect
+				barRect.Width = CInt(rect.Width * percent)
+				Using barBrush As New LinearGradientBrush(barRect, Me.BackColor, barColor, LinearGradientMode.Vertical)
+					g.FillRectangle(barBrush, barRect)
+				End Using
+			End If
+
+			' Draw border.
+			ControlPaint.DrawBorder(g, rect, borderColor, ButtonBorderStyle.Solid)
+		End If
+
+		' Draw progress text.
 		If Me.theText <> "" Then
 			Dim x As Double
 			Dim y As Double
-			x = Me.Width * 0.5 - (g.MeasureString(Me.theText, Me.Font).Width * 0.5)
-			y = Me.Height * 0.5 - (g.MeasureString(Me.theText, Me.Font).Height * 0.5)
+			Dim textSize As Size = TextRenderer.MeasureText(Me.theText, Me.Font)
+			x = Me.Width * 0.5 - (textSize.Width * 0.5)
+			y = Me.Height * 0.5 - (textSize.Height * 0.5)
 			TextRenderer.DrawText(g, Me.theText, Me.Font, New Point(CInt(x), CInt(y)), Me.ForeColor, Me.BackColor)
 		End If
-
 	End Sub
 
 	Private theText As String
