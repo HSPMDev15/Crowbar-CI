@@ -1287,5 +1287,4 @@ Public Class Win32Api
 	'Public Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal Msg As ListViewMessages, ByRef wParam As Long, ByVal lParam As IntPtr) As IntPtr
 	'End Function
 
->>>>>>> THEME
 End Class

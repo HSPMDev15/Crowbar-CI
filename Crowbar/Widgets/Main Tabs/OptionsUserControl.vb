@@ -127,43 +127,43 @@ Public Class OptionsUserControl
 
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 
-	'	Me.SingleInstanceCheckBox.DataBindings.Clear()
+		Me.SingleInstanceCheckBox.DataBindings.Clear()
 
 		Me.FreeThemeComboBox()
 
 		' Auto-Open
 
-	'	Me.AutoOpenVpkFileCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenGmaFileCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenFpxFileCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenMdlFileCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenMdlFileForPreviewCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenMdlFileForDecompileCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenMdlFileForViewCheckBox.DataBindings.Clear()
-	'	Me.AutoOpenQcFileCheckBox.DataBindings.Clear()
+		Me.AutoOpenVpkFileCheckBox.DataBindings.Clear()
+		Me.AutoOpenGmaFileCheckBox.DataBindings.Clear()
+		Me.AutoOpenFpxFileCheckBox.DataBindings.Clear()
+		Me.AutoOpenMdlFileCheckBox.DataBindings.Clear()
+		Me.AutoOpenMdlFileForPreviewCheckBox.DataBindings.Clear()
+		Me.AutoOpenMdlFileForDecompileCheckBox.DataBindings.Clear()
+		Me.AutoOpenMdlFileForViewCheckBox.DataBindings.Clear()
+		Me.AutoOpenQcFileCheckBox.DataBindings.Clear()
 
-	'	' Drag and Drop
+		' Drag and Drop
 
-	'	Me.DragAndDropMdlFileForPreviewCheckBox.DataBindings.Clear()
-	'	Me.DragAndDropMdlFileForDecompileCheckBox.DataBindings.Clear()
-	'	Me.DragAndDropMdlFileForViewCheckBox.DataBindings.Clear()
+		Me.DragAndDropMdlFileForPreviewCheckBox.DataBindings.Clear()
+		Me.DragAndDropMdlFileForDecompileCheckBox.DataBindings.Clear()
+		Me.DragAndDropMdlFileForViewCheckBox.DataBindings.Clear()
 
-	'	' Context Menu
+		' Context Menu
 
-	'	Me.IntegrateContextMenuItemsCheckBox.DataBindings.Clear()
-	'	Me.IntegrateAsSubmenuCheckBox.DataBindings.Clear()
+		Me.IntegrateContextMenuItemsCheckBox.DataBindings.Clear()
+		Me.IntegrateAsSubmenuCheckBox.DataBindings.Clear()
 
-	'	Me.OptionsContextMenuOpenWithCrowbarCheckBox.DataBindings.Clear()
-	'	Me.OptionsContextMenuViewMdlFileCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuOpenWithCrowbarCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuViewMdlFileCheckBox.DataBindings.Clear()
 
-	'	Me.OptionsContextMenuDecompileMdlFileCheckBox.DataBindings.Clear()
-	'	Me.OptionsContextMenuDecompileFolderCheckBox.DataBindings.Clear()
-	'	Me.OptionsContextMenuDecompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuDecompileMdlFileCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuDecompileFolderCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuDecompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
 
-	'	Me.OptionsContextMenuCompileQcFileCheckBox.DataBindings.Clear()
-	'	Me.OptionsContextMenuCompileFolderCheckBox.DataBindings.Clear()
-	'	Me.OptionsContextMenuCompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
-	'End Sub
+		Me.OptionsContextMenuCompileQcFileCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuCompileFolderCheckBox.DataBindings.Clear()
+		Me.OptionsContextMenuCompileFolderAndSubfoldersCheckBox.DataBindings.Clear()
+	End Sub
 
 	Private Sub InitThemeComboBox()
 		Me.ThemeComboUserControl.DataBindings.Clear()
@@ -208,8 +208,6 @@ Public Class OptionsUserControl
 	'	Me.Free()
 	'	MyBase.OnHandleDestroyed(e)
 	'End Sub
-
-#End Region
 
 #Region "Child Widget Event Handlers"
 

@@ -56,8 +56,8 @@ Public Class PatchUserControl
 		RemoveHandler TheApp.Settings.PropertyChanged, AddressOf AppSettings_PropertyChanged
 		RemoveHandler Me.MdlPathFileNameTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 
-	'	Me.MdlPathFileNameTextBox.DataBindings.Clear()
-	'End Sub
+		Me.MdlPathFileNameTextBox.DataBindings.Clear()
+	End Sub
 
 #End Region
 

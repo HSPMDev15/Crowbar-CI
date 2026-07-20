@@ -64,12 +64,12 @@ Public Class UpdateUserControl
 		RemoveHandler Me.DownloadFolderTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 		RemoveHandler Me.UpdateFolderTextBox.DataBindings("Text").Parse, AddressOf FileManager.ParsePathFileName
 
-	'	Me.DownloadFolderTextBox.DataBindings.Clear()
+		Me.DownloadFolderTextBox.DataBindings.Clear()
 
-	'	Me.UpdateToNewPathCheckBox.DataBindings.Clear()
-	'	Me.UpdateFolderTextBox.DataBindings.Clear()
-	'	Me.UpdateCopySettingsCheckBox.DataBindings.Clear()
-	'End Sub
+		Me.UpdateToNewPathCheckBox.DataBindings.Clear()
+		Me.UpdateFolderTextBox.DataBindings.Clear()
+		Me.UpdateCopySettingsCheckBox.DataBindings.Clear()
+	End Sub
 
 #End Region
 
