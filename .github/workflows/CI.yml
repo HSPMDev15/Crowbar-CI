@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Download repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Inject .NET 4.0 Reference Assemblies
+      run: |
+        $xml = "<Project><ItemGroup><PackageReference Include='Microsoft.NETFramework.ReferenceAssemblies' Version='1.0.3' PrivateAssets='All' /></ItemGroup></Project>"
+        Out-File -FilePath Directory.Build.props -InputObject $xml -Encoding UTF8
+      shell: pwsh
+
+    - name: Restore NuGet packages
+      run: nuget restore Crowbar.sln
+
+    - name: Compile
+      run: msbuild Crowbar.sln /p:Configuration=Release /p:Platform=x86
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Crowbar-Build
+        path: "**/bin/x86/Release/Crowbar.exe"
