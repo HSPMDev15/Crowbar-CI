@@ -594,12 +594,6 @@
     </Compile>
     <Compile Include="Widgets\- Application\FolderAndFileListViewItemComparer.vb" />
     <Compile Include="Widgets\- Application\NodeSorter.vb" />
-    <Compile Include="Widgets\- Application\TESTFORM.Designer.vb">
-      <DependentUpon>TESTFORM.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\- Application\TESTFORM.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Widgets\- Application\WidgetConstants.vb" />
     <Compile Include="Widgets\- General\ButtonEx.vb">
       <SubType>Component</SubType>
