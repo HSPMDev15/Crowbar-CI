@@ -1085,6 +1085,7 @@ Partial Class PublishUserControl
 	Friend WithEvents ItemsPanel As PanelEx
 	Friend WithEvents RefreshOrRevertItemButton As ButtonEx
 	Friend WithEvents SearchItemsToolStripTextBox As ToolStripTextBoxEx
+	Friend WithEvents SearchItemsToolStripButton As ToolStripButtonEx
 	Friend WithEvents AddItemToolStripButton As ToolStripButtonEx
 	Friend WithEvents ToolStripSeparator1 As ToolStripSeparatorEx
 	Friend WithEvents ToolStripSeparator2 As ToolStripSeparatorEx

@@ -652,10 +652,16 @@
     <Compile Include="Widgets\- General\RichTextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Widgets\- General\TextBoxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Widgets\- Application\MacroDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\SplitContainerEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Widgets\- General\ToolStripSpringTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Widgets\- General\Helpers\ToolStripSpringTextBoxEx.vb">

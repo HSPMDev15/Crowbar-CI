@@ -478,20 +478,6 @@ Public Class PackUserControl
 	'	Return text
 	'End Function
 
-	Private Sub SetPackerOptionsText()
-		TheApp.Settings.PackOptionsText = ""
-		Me.PackOptionsTextBox.Text = ""
-		If TheApp.Settings.PackMode = PackInputOptions.ParentFolder Then
-			If TheApp.Settings.PackInputPath <> "" Then
-				For Each aChildPath As String In Directory.GetDirectories(TheApp.Settings.PackInputPath)
-					Me.SetPackerOptionsTextPerFolder(aChildPath)
-				Next
-			End If
-		Else
-			Me.SetPackerOptionsTextPerFolder(TheApp.Settings.PackInputPath)
-		End If
-	End Sub
-
 	'	If optionIsEnabled Then
 	'		If Not Me.theSelectedPackerOptions.Contains(compilerOption) Then
 	'			Me.theSelectedPackerOptions.Add(compilerOption)
