@@ -623,6 +623,15 @@ Public Class FileManager
 	Private Shared Function PathRelativePathTo(ByVal pszPath As StringBuilder, ByVal pszFrom As String, ByVal dwAttrFrom As Integer, ByVal pszTo As String, ByVal dwAttrTo As Integer) As Integer
 	End Function
 
+	Public Shared Function GetPathFileNames(ByVal givenDividedPathFileName As String) As String()
+		Dim pathFileNames As String() = {}
+		If givenDividedPathFileName <> String.Empty Then
+			Dim divider As Char() = {"|"c}
+			pathFileNames = givenDividedPathFileName.Split(divider)
+		End If
+		Return pathFileNames
+	End Function
+
 #End Region
 
 #Region "Folder"
