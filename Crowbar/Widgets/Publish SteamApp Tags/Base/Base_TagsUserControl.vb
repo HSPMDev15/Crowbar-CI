@@ -106,6 +106,12 @@ Public Class Base_TagsUserControl
 				Return Nothing
 			End If
 
+			' The parent control can set/get ItemTags before this control's own
+			' Resize/Load-driven Init() has run, leaving theWidgets = Nothing. Force it.
+			If Not Me.InitHasBeenCalled Then
+				Me.Init()
+			End If
+
 			Dim aCheckBox As CheckBoxEx
 			Dim aComboBox As ComboUserControl
 			Dim aRadioButton As RadioButton
@@ -148,6 +154,12 @@ Public Class Base_TagsUserControl
 			'NOTE: Prevent Visual Studio Designer from complaining about changes to tag widgets.
 			If Me.DesignMode OrElse Me.theControlIsInDesignMode Then
 				Exit Property
+			End If
+
+			' Same as Get: force Init() if the parent sets ItemTags before this
+			' control's own lifecycle has initialized theWidgets.
+			If Not Me.InitHasBeenCalled Then
+				Me.Init()
 			End If
 
 			Me.theCheckBoxesAreChangingViaMe = True

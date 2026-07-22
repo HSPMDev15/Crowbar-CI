@@ -38,19 +38,17 @@ Module Main
 		AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
 		TheApp = New App()
+		'Try
 		TheApp.Init()
-		Try
-			Dim mf As New MainForm()
-			Windows.Forms.Application.Run(mf)
-		Catch e As Exception
-			Dim msg As String = e.ToString()
-			Dim inner As Exception = e.InnerException
-			While inner IsNot Nothing
-				msg += vbCrLf & vbCrLf & " INNER EXCEPTION " & vbCrLf & inner.ToString()
-				inner = inner.InnerException
-			End While
-			MsgBox(msg)
-		End Try
+		If TheApp.Settings.AppIsSingleInstance Then
+			SingleInstanceApplication.Run(New MainForm(), AddressOf StartupNextInstanceEventHandler)
+		Else
+			Windows.Forms.Application.Run(MainForm)
+		End If
+		'Catch e As Exception
+		'	MsgBox(e.Message)
+		'Finally
+		'End Try
 		TheApp.Dispose()
 		'End If
 
