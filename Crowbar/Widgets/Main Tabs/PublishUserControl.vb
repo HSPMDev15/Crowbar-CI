@@ -356,9 +356,12 @@ Public Class PublishUserControl
 		Workarounds.WorkaroundForFrameworkAnchorRightSizingBug(Me.AppIdComboBox, Me.RefreshGameItemsButton)
 
 		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
-		'If Not Me.DesignMode Then
-		Me.Init()
-		'End If
+		' [fix] Load already calls Me.Init() in the normal case, only call it here
+		' as a fallback if load never fired, to avoid double running Init() (which
+		' re adds DataBindings that already exist -> ArgumentException)
+		If Not Me.InitHasBeenCalled Then
+			Me.Init()
+		End If
 	End Sub
 
 #End Region

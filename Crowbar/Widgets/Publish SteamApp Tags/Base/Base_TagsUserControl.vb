@@ -107,7 +107,8 @@ Public Class Base_TagsUserControl
 			End If
 
 			' The parent control can set/get ItemTags before this control's own
-			' Resize/Load-driven Init() has run, leaving theWidgets = Nothing. Force it.
+			' Resize/Load-driven Init() has run, leaving theWidgets = Nothing
+			' Force it so we avoid a crash
 			If Not Me.InitHasBeenCalled Then
 				Me.Init()
 			End If
