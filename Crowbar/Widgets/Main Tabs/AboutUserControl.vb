@@ -76,13 +76,6 @@ Public Class AboutUserControl
 
 #Region "Widget Event Handlers"
 
-	Private Sub AboutUserControl_Load(sender As Object, e As EventArgs) Handles Me.Load
-		' [04-Feb-2026] Me.DesignMode is unreliable in nested widgets.
-		'If Not Me.DesignMode Then
-		Me.Init()
-		'End If
-	End Sub
-
 #End Region
 
 #Region "Child Widget Event Handlers"

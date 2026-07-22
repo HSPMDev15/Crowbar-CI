@@ -1,4 +1,4 @@
-﻿Public Class BaseUserControl
+Public Class BaseUserControl
 
 	Public Sub New()
 
@@ -39,7 +39,9 @@
 		If Me.DesignMode Then
 			Me.theControlIsInDesignMode = True
 		Else
-			Me.Init()
+			If Not Me.InitHasBeenCalled Then
+				Me.Init()
+			End If
 		End If
 	End Sub
 
