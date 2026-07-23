@@ -696,7 +696,8 @@ Public Class CompileUserControl
 		Me.UseAllInPackButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0
 
 		Me.CompiledFilesComboUserControl.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0
-		Me.UseInViewButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0 AndAlso (Path.GetExtension(Me.theCompiledRelativePathFileNames(Me.CompiledFilesComboUserControl.SelectedIndex)) = ".mdl")
+		Dim selectedIdx As Integer = Me.CompiledFilesComboUserControl.SelectedIndex
+		Me.UseInViewButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0 AndAlso selectedIdx >= 0 AndAlso (Path.GetExtension(Me.theCompiledRelativePathFileNames(selectedIdx)) = ".mdl")
 		Me.RecompileButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0
 		Me.UseInPackButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0
 		Me.GotoCompiledMdlButton.Enabled = Not compilerIsRunning AndAlso Me.theCompiledRelativePathFileNames.Count > 0
