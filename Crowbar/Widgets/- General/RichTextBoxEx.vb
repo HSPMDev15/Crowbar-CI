@@ -95,6 +95,34 @@ Public Class RichTextBoxEx
 		End If
 	End Sub
 
+	''' <summary>
+	''' Suspends repainting of the control. Call EndUpdate to resume and repaint once.
+	''' Use this when appending many lines of text at high speed (e.g. compiler log output)
+	''' to avoid the custom OnPaint being triggered on every AppendText call.
+	''' </summary>
+	Public Sub BeginUpdate()
+		If Not Me.theUpdateIsActive Then
+			Me.theUpdateIsActive = True
+			Win32Api.SendMessage(Me.Handle, Win32Api.WindowsMessages.WM_SETREDRAW, New IntPtr(0), IntPtr.Zero)
+		End If
+	End Sub
+
+	''' <summary>
+	''' Resumes repainting suspended by BeginUpdate, scrolls to the end of the text,
+	''' and performs a single full Refresh and scrollbar sync.
+	''' </summary>
+	Public Sub EndUpdate()
+		If Me.theUpdateIsActive Then
+			Me.theUpdateIsActive = False
+			Win32Api.SendMessage(Me.Handle, Win32Api.WindowsMessages.WM_SETREDRAW, New IntPtr(1), IntPtr.Zero)
+			' Scroll to the bottom so the user sees the latest log line.
+			Me.SelectionStart = Me.TextLength
+			Me.ScrollToCaret()
+			Me.Refresh()
+			Me.UpdateScrollbars()
+		End If
+	End Sub
+
 #End Region
 
 #Region "Properties"
@@ -859,6 +887,11 @@ Public Class RichTextBoxEx
 	Protected Overrides Sub OnTextChanged(e As EventArgs)
 		MyBase.OnTextChanged(e)
 
+		' During a BeginUpdate/EndUpdate batch, skip the expensive repaint per line.
+		If Me.theUpdateIsActive Then
+			Exit Sub
+		End If
+
 		If Me.theControlIsBehavingAsMultiLine AndAlso Me.theLineCount <> Me.GetLineFromCharIndex(Me.TextLength - 1) - 1 Then
 			'NOTE: Raise the OnNonClientCalcSize and OnNonClientPaint "events".
 			Win32Api.SetWindowPos(Me.Handle, IntPtr.Zero, 0, 0, 0, 0, Win32Api.SWP.SWP_FRAMECHANGED Or Win32Api.SWP.SWP_NOMOVE Or Win32Api.SWP.SWP_NOSIZE Or Win32Api.SWP.SWP_NOZORDER)
@@ -1328,6 +1361,9 @@ Public Class RichTextBoxEx
 	Private theScrollingIsActive As Boolean
 
 	'Private theTestColorIsBlue As Boolean
+
+	' Flag used by BeginUpdate/EndUpdate to suppress per-line repaints during bulk text appending.
+	Private theUpdateIsActive As Boolean
 
 #End Region
 

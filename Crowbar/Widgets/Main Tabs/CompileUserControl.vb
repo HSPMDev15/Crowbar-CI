@@ -488,28 +488,20 @@ Public Class CompileUserControl
 		Dim line As String
 		line = CStr(e.UserState)
 
-		'If e.ProgressPercentage = 0 Then
-		'	Me.CompileLogRichTextBox.Text = ""
-		'	Me.UpdateWidgets(True)
-		'ElseIf e.ProgressPercentage = 1 Then
-		'	Me.CompileLogRichTextBox.AppendText(line + vbCr + vbCr)
-		'ElseIf e.ProgressPercentage = 2 Then
-		'	Me.CompileLogRichTextBox.AppendText(line + vbCr)
-		'ElseIf e.ProgressPercentage = 3 Then
-		'	Me.CompileLogRichTextBox.AppendText(vbCr + line + vbCr)
-		'ElseIf e.ProgressPercentage = 4 Then
-		'	Me.CompileLogRichTextBox.AppendText(vbCr + vbCr + vbCr + line + vbCr)
-		'ElseIf e.ProgressPercentage = 5 Then
-		'	Me.CompileLogRichTextBox.AppendText(vbCr + vbCr + vbCr)
-		'End If
 		If e.ProgressPercentage = 0 Then
 			Me.CompileLogRichTextBox.Text = ""
+			Me.CompileLogRichTextBox.BeginUpdate()
 			Me.CompileLogRichTextBox.AppendText(line + vbCr)
+			Me.CompileLogRichTextBox.EndUpdate()
 			Me.UpdateWidgets(True)
 		ElseIf e.ProgressPercentage = 1 Then
+			Me.CompileLogRichTextBox.BeginUpdate()
 			Me.CompileLogRichTextBox.AppendText(line + vbCr)
+			Me.CompileLogRichTextBox.EndUpdate()
 		ElseIf e.ProgressPercentage = 100 Then
+			Me.CompileLogRichTextBox.BeginUpdate()
 			Me.CompileLogRichTextBox.AppendText(line + vbCr)
+			Me.CompileLogRichTextBox.EndUpdate()
 		End If
 	End Sub
 
